@@ -5,7 +5,7 @@
 //
 // async function example(): Promise<Result<[data type to be used]>> {
 //     const data = "testestest";
-//     return { success: true, data: data };
+//     return C;
 // }
 // If there was an error, you return { success: false, error: "error message" }.
 // When we do CRUD-operations that doesn't fetch any data, you can leave it out

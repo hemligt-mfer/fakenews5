@@ -59,7 +59,7 @@ export default function AddArticleForm() {
       setLoading(true);
       const result = await addArticle(value);
       console.log(result);
-      if (result.error) {
+      if (result.success === false && result.error) {
         toast.error(result.error, { position: "top-center" });
         setLoading(false);
       } else {

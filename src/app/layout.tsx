@@ -11,7 +11,8 @@ import Navbar from "@/components/navbar/navbar";
 import Header from "@/components/header";
 import Footer from "@/components/footer";
 import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
-import { AppSidebar } from "@/components/navbar/_components/app-sidebar";
+import AppSidebar from "@/components/navbar/_components/app-sidebar";
+
 
 const fontSans = Anuphan({
   subsets: ["latin"],

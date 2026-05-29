@@ -1,4 +1,3 @@
-"use client";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -14,130 +13,72 @@ import {
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
-  useSidebar,
 } from "@/components/ui/sidebar";
-import { ChevronDown} from "lucide-react";
-import Link from "next/link";
+import { auth } from "@/lib/auth";
+import { ChevronDown } from "lucide-react";
+import { headers } from "next/headers";
+import { NewsDropdownSM, NewsPages, SportPages } from "./dropdown-menus";
+import { SidebarLink } from "./sidebar-link";
 
-export function AppSidebar() {
-  const {
-    // state,
-    // open,
-    // setOpen,
-    // openMobile,
-    // setOpenMobile,
-    // isMobile,
-    toggleSidebar,
-  } = useSidebar();
-
+export default async function AppSidebar() {
+  const session = await auth.api.getSession({
+    headers: await headers(),
+  });
   return (
-    <Sidebar>
-        
+    <Sidebar variant="sidebar" collapsible="offcanvas">
       <SidebarHeader>
-        {/* <SidebarMenuButton onClick={toggleSidebar} className="text-center">
-          <Menu />
-        </SidebarMenuButton> */}
+        <SidebarMenu>
+          <SidebarMenuItem>
+            <SidebarLink href="/">Home</SidebarLink>
+          </SidebarMenuItem>
+        </SidebarMenu>
       </SidebarHeader>
       <SidebarContent>
-         <SidebarMenuItem>
-          <SidebarMenuButton asChild isActive>
-            <Link href="/">Home</Link>
-          </SidebarMenuButton>
-        </SidebarMenuItem>
+        {/* Dropdown components */}
         <SidebarGroup>
           <SidebarMenu>
-            <SidebarMenuItem>
-              <DropdownMenu>
-                <DropdownMenuTrigger asChild>
-                  <SidebarMenuButton>
-                    Nyheter
-                    <ChevronDown color="black" />
-                  </SidebarMenuButton>
-                </DropdownMenuTrigger>
-                <DropdownMenuContent>
-                  <DropdownMenuItem>
-                    <Link href="/">Ekonomi</Link>
-                  </DropdownMenuItem>
-                  <DropdownMenuItem>
-                    <Link href="/">Inrikes</Link>
-                  </DropdownMenuItem>
-                  <DropdownMenuItem>
-                    <Link href="/">Väder</Link>
-                  </DropdownMenuItem>
-                  <DropdownMenuItem>
-                    <Link href="/">Utrikes</Link>
-                  </DropdownMenuItem>
-                </DropdownMenuContent>
-              </DropdownMenu>
-            </SidebarMenuItem>
-            <SidebarMenuItem>
-              <DropdownMenu>
-                <DropdownMenuTrigger asChild>
-                  <SidebarMenuButton>
-                    Sport
-                    <ChevronDown color="black" />
-                  </SidebarMenuButton>
-                </DropdownMenuTrigger>
-                <DropdownMenuContent>
-                  <DropdownMenuItem>
-                    <Link href="/">Fotboll</Link>
-                  </DropdownMenuItem>
-                  <DropdownMenuItem>
-                    <Link href="/">Friidrott</Link>
-                  </DropdownMenuItem>
-                  <DropdownMenuItem>
-                    <Link href="/">Skidskytte</Link>
-                  </DropdownMenuItem>
-                  <DropdownMenuItem>
-                    <Link href="/">Ishockey</Link>
-                  </DropdownMenuItem>
-                </DropdownMenuContent>
-              </DropdownMenu>
-            </SidebarMenuItem>
+            <NewsDropdownSM label="News" links={NewsPages} />
+            <NewsDropdownSM label="Sports" links={SportPages} />
           </SidebarMenu>
         </SidebarGroup>
-
+        {/* User section */}
         <SidebarGroup>
           <SidebarMenu>
-             <SidebarMenuItem>
+            <SidebarMenuItem>
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
-                  <SidebarMenuButton>
+                  <SidebarMenuButton className="text-lg">
                     Author/Editor/Admin
                     <ChevronDown color="black" />
                   </SidebarMenuButton>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent>
                   <DropdownMenuItem>
-                  <Link href="/article/add-article">Create article</Link>
-                </DropdownMenuItem>
+                    <SidebarLink href="/article/add-article">
+                      Create article
+                    </SidebarLink>
+                  </DropdownMenuItem>
                 </DropdownMenuContent>
               </DropdownMenu>
             </SidebarMenuItem>
           </SidebarMenu>
 
-          
-            <SidebarMenuItem>
-              <SidebarMenuButton asChild>
-                <Link href="/api/auth/register">Register</Link>
-              </SidebarMenuButton>
-            </SidebarMenuItem>
-          
-
+          <SidebarMenuItem>
+            <SidebarLink href="/api/auth/register">Register</SidebarLink>
+          </SidebarMenuItem>
+          <SidebarMenuItem>
+            <SidebarLink href="/api/auth/signin">Sign in</SidebarLink>
+          </SidebarMenuItem>
         </SidebarGroup>
-       
       </SidebarContent>
       <SidebarFooter>
-        <SidebarMenu>
+        {/* <SidebarMenu>
           <SidebarMenuItem>
-            <SidebarMenuButton
-              onClick={toggleSidebar}
-              className="w-full text-center"
-            >
-              X
+            <SidebarMenuButton className="w-full">
+              <X color="black" />
             </SidebarMenuButton>
           </SidebarMenuItem>
-        </SidebarMenu>
+        </SidebarMenu> */}
       </SidebarFooter>
     </Sidebar>
   );
