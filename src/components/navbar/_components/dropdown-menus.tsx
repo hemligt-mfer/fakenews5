@@ -68,7 +68,7 @@ export function NewsDropdown({label, links}:{label: string, links: NavLink[]}){
             <DropdownMenuItem key={page.title} asChild>
               <Link
                 href={page.href}
-                className="text-center border justify-center"
+                className="text-center justify-center"
               >
                 {page.title}
               </Link>

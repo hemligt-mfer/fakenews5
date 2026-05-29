@@ -1,6 +1,7 @@
 import { Young_Serif } from "next/font/google";
 import Image from "next/image";
 import Link from "next/link";
+import { LoginRegButtons } from "./navbar/_components/login-register-buttons";
 
 const fontUltra = Young_Serif({
     weight: "400",
@@ -10,7 +11,8 @@ const fontUltra = Young_Serif({
 
 export default function Header() {
     return (
-        <div className="flex w-full text-center p-5 bg-[#2d2d2d] mx-auto justify-center border-b-5 border-b-[#c8a84b]">
+        <div className="flex justify-between bg-[#2d2d2d] border-b-5 border-b-[#c8a84b]">
+        <div className="flex w-full text-center p-5  mx-auto justify-center ">
             <Link href="/">
                 <div className="flex">
                     <Image src={"/logo.svg"} width={90} height={90} alt="Logo" />
@@ -24,6 +26,10 @@ export default function Header() {
                     </div>
                 </div>
             </Link>
+        </div>
+         <div className="flex justify-end">
+                <LoginRegButtons/>
+            </div>
         </div>
     );
 }

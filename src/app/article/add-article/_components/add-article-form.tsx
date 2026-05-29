@@ -25,17 +25,17 @@ import { useRouter } from "next/navigation";
 import { Spinner } from "@/components/ui/spinner";
 
 const formSchema = z.object({
-  title: z.string().min(1, "Title is required").max(100, "Max 100 characters"),
-  summary: z
-    .string()
-    .min(1, "Summary is required")
-    .max(200, "Between 20-200 characters"),
-  content: z.string(),
-  image: z.string(),
-  category: z.array(z.string()),
-  location: z.string(),
-  author: z.array(z.string()),
-});
+   title: z.string().min(1, "Title is required").max(100, "Max 100 characters"),
+   summary: z
+     .string()
+     .min(1, "Summary is required")
+     .max(200, "Between 1-200 characters"),
+   content: z.string().min(1, "Content text is required"),
+   image: z.string(),
+   category: z.array(z.string()),
+   location: z.string(),
+   author: z.array(z.string()),
+ });
 
 export default function AddArticleForm() {
   const [categoryInput, setCategoryInput] = useState("");
