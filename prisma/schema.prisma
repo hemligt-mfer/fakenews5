@@ -138,7 +138,6 @@ model UserInfo {
     userId      String     @unique @map("user_id")
     user        User       @relation(fields: [userId], references: [id])
     phoneNumber String?    @map("phone_number")
-    email       String
     address_id  String
     address     Address    @relation(fields: [address_id], references: [id])
     birthdate   DateTime

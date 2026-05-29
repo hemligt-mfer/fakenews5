@@ -13,10 +13,10 @@ export const transporter = nodemailer.createTransport({
     host: "smtp.ethereal.email",
     port: 587,
     auth: {
-        user: "lura45@ethereal.email",
-        pass: "DhGNwTGAtgkuMy5P8d",
+        user: "nikki.leuschke@ethereal.email",
+        pass: "NWXrggTFV1VkSHmYhd",
     },
-    secure: false,
+    secure: true,
 });
 
 const prisma = new PrismaClient({
@@ -40,7 +40,6 @@ export const auth = betterAuth({
             console.log(text);
             await transporter.sendMail(
                 {
-                    secure: true,
                     from: '"Fakenews" <noreply@fakenews.com>',
                     to: user.email,
                     subject: "Reset your password",
@@ -65,7 +64,6 @@ export const auth = betterAuth({
                     to: user.email,
                     subject: "Verify your email",
                     text: text,
-                    secure: true,
                 },
                 function (error, info) {
                     console.error(`Unable to send email.\n\n${error} ${info}`);

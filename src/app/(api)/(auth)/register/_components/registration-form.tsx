@@ -12,6 +12,9 @@ import Button from "@/components/button";
 import { Spinner } from "@/components/ui/spinner";
 import { authClient } from "@/lib/auth-client";
 import { useRouter } from "next/navigation";
+import { isEmailAddressUsed, setUserInfo } from "@/_actions/user-actions";
+import prisma from "@/lib/prisma";
+import { toast } from "sonner";
 
 const formSchema = z
     .object({
@@ -25,8 +28,9 @@ const formSchema = z
         birthdate: z.iso.date("Invalid birthdate.").min(1, "Birthdate is required."),
         street: z.string().min(6, "Street address is required.").max(120),
         zip: z.string().min(5, "Zip code is required.").max(10),
-        country: z.string().min(1, "Country is required.").max(100),
-        phone: z.string().min(5, "Phone number is required").max(30),
+        city: z.string().min(1, "City is required").max(50),
+        country: z.string().min(1, "Country is required.").max(50),
+        phone: z.string().min(5, "Phone number is required").max(15),
     })
     .superRefine(({ confirmPassword, password }, ctx) => {
         if (confirmPassword !== password) {
@@ -52,6 +56,7 @@ export default function RegisterForm() {
             birthdate: "",
             street: "",
             zip: "",
+            city: "",
             country: "",
             phone: "",
         },
@@ -60,13 +65,28 @@ export default function RegisterForm() {
         },
         onSubmit: async ({ value }) => {
             setLoading(true);
-            const { data, error } = await authClient.signUp.email({
-                name: value.name,
-                email: value.email,
-                password: value.password,
-            });
-            console.log(data, error);
-            router.push("/api/auth/verify-email");
+            const emailInUse = await isEmailAddressUsed(value.email);
+            if (emailInUse.success && emailInUse.data == true) {
+                toast.error(`Email address ${value.email} is already in use.`);
+            } else {
+                const { data, error } = await authClient.signUp.email({
+                    name: value.name,
+                    email: value.email,
+                    password: value.password,
+                });
+                if (data && error == null) {
+                    const userInfo = await setUserInfo({
+                        userId: data.user.id,
+                        birthdate: value.birthdate,
+                        phone: value.phone,
+                        country: value.country,
+                        street: value.street,
+                        zip: value.zip,
+                        city: value.city,
+                    });
+                }
+                router.push("/verify");
+            }
             setLoading(false);
         },
     });
@@ -306,6 +326,32 @@ export default function RegisterForm() {
                                             onChange={(ev) => field.handleChange(ev.target.value)}
                                             aria-invalid={isInvalid}
                                             autoComplete="billing postal-code"
+                                            type="text"
+                                        />
+                                        {isInvalid && (
+                                            <FieldError errors={field.state.meta.errors} />
+                                        )}
+                                    </Field>
+                                );
+                            }}
+                        </form.Field>
+
+                        <form.Field name="city">
+                            {(field) => {
+                                const isInvalid =
+                                    field.state.meta.isTouched && !field.state.meta.isValid;
+
+                                return (
+                                    <Field data-invalid={isInvalid}>
+                                        <FieldLabel htmlFor={field.name}>City</FieldLabel>
+                                        <Input
+                                            id={field.name}
+                                            name={field.name}
+                                            value={field.state.value}
+                                            onBlur={field.handleBlur}
+                                            onChange={(ev) => field.handleChange(ev.target.value)}
+                                            aria-invalid={isInvalid}
+                                            autoComplete="address-level2"
                                             type="text"
                                         />
                                         {isInvalid && (
