@@ -13,7 +13,6 @@ import Footer from "@/components/footer";
 import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
 import AppSidebar from "@/components/navbar/_components/app-sidebar";
 
-
 const fontSans = Anuphan({
   subsets: ["latin"],
   variable: "--font-sans",
@@ -49,7 +48,8 @@ export default function RootLayout({
         <Navbar />
         <div className="min-h-screen max-w-6xl shadow-2xl border-x border-gray-500 flex-1 mx-auto p-4 bg-white">
           <SidebarProvider
-          defaultOpen={false}
+            suppressHydrationWarning
+            defaultOpen={false}
             style={
               {
                 "--sidebar-width-mobile": "20rem",
@@ -58,7 +58,7 @@ export default function RootLayout({
           >
             <AppSidebar />
             <main>
-              <SidebarTrigger size="lg" className="lg:hidden"/>
+              <SidebarTrigger size="lg" className="lg:hidden" />
               {children}
             </main>
           </SidebarProvider>
