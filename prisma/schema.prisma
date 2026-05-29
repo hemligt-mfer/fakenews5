@@ -117,7 +117,7 @@ model Bookmark {
 
 model Category {
     id      String    @id @default(ulid())
-    name    String     @unique
+    name    String    @unique
     article Article[]
 
     @@map("category")

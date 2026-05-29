@@ -1,11 +1,5 @@
 import type { Metadata } from "next";
-import {
-  Anuphan,
-  Geist,
-  Geist_Mono,
-  Lora,
-  Roboto_Mono,
-} from "next/font/google";
+import { Anuphan, Geist, Geist_Mono, Lora, Roboto_Mono } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/navbar/navbar";
 import Header from "@/components/header";
@@ -15,29 +9,29 @@ import AppSidebar from "@/components/navbar/_components/app-sidebar";
 import { Toaster } from "sonner";
 
 const fontSans = Anuphan({
-  subsets: ["latin"],
-  variable: "--font-sans",
+    subsets: ["latin"],
+    variable: "--font-sans",
 });
 
 const fontSerif = Lora({
-  subsets: ["latin"],
-  variable: "--font-serif",
+    subsets: ["latin"],
+    variable: "--font-serif",
 });
 
 const fontMono = Roboto_Mono({
-  subsets: ["latin"],
-  variable: "--font-mono",
+    subsets: ["latin"],
+    variable: "--font-mono",
 });
 
 export const metadata: Metadata = {
-  title: "Fakenews",
-  description: "A news website.",
+    title: "Fakenews",
+    description: "A news website.",
 };
 
 export default function RootLayout({
-  children,
+    children,
 }: Readonly<{
-  children: React.ReactNode;
+    children: React.ReactNode;
 }>) {
   return (
     <html
@@ -67,8 +61,8 @@ export default function RootLayout({
           </SidebarProvider>
         </div>
 
-        <Footer />
-      </body>
-    </html>
-  );
+                <Footer />
+            </body>
+        </html>
+    );
 }

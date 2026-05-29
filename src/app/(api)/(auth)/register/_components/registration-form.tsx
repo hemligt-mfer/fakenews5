@@ -13,7 +13,6 @@ import { Spinner } from "@/components/ui/spinner";
 import { authClient } from "@/lib/auth-client";
 import { useRouter } from "next/navigation";
 import { isEmailAddressUsed, setUserInfo } from "@/_actions/user-actions";
-import prisma from "@/lib/prisma";
 import { toast } from "sonner";
 
 const formSchema = z
@@ -84,15 +83,23 @@ export default function RegisterForm() {
                         zip: value.zip,
                         city: value.city,
                     });
+                    if (userInfo.success) {
+                        router.push("/verify");
+                    } else {
+                        toast.error(
+                            `An error occurred while trying to register.\n\n${userInfo.data}`,
+                        );
+                    }
+                } else {
+                    toast.error(`An error occurred while trying to register.\n\n${error}`);
                 }
-                router.push("/verify");
             }
             setLoading(false);
         },
     });
 
     return (
-        <Card className="w-2xl mx-auto">
+        <Card className="w-2xl">
             <CardHeader>
                 <CardTitle>Create a new account</CardTitle>
             </CardHeader>
