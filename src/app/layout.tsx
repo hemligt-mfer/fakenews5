@@ -12,6 +12,7 @@ import Header from "@/components/header";
 import Footer from "@/components/footer";
 import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
 import AppSidebar from "@/components/navbar/_components/app-sidebar";
+import { Toaster } from "sonner";
 
 const fontSans = Anuphan({
   subsets: ["latin"],
@@ -42,6 +43,7 @@ export default function RootLayout({
     <html
       lang="en"
       className={`${fontSans.variable} ${fontSerif.variable} ${fontMono.variable} antialiased h-full`}
+      suppressHydrationWarning
     >
       <body className="flex flex-col bg-gray-200">
         <Header />
@@ -61,6 +63,7 @@ export default function RootLayout({
               <SidebarTrigger size="lg" className="lg:hidden" />
               {children}
             </main>
+            <Toaster />
           </SidebarProvider>
         </div>
 

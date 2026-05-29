@@ -11,9 +11,8 @@ export function SidebarLink({
 }) {
   const { setOpenMobile } = useSidebar();
   return (
-    <SidebarMenuButton>
-      <Link href={href} onClick={() => setOpenMobile(false)}
-      className="text-lg">
+    <SidebarMenuButton asChild className="text-lg">
+      <Link href={href} onClick={() => setOpenMobile(false)}>
         {children}
       </Link>
     </SidebarMenuButton>

@@ -1,3 +1,4 @@
+"use client"
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -14,16 +15,16 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
 } from "@/components/ui/sidebar";
-import { auth } from "@/lib/auth";
+// import { auth } from "@/lib/auth";
 import { ChevronDown } from "lucide-react";
-import { headers } from "next/headers";
+// import { headers } from "next/headers";
 import { NewsDropdownSM, NewsPages, SportPages } from "./dropdown-menus";
 import { SidebarLink } from "./sidebar-link";
 
-export default async function AppSidebar() {
-  const session = await auth.api.getSession({
-    headers: await headers(),
-  });
+export default function AppSidebar() {
+  // const session = await auth.api.getSession({
+  //   headers: await headers(),
+  // });
   return (
     <Sidebar variant="sidebar" collapsible="offcanvas">
       <SidebarHeader>
