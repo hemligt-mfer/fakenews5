@@ -6,28 +6,22 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { Button } from "../ui/button";
 import { ChevronDown } from "lucide-react";
-import { NewsDropdown, SportPages } from "./_components/dropdown-menus";
-import {NewsPages} from "./_components/dropdown-menus"
+import { Button } from "@/components/ui/button";
 
 
-export default function Navbar() {
+
+
+export default function AdminNavbar() {
   return (
-    <div className="flex w-full">
-      <div className="hidden lg:flex w-full items-center gap-2 px-6  sticky top-0 bg-[#2d2d2d]">
+    
+      <div className="flex w-full gap-2 px-6 sticky top-0 bg-[#2d2d2d]">
         <ul className="flex items-center mx-auto">
-          <li>
-            <NewsDropdown label="News" links={NewsPages}/>
-          </li>
-          <li>
-            <NewsDropdown label="Sports" links={SportPages}/>
-          </li>
           <li>
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <Button variant="ghost" className="text-white">
-                  Author/Editor/Admin
+                  User control
                   <ChevronDown color="white" />
                 </Button>
               </DropdownMenuTrigger>
@@ -38,10 +32,14 @@ export default function Navbar() {
               </DropdownMenuContent>
             </DropdownMenu>
           </li>
+          <li>
+            <Button asChild variant="ghost" className="text-white">
+                <Link href="/">Article table</Link>
+            </Button>
+          </li>
         </ul>
 
        
       </div>
-    </div>
   );
 }

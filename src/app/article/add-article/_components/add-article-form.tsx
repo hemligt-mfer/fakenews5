@@ -73,7 +73,7 @@ export default function AddArticleForm() {
   });
 
   return (
-    <Card className="w-2xl mx-auto">
+    <Card className="min-w-2xl mx-auto">
       <CardHeader>
         <CardTitle>Create a new article</CardTitle>
       </CardHeader>

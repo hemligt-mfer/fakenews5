@@ -39,10 +39,10 @@ export default function RootLayout({
       className={`${fontSans.variable} ${fontSerif.variable} ${fontMono.variable} antialiased h-full`}
       suppressHydrationWarning
     >
-      <body className="flex flex-col bg-[#fffdf5]">
+      <body>
         <Header />
         <Navbar />
-        <div className="min-h-screen max-w-6xl shadow-2xl border border-gray-500/35 flex-1 mx-auto p-4 bg-white">
+        
           <SidebarProvider
             suppressHydrationWarning
             defaultOpen={false}
@@ -53,13 +53,13 @@ export default function RootLayout({
             }
           >
             <AppSidebar />
-            <main>
+            <main className="flex mx-auto w-full max-w-5xl shadow-2xl">
               <SidebarTrigger size="lg" className="lg:hidden" />
               {children}
             </main>
             <Toaster />
           </SidebarProvider>
-        </div>
+       
 
                 <Footer />
             </body>

@@ -1,7 +1,7 @@
 export default function HomePage() {
     return (
-        <div>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Facilis repudiandae, suscipit
+        <div className="flex w-full  bg-white">
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Facilis repudiandae, suscipit
             quam laborum error, vel, saepe natus quis vero distinctio similique consectetur
             voluptatem omnis tenetur maxime earum unde fugit aperiam minima corporis praesentium
             eligendi tempora delectus quisquam. Deleniti itaque animi obcaecati quas nobis veniam
@@ -9,7 +9,7 @@ export default function HomePage() {
             quia dolores quisquam consequuntur porro beatae. Aspernatur error veniam ducimus? Modi
             illum, temporibus libero, dolor ab explicabo sequi perferendis adipisci facere,
             praesentium facilis numquam ipsa dolorem incidunt rerum quos totam neque sapiente autem
-            nisi. Quas officiis quis doloremque non enim corporis ut est asperiores minima!
+            nisi. Quas officiis quis doloremque non enim corporis ut est asperiores minima!</p>
         </div>
     );
 }
