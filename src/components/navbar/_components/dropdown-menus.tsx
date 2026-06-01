@@ -27,10 +27,6 @@ export const NewsPages: { title: string; href: string }[] = [
     title: "Utrikes",
     href: "/",
   },
-  {
-    title: "Register",
-    href: "/api/auth/register",
-  },
 ];
 
 export const SportPages: { title: string; href: string }[] = [
