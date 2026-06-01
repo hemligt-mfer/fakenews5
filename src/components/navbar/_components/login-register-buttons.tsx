@@ -2,6 +2,7 @@ import { Button } from "@/components/ui/button";
 import { auth } from "@/lib/auth";
 import { headers } from "next/headers";
 import Link from "next/link";
+import { SignOutButton } from "./sign-out-button";
 
 export async function LoginRegButtons() {
   const session = await auth.api.getSession({
@@ -17,24 +18,23 @@ export async function LoginRegButtons() {
             </Button>
           </li>
           <li>
-            <Button asChild variant="ghost" className="text-white">
-              <Link href="/">Logout</Link>
-            </Button>
+            <SignOutButton/>
           </li>
         </>
       ) : (
         <>
+        <li>
+            <Button asChild variant="ghost" className="text-white">
+              <Link href="/auth/sign-in">Sign in</Link>
+            </Button>
+          </li>{" "}
           {" "}
           <li>
             <Button asChild variant="ghost" className="text-white">
               <Link href="/register">Register</Link>
             </Button>
           </li>
-          <li>
-            <Button asChild variant="ghost" className="text-white">
-              <Link href="/auth/sign-in">Sign in</Link>
-            </Button>
-          </li>{" "}
+          
         </>
       )}
     </ul>
