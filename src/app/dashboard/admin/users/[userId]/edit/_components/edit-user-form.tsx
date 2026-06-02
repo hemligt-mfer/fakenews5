@@ -22,12 +22,11 @@ import { Button } from "@/components/ui/button";
 import UserAction from "../_actions/user-action";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
+import { roles } from "@/lib/permissions";
 
 type Props = {
   data: User;
 };
-
-const roles = ["USER", "ADMIN", "EDITOR"] as const;
 
 const formSchema = z.object({
   role: z.enum(roles),
