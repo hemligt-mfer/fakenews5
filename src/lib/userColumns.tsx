@@ -10,7 +10,7 @@ import { ColumnDef } from "@tanstack/react-table";
 import { MoreHorizontal } from "lucide-react";
 import { useRouter } from "next/navigation";
 
-type User = {
+export type User = {
   id: string;
   name: string;
   email: string;
@@ -37,6 +37,12 @@ function ActionsCell({ id }: { id: string }) {
           </Button>
         </DropdownMenuTrigger>
         <DropdownMenuContent align="end">
+          <DropdownMenuItem
+            className="cursor-pointer"
+            onClick={() => router.push(`/dashboard/admin/users/${id}`)}
+          >
+            View user
+          </DropdownMenuItem>
           <DropdownMenuItem
             className="cursor-pointer"
             onClick={() => router.push(`/dashboard/admin/users/${id}/edit`)}
