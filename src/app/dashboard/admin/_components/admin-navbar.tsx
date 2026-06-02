@@ -20,7 +20,7 @@ export default function AdminNavbar() {
         </li>
         <li>
           <Button asChild variant="ghost" className="text-white">
-            <Link href="/">Article table</Link>
+            <Link href="/dashboard/admin/articles">Article table</Link>
           </Button>
         </li>
         <li>

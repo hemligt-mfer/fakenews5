@@ -5,7 +5,7 @@ import RouteHeading from "@/components/route-heading";
 
 const user = await prisma.user.findMany({})
 
-export default function UserPage(){
+export default function UserTablePage(){
 
     return (<div className="w-full">
         <RouteHeading label="Users"/>
