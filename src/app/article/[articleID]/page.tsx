@@ -1,3 +1,4 @@
+import { auth } from "@/lib/auth";
 import {
     addView,
     getArticle,
@@ -12,6 +13,8 @@ import Likes from "./_components/likes";
 import Bookmark from "./_components/bookmark";
 import { getUserId } from "@/_actions/user-actions";
 import Views from "./_components/views";
+import Button from "@/components/button";
+import { headers } from "next/headers";
 
 export default async function ArticlePage({ params }: { params: Promise<{ articleID: string }> }) {
     const { articleID } = await params;
