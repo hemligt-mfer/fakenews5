@@ -27,7 +27,7 @@ type Props = {
   data: User;
 };
 
-const roles = ["USER", "ADMIN", "EDITOR", "AUTHOR"] as const;
+const roles = ["USER", "ADMIN", "EDITOR"] as const;
 
 const formSchema = z.object({
   role: z.enum(roles),
@@ -50,8 +50,8 @@ export default function EditUserForm({ data }: Props) {
       toast.success("User was successfully updated.", {
         position: "bottom-right",
       });
-      router.refresh();
       router.push("/dashboard/admin/users");
+      router.refresh();
     },
   });
 

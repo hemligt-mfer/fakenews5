@@ -5,7 +5,8 @@ import { PrismaPg } from "@prisma/adapter-pg";
 import { nextCookies } from "better-auth/next-js";
 import nodemailer from "nodemailer";
 import dotenv from "dotenv";
-import { admin } from "better-auth/plugins";
+import { admin as adminPlugin } from "better-auth/plugins";
+import { editor, admin, user, ac } from "./permissions";
 
 dotenv.config();
 
@@ -52,7 +53,7 @@ export const auth = betterAuth({
             );
         },
     },
-    plugins: [ admin() ,nextCookies()],
+    plugins: [ adminPlugin({ac, roles: { admin, user, editor}}) ,nextCookies()],
     emailVerification: {
         autoSignInAfterVerification: true,
         sendOnSignUp: true,

@@ -2,13 +2,38 @@ import prisma from "@/lib/prisma";
 import { DataTable } from "@/components/Data-table";
 import RouteHeading from "@/components/route-heading";
 import { columns } from "@/lib/article-columns";
+import { auth } from "@/lib/auth";
+import { headers } from "next/headers";
+import { redirect } from "next/navigation";
 
-const articles = await prisma.article.findMany({})
+export default async function ArticleTablePage() {
+  const session = await auth.api.getSession({
+    headers: await headers(),
+  });
 
-export default function ArticleTablePage(){
+  if (!session) {
+    return redirect("/");
+  }
 
-    return (<div className="w-full">
-        <RouteHeading label="Articles"/>
-        <DataTable columns={columns} data={articles}/>
-    </div>)
+  const userId = session.user.id;
+
+  const hasPermission = await auth.api.userHasPermission({
+    body: {
+      userId: userId,
+      permissions: {
+        article: ["create", "update", "like", "dislike", "comment", "delete"],
+      },
+    },
+  });
+  if (!hasPermission) {
+    redirect("/");
+  }
+  const articles = await prisma.article.findMany({});
+
+  return (
+    <div className="w-full">
+      <RouteHeading label="Articles" />
+      <DataTable columns={columns} data={articles} />
+    </div>
+  );
 }
