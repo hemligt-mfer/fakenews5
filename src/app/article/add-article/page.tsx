@@ -1,7 +1,33 @@
-"use client";
+"use server";
 import AddArticleForm from "./_components/add-article-form";
+import { auth } from "@/lib/auth";
+import { headers } from "next/headers";
+import { redirect } from "next/navigation";
 
-export default function AddArticlePage() {
+
+export default async function AddArticlePage() {
+
+  const session = await auth.api.getSession({
+    headers: await headers(),
+  });
+
+  if (!session) {
+    return redirect("/");
+  }
+
+  const userId = session.user.id;
+
+  const hasPermission = await auth.api.userHasPermission({
+    body: {
+      userId: userId,
+      permissions: {
+        article: ["create", "update", "like", "dislike", "comment", "delete"],
+      },
+    },
+  });
+  if (!hasPermission) {
+    redirect("/");
+  }
   return (
     <div className="w-full">
       <div className="flex items-center ml-5">
