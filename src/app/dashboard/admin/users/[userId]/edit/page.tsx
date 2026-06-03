@@ -8,7 +8,8 @@ import { notFound } from "next/navigation";
 export default async function EditUserPage(props: PageProps<"/dashboard/admin/users/[userId]/edit">){
 const params = await props.params;
 const user = await prisma.user.findUnique({
-    where: {id: params.userId}
+    where: {id: params.userId},
+    include: { user_info: {select: { address: true, birthdate: true, phoneNumber: true, id: true, userId: true }}, author: true, }
 })
 if(!user){
     return notFound()
