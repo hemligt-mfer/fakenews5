@@ -4,6 +4,7 @@ import prisma from "@/lib/prisma";
 import { Result } from "@/lib/types";
 import { getUserId } from "./user-actions";
 
+// Full article — includes views and reactions (used for single article page)
 type Article = {
     id: string;
     title: string;
@@ -16,6 +17,21 @@ type Article = {
     createdAt: Date;
     updatedAt: Date;
     location: string | null;
+    editorsChoice: boolean;
+    author: Author[];
+    category: Category[];
+};
+
+// Lean article — for listings (home page cards, no views/reactions)
+type ArticleSummary = {
+    id: string;
+    title: string;
+    summary: string | null;
+    image: string | null;
+    createdAt: Date;
+    updatedAt: Date;
+    location: string | null;
+    editorsChoice: boolean;
     author: Author[];
     category: Category[];
 };
@@ -67,6 +83,50 @@ type Bookmark = {
     articleId: string;
     user_id: string;
 };
+
+export async function getArticles(): Promise<Result<ArticleSummary[]>> {
+    try {
+        const articles = await prisma.article.findMany({
+            include: {
+                author: true,
+                category: true,
+            },
+            orderBy: { createdAt: "desc" },
+        });
+        return { success: true, data: articles };
+    } catch (err) {
+        return { success: false, error: `Couldn't fetch articles from database.\n\n${err}` };
+    }
+}
+
+export async function getMostPopularArticles(limit = 3): Promise<Result<ArticleSummary[]>> {
+    try {
+        const articles = await prisma.article.findMany({
+            include: { author: true, category: true },
+            orderBy: { views: { _count: "desc" } },
+            take: limit,
+        });
+        return { success: true, data: articles };
+    } catch (err) {
+        return { success: false, error: `Couldn't fetch popular articles.\n\n${err}` };
+    }
+}
+
+export async function getEditorsChoiceArticles(): Promise<Result<ArticleSummary[]>> {
+    try {
+        const articles = await prisma.article.findMany({
+            where: { editorsChoice: true },
+            include: {
+                author: true,
+                category: true,
+            },
+            orderBy: { createdAt: "desc" },
+        });
+        return { success: true, data: articles };
+    } catch (err) {
+        return { success: false, error: `Couldn't fetch editor's choice articles.\n\n${err}` };
+    }
+}
 
 export async function getArticle(articleId: string): Promise<Result<Article>> {
     try {

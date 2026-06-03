@@ -20,11 +20,11 @@ export default async function AddArticlePage() {
         body: {
             userId: userId,
             permissions: {
-                article: ["create", "update", "like", "dislike", "comment", "delete"],
+                article: ["create"],
             },
         },
     });
-    if (!hasPermission) {
+    if (!hasPermission.success) {
         redirect("/");
     }
     return (

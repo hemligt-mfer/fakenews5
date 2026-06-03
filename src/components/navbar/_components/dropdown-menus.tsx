@@ -46,36 +46,49 @@ export const SportPages: { title: string; href: string }[] = [
     title: "Boule",
     href: "/",
   },
+  {
+    title: "Walking backwards",
+    href: "/",
+  },
 ];
 
-type NavLink = { title: string, href: string}
+type NavLink = { title: string; href: string };
 
-export function NewsDropdown({label, links}:{label: string, links: NavLink[]}){
+export function NewsDropdown({
+  label,
+  links,
+}: {
+  label: string;
+  links: NavLink[];
+}) {
   return (
-   <DropdownMenu>
-        <DropdownMenuTrigger asChild>
-          <Button variant="ghost" className="text-white">
-                  {label}
-                  <ChevronDown color="white" />
-                </Button>
-        </DropdownMenuTrigger>
-        <DropdownMenuContent className="grid grid-cols-2 min-w-sm p-1">
-          {links.map((page) => (
-            <DropdownMenuItem key={page.title} asChild>
-              <Link
-                href={page.href}
-                className="text-center justify-center"
-              >
-                {page.title}
-              </Link>
-            </DropdownMenuItem>
-          ))}
-        </DropdownMenuContent>
-      </DropdownMenu>
+    <DropdownMenu>
+      <DropdownMenuTrigger asChild>
+        <Button variant="ghost" className="text-white">
+          {label}
+          <ChevronDown color="white" />
+        </Button>
+      </DropdownMenuTrigger>
+      <DropdownMenuContent className="grid grid-cols-2 min-w-sm p-1">
+        {links.map((page) => (
+          <DropdownMenuItem key={page.title} asChild>
+            <Link href={page.href} className="text-center justify-center">
+              {page.title}
+            </Link>
+          </DropdownMenuItem>
+        ))}
+      </DropdownMenuContent>
+    </DropdownMenu>
   );
 }
 
-export function NewsDropdownSM({label, links}:{label: string, links: NavLink[]}) {
+export function NewsDropdownSM({
+  label,
+  links,
+}: {
+  label: string;
+  links: NavLink[];
+}) {
   return (
     <SidebarMenuItem>
       <DropdownMenu>
@@ -88,11 +101,7 @@ export function NewsDropdownSM({label, links}:{label: string, links: NavLink[]})
         <DropdownMenuContent className="grid grid-cols-2 w-(--radix-dropdown-menu-trigger-width)  p-1">
           {links.map((page) => (
             <DropdownMenuItem key={page.title} asChild>
-              <SidebarLink
-                href={page.href}
-              >
-                {page.title}
-              </SidebarLink>
+              <SidebarLink href={page.href}>{page.title}</SidebarLink>
             </DropdownMenuItem>
           ))}
         </DropdownMenuContent>

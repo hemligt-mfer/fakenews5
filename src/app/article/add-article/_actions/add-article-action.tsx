@@ -20,15 +20,15 @@ const formSchema = z.object({
 type AddArticleValues = z.infer<typeof formSchema>;
 
 export default async function addArticle(values: AddArticleValues): Promise<Result<string>> {
-    const data = formSchema.parse(values);
-    const authors = await prisma.author.findMany({
-        where: {
-            alias: { in: data.author },
-        },
-        select: { id: true },
-    });
-
     try {
+        const data = formSchema.parse(values);
+        const authors = await prisma.author.findMany({
+            where: {
+                alias: { in: data.author },
+            },
+            select: { id: true },
+        });
+
         const newArticle = await prisma.article.create({
             data: {
                 title: data.title,
@@ -42,15 +42,14 @@ export default async function addArticle(values: AddArticleValues): Promise<Resu
                 category: {
                     connectOrCreate: data.category.map((category) => ({
                         where: { name: category },
-                        create: {
-                            name: category,
-                        },
+                        create: { name: category },
                     })),
                 },
             },
         });
         return { success: true, data: newArticle.id };
     } catch (err) {
-        return { success: false, error: `Error ${err}` };
+        console.error("[addArticle error]", err);
+        return { success: false, error: `Error: ${err}` };
     }
 }

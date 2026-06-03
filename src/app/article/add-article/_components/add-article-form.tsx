@@ -46,17 +46,19 @@ export default function AddArticleForm() {
         },
         onSubmit: async ({ value }) => {
             setLoading(true);
-            const result = await addArticle(value);
-            console.log(result);
-            console.log("aaa", result.success);
-            if (result.success === false && result.error) {
-                toast.error(result.error, { position: "top-center" });
-                setLoading(false);
-            } else {
-                toast.success("Article was added to Fakenews5 database", {
-                    position: "bottom-right",
-                });
-                router.push("/");
+            try {
+                const result = await addArticle(value);
+                if (result.success === false && result.error) {
+                    toast.error(result.error, { position: "top-center" });
+                } else {
+                    toast.success("Article was added to Fakenews5 database", {
+                        position: "bottom-right",
+                    });
+                    router.push("/");
+                }
+            } catch (err) {
+                toast.error(`Something went wrong: ${err}`, { position: "top-center" });
+            } finally {
                 setLoading(false);
             }
         },
