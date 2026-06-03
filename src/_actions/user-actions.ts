@@ -26,7 +26,7 @@ type userInfoValues = z.infer<typeof userInfoSchema>;
 export async function getUserId() {
     const user = await auth.api.getSession({ headers: await headers() });
     if (user) {
-        const userInfo = await prisma.userInfo.findUnique({ where: { userId: user.user.id } });
+        const userInfo = await prisma.userInfo.findUnique({ where: { userId: user.user.id }, select: { id: true } });
         return userInfo?.id;
     } else {
         return false;
@@ -65,7 +65,6 @@ export async function setUserInfo(values: userInfoValues) {
                 address_id: address.id,
                 birthdate: new Date(data.birthdate),
                 phoneNumber: data.phone,
-                role: "UNSUBSCRIBED",
                 userId: data.userId,
             },
         });
