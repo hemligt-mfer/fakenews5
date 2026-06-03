@@ -39,15 +39,19 @@ export default function Likes({
         router.refresh();
     }
 
-    console.log(articleId);
-
     return (
         <div className="flex pl-2">
-            <ThumbsUp fill={userReaction == 1 ? "black" : "white"} size={20} onClick={upvote} />
+            <ThumbsUp
+                fill={userReaction == 1 ? "black" : "white"}
+                size={20}
+                onClick={upvote}
+                className="cursor-pointer"
+            />
             <ThumbsDown
                 fill={userReaction == -1 ? "black" : "white"}
                 size={20}
                 onClick={downvote}
+                className="cursor-pointer"
             />
             <span className="my-auto ml-1">{num}</span>
         </div>

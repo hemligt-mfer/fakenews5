@@ -1,6 +1,7 @@
 generator client {
-    provider = "prisma-client"
-    output   = "../src/generated/prisma"
+    provider        = "prisma-client"
+    output          = "../src/generated/prisma"
+    previewFeatures = ["relationJoins"]
 }
 
 datasource db {
@@ -91,7 +92,7 @@ model Article {
     location      String?
     author        Author[]
     bookmark      Bookmark[]
-    commentaries  Comment[]
+    comments      Comment[]
     editorsChoice Boolean           @default(false)
     deleted       DateTime?
 
@@ -99,16 +100,26 @@ model Article {
 }
 
 model Comment {
-    id        String   @id @default(ulid())
-    articleId String   @map("article_id")
-    article   Article  @relation(fields: [articleId], references: [id])
+    id        String            @id @default(ulid())
+    articleId String            @map("article_id")
+    article   Article           @relation(fields: [articleId], references: [id])
     user_id   String
-    user      UserInfo @relation(fields: [user_id], references: [id])
+    user      UserInfo          @relation(fields: [user_id], references: [id])
     content   String
-    likes     Int      @default(0)
+    reactions CommentReaction[]
     createdAt DateTime
     updatedAt DateTime
-    replyTo   String?  @map("reply_to") // Stores a comment id to which the comment in questions is a reply
+    replyTo   String?           @map("reply_to") // Stores a comment id to which the comment in questions is a reply
+}
+
+model CommentReaction {
+    id         String    @id @default(ulid())
+    userId     String    @unique
+    commentId  String    @unique
+    comment    Comment   @relation(fields: [commentId], references: [id])
+    val        Int       @default(1)
+    userInfo   UserInfo? @relation(fields: [userInfoId], references: [id])
+    userInfoId String?
 }
 
 model Bookmark {
@@ -147,15 +158,16 @@ model Author {
 }
 
 model UserInfo {
-    id          String     @id @default(ulid())
-    userId      String     @unique @map("user_id")
-    user        User       @relation(fields: [userId], references: [id])
-    phoneNumber String?    @map("phone_number")
-    address_id  String
-    address     Address    @relation(fields: [address_id], references: [id])
-    birthdate   DateTime
-    bookmark    Bookmark[]
-    comments    Comment[]
+    id               String            @id @default(ulid())
+    userId           String            @unique @map("user_id")
+    user             User              @relation(fields: [userId], references: [id])
+    phoneNumber      String?           @map("phone_number")
+    address_id       String
+    address          Address           @relation(fields: [address_id], references: [id])
+    birthdate        DateTime
+    bookmark         Bookmark[]
+    comments         Comment[]
+    commentReactions CommentReaction[]
 
     @@map("user_info")
 }
@@ -167,7 +179,7 @@ model ArticleReaction {
     article    Article @relation(fields: [article_id], references: [id])
     val        Int     @default(1)
 
-    @@map("article_like")
+    @@map("article_reaction")
 }
 
 model Address {

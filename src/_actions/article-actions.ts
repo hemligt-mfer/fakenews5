@@ -9,6 +9,7 @@ type Article = {
     title: string;
     summary: string | null;
     content: string;
+    comments: Comment[];
     views: View[];
     reactions: ArticleReaction[];
     image: string | null;
@@ -17,6 +18,17 @@ type Article = {
     location: string | null;
     author: Author[];
     category: Category[];
+};
+
+type Comment = {
+    id: string;
+    articleId: string;
+    user_id: string;
+    content: string;
+    createdAt: Date;
+    updatedAt: Date;
+    replyTo: string | null;
+    reactions: CommentReaction[];
 };
 
 type View = {
@@ -43,15 +55,11 @@ type Category = {
     name: string;
 };
 
-type Comment = {
+type CommentReaction = {
     id: string;
-    articleId: string;
-    content: string;
-    createdAt: Date;
-    likes: number;
-    replyTo: string | null;
-    updatedAt: Date;
-    user_id: string;
+    commentId: string;
+    userId: string;
+    val: number;
 };
 
 type Bookmark = {
@@ -67,7 +75,7 @@ export async function getArticle(articleId: string): Promise<Result<Article>> {
             include: {
                 author: true,
                 category: true,
-                commentaries: true,
+                comments: { include: { reactions: true } },
                 reactions: true,
                 views: true,
             },
@@ -76,37 +84,6 @@ export async function getArticle(articleId: string): Promise<Result<Article>> {
         else return { success: false, error: "Couldn't find article." };
     } catch (err) {
         return { success: false, error: `Couldn't fetch article from database.\n\n${err}` };
-    }
-}
-
-export async function addComment(
-    articleId: string,
-    comment: string,
-    replyTo: string | null,
-): Promise<Result<boolean>> {
-    const userId = await getUserId();
-    if (userId) {
-        console.log(userId);
-        try {
-            const res = await prisma.comment.create({
-                data: {
-                    articleId: articleId,
-                    content: comment,
-                    user_id: userId,
-                    replyTo: replyTo,
-                    likes: 0,
-                    createdAt: new Date(),
-                    updatedAt: new Date(),
-                },
-            });
-            return { success: true, data: true };
-        } catch (err) {
-            console.error(`Couldn't add comment to the database.\n\n${err}`);
-            return { success: false, error: `Couldn't add comment to the database.\n\n${err}` };
-        }
-    } else {
-        console.error(`Can't make a comment without being logged in.`);
-        return { success: false, error: `Can't make a comment without being logged in.` };
     }
 }
 
@@ -169,6 +146,8 @@ export async function changeReaction(
     }
 }
 
+// Finds out of user has reacted to an article and in that case if it was an upvote 1 or downvote -1
+// If user hasn't reacted, returns null
 export async function getUserReaction(
     articleId: string,
     userId: string,

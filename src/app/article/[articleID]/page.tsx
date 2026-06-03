@@ -13,14 +13,16 @@ import Likes from "./_components/likes";
 import Bookmark from "./_components/bookmark";
 import { getUserId } from "@/_actions/user-actions";
 import Views from "./_components/views";
-import Button from "@/components/button";
-import { headers } from "next/headers";
+import { format } from "date-fns";
+import CommentarySection from "./_components/commentary-section";
 
 export default async function ArticlePage({ params }: { params: Promise<{ articleID: string }> }) {
     const { articleID } = await params;
 
     const userId = await getUserId();
     const article = await getArticle(articleID);
+    console.log(article);
+    console.log(article.data.comments);
 
     if (userId && article.success && article.data) {
         // Check if the user has viewed the article and add a view if not
@@ -57,6 +59,11 @@ export default async function ArticlePage({ params }: { params: Promise<{ articl
         return (
             <div>
                 <div className="w-5xl p-2">
+                    {article.data.category.length > 0
+                        ? article.data.category.map((c, i) =>
+                              i + 1 !== article.data.category.length ? `${c.name}, ` : `${c.name}`,
+                          )
+                        : ""}
                     <h1 className="font-extrabold text-2xl text-center">{article.data.title}</h1>
                     <p className="text-lg font-semibold text-center">
                         by{" "}
@@ -64,7 +71,7 @@ export default async function ArticlePage({ params }: { params: Promise<{ articl
                             i + 1 !== article.data.author.length ? `${a.alias}, ` : `${a.alias}`,
                         )}
                     </p>
-                    <p className="w-5xl">{article.data.content}</p>
+                    <p className="mt-2 mb-4">{article.data.content}</p>
                     <div className="flex border-b-2 mt-2 pb-2 text-sm">
                         <div className="flex border-r pr-2">
                             <Views num={views} />
@@ -84,10 +91,15 @@ export default async function ArticlePage({ params }: { params: Promise<{ articl
                                 bookmarked={bookmarked}
                             />
                         </div>
+                        <div className="flex ml-auto">
+                            {article.data.location ? article.data.location + ", " : ""}
+                            {format(article.data.createdAt, "yyyy-MM-dd HH:mm")}
+                        </div>
                     </div>
                 </div>
                 <div className="w-2xl mx-auto">
                     <h1 className="font-extrabold text-2xl text-center">Comments</h1>
+                    <CommentarySection comments={article.data.comments} />
                     {userId !== null ? (
                         <CommentaryForm articleId={articleID} replyTo={null} />
                     ) : (

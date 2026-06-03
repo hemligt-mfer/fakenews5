@@ -1,5 +1,5 @@
 "use client";
-import { addComment } from "@/_actions/article-actions";
+import { addComment } from "@/_actions/comment-actions";
 import Button from "@/components/button";
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Field, FieldError, FieldGroup } from "@/components/ui/field";

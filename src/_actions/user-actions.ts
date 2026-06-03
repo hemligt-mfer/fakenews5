@@ -1,5 +1,6 @@
 "use server";
 
+import { User, UserInfo } from "@/generated/prisma/client";
 import { auth } from "@/lib/auth";
 import prisma from "@/lib/prisma";
 import { Result } from "@/lib/types";
@@ -72,5 +73,19 @@ export async function setUserInfo(values: userInfoValues) {
     } catch (err) {
         //console.log(`Didn't work: ${err}`);
         return { success: false, error: `Couldn't set user info.\n\n${err}` };
+    }
+}
+
+export async function getAllUserDataFromId(userId: string) {
+    const userInfoTable = await prisma.userInfo.findUnique({ where: { id: userId } });
+    if (userInfoTable) {
+        const user = await prisma.user.findUnique({ where: { id: userInfoTable.userId } });
+        if (user) {
+            return { success: true, data: [user, userInfoTable] };
+        }
+        return { success: false, error: `Couldn't find data for user with id ${userId}.` };
+    } else {
+        console.error(`Couldn't find user with id ${userId}.`);
+        return { success: false, error: `Couldn't find user with id ${userId}.` };
     }
 }
