@@ -1,5 +1,4 @@
 "use client";
-import { type User } from "@/lib/userColumns";
 import z from "zod";
 import { useForm } from "@tanstack/react-form";
 import {
@@ -24,10 +23,7 @@ import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 import { roles } from "@/lib/permissions";
 import { Input } from "@/components/ui/input";
-
-// type Props = {
-//   data: User;
-// };
+import Link from "next/link";
 
 type Users = {
   id: string;
@@ -42,33 +38,35 @@ type Users = {
   banReason: string | null;
   banExpires: Date | null;
   user_info: {
-        id: string;
-        userId: string;
-        phoneNumber: string | null;
-        birthdate: Date;
-        address: {
-            id: string;
-            street: string;
-            city: string;
-            country: string;
-            zip: string;
-        };
-    } | null;
-    author: {
-        id: string;
-        userId: string;
-        alias: string;
-    } | null;
+    id: string;
+    userId: string;
+    phoneNumber: string | null;
+    birthdate: Date;
+    address: {
+      id: string;
+      street: string;
+      city: string;
+      country: string;
+      zip: string;
+    };
+  } | null;
+  author: {
+    id: string;
+    userId: string;
+    alias: string;
+  } | null;
 };
 
-type Props = {
-  data: Users
-}
-
+export type Props = {
+  data: Users;
+};
 
 const formSchema = z.object({
   id: z.string(),
-  name: z.string().min(3,"Name is required, atleast 3 characters").max(50,"Maximum of 50 characters"),
+  name: z
+    .string()
+    .min(3, "Name is required, atleast 3 characters")
+    .max(50, "Maximum of 50 characters"),
   email: z.email(),
   image: z.string(),
   phone: z.string(),
@@ -79,7 +77,7 @@ const formSchema = z.object({
   city: z.string(),
   zip: z.string(),
   country: z.string(),
-  userInfoId: z.string()
+  userInfoId: z.string(),
 });
 
 type Role = (typeof roles)[number];
@@ -129,173 +127,83 @@ export default function EditUserForm({ data }: Props) {
           }}
         >
           <FieldGroup>
-          <div className="flex gap-12">
-            <form.Field name="id">
-            {(field) => {
-              const isInvalid =
-                field.state.meta.isTouched && !field.state.meta.isValid;
-              return (
-                <Field data-invalid={isInvalid} className="flex-1">
-                  <FieldLabel htmlFor={field.name}>User ID</FieldLabel>
-                  <Input
-                    id={field.name}
-                    name={field.name}
-                    value={field.state.value}
-                    onBlur={field.handleBlur}
-                    onChange={(ev) => field.handleChange(ev.target.value)}
-                    aria-invalid={isInvalid}
-                    disabled
-                  />
-                  {isInvalid && <FieldError errors={field.state.meta.errors} />}
-                </Field>
-              );
-            }}
-          </form.Field>
-
-           <form.Field name="role">
-              {(field) => {
-                const isInvalid =
-                  field.state.meta.isTouched && !field.state.meta.isValid;
-                return (
-                  <Field data-invalid={isInvalid} className="flex-1">
-                    <FieldLabel htmlFor={field.name}>
-                      Role
-                    </FieldLabel>
-                    <Combobox
-                      autoHighlight
-                      items={roles}
-                      value={field.state.value}
-                      onValueChange={(value) => {
-                        if (value !== null) {
-                          field.handleChange(value as Role);
-                        }
-                      }}
-                    >
-                      <ComboboxChips ref={anchor}>
-                        <ComboboxValue>
-                          {(value: string) => value}
-                        </ComboboxValue>
-                      </ComboboxChips>
-                      <ComboboxContent anchor={anchor}>
-                        <ComboboxEmpty>No role selected.</ComboboxEmpty>
-                        <ComboboxList>
-                          {(item) => (
-                            <ComboboxItem key={item} value={item}>
-                              {item}
-                            </ComboboxItem>
-                          )}
-                        </ComboboxList>
-                      </ComboboxContent>
-                    </Combobox>
-                    {isInvalid && (
-                      <FieldError errors={field.state.meta.errors} />
-                    )}
-                  </Field>
-                );
-              }}
-            </form.Field>
-
-          </div>
-            <form.Field name="name">
-            {(field) => {
-              const isInvalid =
-                field.state.meta.isTouched && !field.state.meta.isValid;
-              return (
-                <Field data-invalid={isInvalid}>
-                  <FieldLabel htmlFor={field.name}>Name</FieldLabel>
-                  <Input
-                    id={field.name}
-                    name={field.name}
-                    value={field.state.value}
-                    onBlur={field.handleBlur}
-                    onChange={(ev) => field.handleChange(ev.target.value)}
-                    aria-invalid={isInvalid}
-                  />
-                  {isInvalid && <FieldError errors={field.state.meta.errors} />}
-                </Field>
-              );
-            }}
-          </form.Field>
-
-          <form.Field name="email">
-            {(field) => {
-              const isInvalid =
-                field.state.meta.isTouched && !field.state.meta.isValid;
-              return (
-                <Field data-invalid={isInvalid}>
-                  <FieldLabel htmlFor={field.name}>Email</FieldLabel>
-                  <Input
-                    id={field.name}
-                    name={field.name}
-                    value={field.state.value}
-                    onBlur={field.handleBlur}
-                    onChange={(ev) => field.handleChange(ev.target.value)}
-                    aria-invalid={isInvalid}
-                    type="email"
-                  />
-                  {isInvalid && <FieldError errors={field.state.meta.errors} />}
-                </Field>
-              );
-            }}
-          </form.Field>
-
-           
-
-
-            <form.Field name="image">
-            {(field) => {
-              const isInvalid =
-                field.state.meta.isTouched && !field.state.meta.isValid;
-              return (
-                <Field data-invalid={isInvalid}>
-                  <FieldLabel htmlFor={field.name}>Image</FieldLabel>
-                  <Input
-                    id={field.name}
-                    name={field.name}
-                    value={field.state.value ?? ""}
-                    onBlur={field.handleBlur}
-                    onChange={(ev) => field.handleChange(ev.target.value)}
-                    aria-invalid={isInvalid}
-                  />
-                  {isInvalid && <FieldError errors={field.state.meta.errors} />}
-                </Field>
-              );
-            }}
-          </form.Field>
             <div className="flex gap-12">
-          <form.Field name="phone">
-            {(field) => {
-              const isInvalid =
-                field.state.meta.isTouched && !field.state.meta.isValid;
-              return (
-                <Field data-invalid={isInvalid} className="flex-1">
-                  <FieldLabel htmlFor={field.name}>Phone number</FieldLabel>
-                  <Input
-                    id={field.name}
-                    name={field.name}
-                    value={field.state.value ?? ""}
-                    onBlur={field.handleBlur}
-                    onChange={(ev) => field.handleChange(ev.target.value)}
-                    aria-invalid={isInvalid}
-                  />
-                  {isInvalid && <FieldError errors={field.state.meta.errors} />}
-                </Field>
-              );
-            }}
-          </form.Field>
+              <form.Field name="id">
+                {(field) => {
+                  const isInvalid =
+                    field.state.meta.isTouched && !field.state.meta.isValid;
+                  return (
+                    <Field data-invalid={isInvalid} className="flex-1">
+                      <FieldLabel htmlFor={field.name}>User ID</FieldLabel>
+                      <Input
+                        id={field.name}
+                        name={field.name}
+                        value={field.state.value}
+                        onBlur={field.handleBlur}
+                        onChange={(ev) => field.handleChange(ev.target.value)}
+                        aria-invalid={isInvalid}
+                        disabled
+                      />
+                      {isInvalid && (
+                        <FieldError errors={field.state.meta.errors} />
+                      )}
+                    </Field>
+                  );
+                }}
+              </form.Field>
 
-          <form.Field name="birthdate">
+              <form.Field name="role">
+                {(field) => {
+                  const isInvalid =
+                    field.state.meta.isTouched && !field.state.meta.isValid;
+                  return (
+                    <Field data-invalid={isInvalid} className="flex-1">
+                      <FieldLabel htmlFor={field.name}>Role</FieldLabel>
+                      <Combobox
+                        autoHighlight
+                        items={roles}
+                        value={field.state.value}
+                        onValueChange={(value) => {
+                          if (value !== null) {
+                            field.handleChange(value as Role);
+                          }
+                        }}
+                      >
+                        <ComboboxChips ref={anchor}>
+                          <ComboboxValue>
+                            {(value: string) => value}
+                          </ComboboxValue>
+                        </ComboboxChips>
+                        <ComboboxContent anchor={anchor}>
+                          <ComboboxEmpty>No role selected.</ComboboxEmpty>
+                          <ComboboxList>
+                            {(item) => (
+                              <ComboboxItem key={item} value={item}>
+                                {item}
+                              </ComboboxItem>
+                            )}
+                          </ComboboxList>
+                        </ComboboxContent>
+                      </Combobox>
+                      {isInvalid && (
+                        <FieldError errors={field.state.meta.errors} />
+                      )}
+                    </Field>
+                  );
+                }}
+              </form.Field>
+            </div>
+            <form.Field name="name">
               {(field) => {
                 const isInvalid =
                   field.state.meta.isTouched && !field.state.meta.isValid;
                 return (
-                  <Field data-invalid={isInvalid} className="flex-1">
-                    <FieldLabel htmlFor={field.name}>Date of birth</FieldLabel>
+                  <Field data-invalid={isInvalid}>
+                    <FieldLabel htmlFor={field.name}>Name</FieldLabel>
                     <Input
                       id={field.name}
                       name={field.name}
-                      type="date"
-                      value={String(field.state.value)}
+                      value={field.state.value}
                       onBlur={field.handleBlur}
                       onChange={(ev) => field.handleChange(ev.target.value)}
                       aria-invalid={isInvalid}
@@ -308,135 +216,243 @@ export default function EditUserForm({ data }: Props) {
               }}
             </form.Field>
 
-            <form.Field name="authorAlias">
-            {(field) => {
-              const isInvalid =
-                field.state.meta.isTouched && !field.state.meta.isValid;
-              return (
-                <Field data-invalid={isInvalid} className="flex-1">
-                  <FieldLabel htmlFor={field.name}>Author alias</FieldLabel>
-                  <Input
-                    id={field.name}
-                    name={field.name}
-                    value={field.state.value ?? ""}
-                    onBlur={field.handleBlur}
-                    onChange={(ev) => field.handleChange(ev.target.value)}
-                    aria-invalid={isInvalid}
-                  />
-                  {isInvalid && <FieldError errors={field.state.meta.errors} />}
-                </Field>
-              );
-            }}
-          </form.Field>
-          </div>
+            <form.Field name="email">
+              {(field) => {
+                const isInvalid =
+                  field.state.meta.isTouched && !field.state.meta.isValid;
+                return (
+                  <Field data-invalid={isInvalid}>
+                    <FieldLabel htmlFor={field.name}>Email</FieldLabel>
+                    <Input
+                      id={field.name}
+                      name={field.name}
+                      value={field.state.value}
+                      onBlur={field.handleBlur}
+                      onChange={(ev) => field.handleChange(ev.target.value)}
+                      aria-invalid={isInvalid}
+                      type="email"
+                    />
+                    {isInvalid && (
+                      <FieldError errors={field.state.meta.errors} />
+                    )}
+                  </Field>
+                );
+              }}
+            </form.Field>
 
-          <form.Field name="userInfoId">
-            {(field) => {
-              const isInvalid =
-                field.state.meta.isTouched && !field.state.meta.isValid;
-              return (
-                <Field data-invalid={isInvalid} className="flex-1">
-                  <FieldLabel htmlFor={field.name}>User info ID</FieldLabel>
-                  <Input
-                    id={field.name}
-                    name={field.name}
-                    value={field.state.value ?? ""}
-                    onBlur={field.handleBlur}
-                    onChange={(ev) => field.handleChange(ev.target.value)}
-                    aria-invalid={isInvalid}
-                    disabled
-                  />
-                  {isInvalid && <FieldError errors={field.state.meta.errors} />}
-                </Field>
-              );
-            }}
-          </form.Field>
+            <form.Field name="image">
+              {(field) => {
+                const isInvalid =
+                  field.state.meta.isTouched && !field.state.meta.isValid;
+                return (
+                  <Field data-invalid={isInvalid}>
+                    <FieldLabel htmlFor={field.name}>Image</FieldLabel>
+                    <Input
+                      id={field.name}
+                      name={field.name}
+                      value={field.state.value ?? ""}
+                      onBlur={field.handleBlur}
+                      onChange={(ev) => field.handleChange(ev.target.value)}
+                      aria-invalid={isInvalid}
+                    />
+                    {isInvalid && (
+                      <FieldError errors={field.state.meta.errors} />
+                    )}
+                  </Field>
+                );
+              }}
+            </form.Field>
+            <div className="flex gap-12">
+              <form.Field name="phone">
+                {(field) => {
+                  const isInvalid =
+                    field.state.meta.isTouched && !field.state.meta.isValid;
+                  return (
+                    <Field data-invalid={isInvalid} className="flex-1">
+                      <FieldLabel htmlFor={field.name}>Phone number</FieldLabel>
+                      <Input
+                        id={field.name}
+                        name={field.name}
+                        value={field.state.value ?? ""}
+                        onBlur={field.handleBlur}
+                        onChange={(ev) => field.handleChange(ev.target.value)}
+                        aria-invalid={isInvalid}
+                      />
+                      {isInvalid && (
+                        <FieldError errors={field.state.meta.errors} />
+                      )}
+                    </Field>
+                  );
+                }}
+              </form.Field>
 
-          <div className="flex gap-12">
-            <form.Field name="street">
-            {(field) => {
-              const isInvalid =
-                field.state.meta.isTouched && !field.state.meta.isValid;
-              return (
-                <Field data-invalid={isInvalid} className="flex-1">
-                  <FieldLabel htmlFor={field.name}>Street</FieldLabel>
-                  <Input
-                    id={field.name}
-                    name={field.name}
-                    value={field.state.value ?? ""}
-                    onBlur={field.handleBlur}
-                    onChange={(ev) => field.handleChange(ev.target.value)}
-                    aria-invalid={isInvalid}
-                  />
-                  {isInvalid && <FieldError errors={field.state.meta.errors} />}
-                </Field>
-              );
-            }}
-          </form.Field>
+              <form.Field name="birthdate">
+                {(field) => {
+                  const isInvalid =
+                    field.state.meta.isTouched && !field.state.meta.isValid;
+                  return (
+                    <Field data-invalid={isInvalid} className="flex-1">
+                      <FieldLabel htmlFor={field.name}>
+                        Date of birth
+                      </FieldLabel>
+                      <Input
+                        id={field.name}
+                        name={field.name}
+                        type="date"
+                        value={String(field.state.value)}
+                        onBlur={field.handleBlur}
+                        onChange={(ev) => field.handleChange(ev.target.value)}
+                        aria-invalid={isInvalid}
+                      />
+                      {isInvalid && (
+                        <FieldError errors={field.state.meta.errors} />
+                      )}
+                    </Field>
+                  );
+                }}
+              </form.Field>
 
-          <form.Field name="city">
-            {(field) => {
-              const isInvalid =
-                field.state.meta.isTouched && !field.state.meta.isValid;
-              return (
-                <Field data-invalid={isInvalid} className="flex-1">
-                  <FieldLabel htmlFor={field.name}>City</FieldLabel>
-                  <Input
-                    id={field.name}
-                    name={field.name}
-                    value={field.state.value ?? ""}
-                    onBlur={field.handleBlur}
-                    onChange={(ev) => field.handleChange(ev.target.value)}
-                    aria-invalid={isInvalid}
-                  />
-                  {isInvalid && <FieldError errors={field.state.meta.errors} />}
-                </Field>
-              );
-            }}
-          </form.Field>
+              <form.Field name="authorAlias">
+                {(field) => {
+                  const isInvalid =
+                    field.state.meta.isTouched && !field.state.meta.isValid;
+                  return (
+                    <Field data-invalid={isInvalid} className="flex-1">
+                      <FieldLabel htmlFor={field.name}>Author alias</FieldLabel>
+                      <Input
+                        id={field.name}
+                        name={field.name}
+                        value={field.state.value ?? ""}
+                        onBlur={field.handleBlur}
+                        onChange={(ev) => field.handleChange(ev.target.value)}
+                        aria-invalid={isInvalid}
+                      />
+                      {isInvalid && (
+                        <FieldError errors={field.state.meta.errors} />
+                      )}
+                    </Field>
+                  );
+                }}
+              </form.Field>
+            </div>
 
-          <form.Field name="zip">
-            {(field) => {
-              const isInvalid =
-                field.state.meta.isTouched && !field.state.meta.isValid;
-              return (
-                <Field data-invalid={isInvalid} className="flex-1">
-                  <FieldLabel htmlFor={field.name}>Zip</FieldLabel>
-                  <Input
-                    id={field.name}
-                    name={field.name}
-                    value={field.state.value ?? ""}
-                    onBlur={field.handleBlur}
-                    onChange={(ev) => field.handleChange(ev.target.value)}
-                    aria-invalid={isInvalid}
-                  />
-                  {isInvalid && <FieldError errors={field.state.meta.errors} />}
-                </Field>
-              );
-            }}
-          </form.Field>
+            <form.Field name="userInfoId">
+              {(field) => {
+                const isInvalid =
+                  field.state.meta.isTouched && !field.state.meta.isValid;
+                return (
+                  <Field data-invalid={isInvalid} className="flex-1">
+                    <FieldLabel htmlFor={field.name}>User info ID</FieldLabel>
+                    <Input
+                      id={field.name}
+                      name={field.name}
+                      value={field.state.value ?? ""}
+                      onBlur={field.handleBlur}
+                      onChange={(ev) => field.handleChange(ev.target.value)}
+                      aria-invalid={isInvalid}
+                      disabled
+                    />
+                    {isInvalid && (
+                      <FieldError errors={field.state.meta.errors} />
+                    )}
+                  </Field>
+                );
+              }}
+            </form.Field>
 
-          <form.Field name="country">
-            {(field) => {
-              const isInvalid =
-                field.state.meta.isTouched && !field.state.meta.isValid;
-              return (
-                <Field data-invalid={isInvalid} className="flex-1">
-                  <FieldLabel htmlFor={field.name}>Country</FieldLabel>
-                  <Input
-                    id={field.name}
-                    name={field.name}
-                    value={field.state.value ?? ""}
-                    onBlur={field.handleBlur}
-                    onChange={(ev) => field.handleChange(ev.target.value)}
-                    aria-invalid={isInvalid}
-                  />
-                  {isInvalid && <FieldError errors={field.state.meta.errors} />}
-                </Field>
-              );
-            }}
-          </form.Field>
-          </div>
+            <div className="flex gap-12">
+              <form.Field name="street">
+                {(field) => {
+                  const isInvalid =
+                    field.state.meta.isTouched && !field.state.meta.isValid;
+                  return (
+                    <Field data-invalid={isInvalid} className="flex-1">
+                      <FieldLabel htmlFor={field.name}>Street</FieldLabel>
+                      <Input
+                        id={field.name}
+                        name={field.name}
+                        value={field.state.value ?? ""}
+                        onBlur={field.handleBlur}
+                        onChange={(ev) => field.handleChange(ev.target.value)}
+                        aria-invalid={isInvalid}
+                      />
+                      {isInvalid && (
+                        <FieldError errors={field.state.meta.errors} />
+                      )}
+                    </Field>
+                  );
+                }}
+              </form.Field>
+
+              <form.Field name="city">
+                {(field) => {
+                  const isInvalid =
+                    field.state.meta.isTouched && !field.state.meta.isValid;
+                  return (
+                    <Field data-invalid={isInvalid} className="flex-1">
+                      <FieldLabel htmlFor={field.name}>City</FieldLabel>
+                      <Input
+                        id={field.name}
+                        name={field.name}
+                        value={field.state.value ?? ""}
+                        onBlur={field.handleBlur}
+                        onChange={(ev) => field.handleChange(ev.target.value)}
+                        aria-invalid={isInvalid}
+                      />
+                      {isInvalid && (
+                        <FieldError errors={field.state.meta.errors} />
+                      )}
+                    </Field>
+                  );
+                }}
+              </form.Field>
+
+              <form.Field name="zip">
+                {(field) => {
+                  const isInvalid =
+                    field.state.meta.isTouched && !field.state.meta.isValid;
+                  return (
+                    <Field data-invalid={isInvalid} className="flex-1">
+                      <FieldLabel htmlFor={field.name}>Zip</FieldLabel>
+                      <Input
+                        id={field.name}
+                        name={field.name}
+                        value={field.state.value ?? ""}
+                        onBlur={field.handleBlur}
+                        onChange={(ev) => field.handleChange(ev.target.value)}
+                        aria-invalid={isInvalid}
+                      />
+                      {isInvalid && (
+                        <FieldError errors={field.state.meta.errors} />
+                      )}
+                    </Field>
+                  );
+                }}
+              </form.Field>
+
+              <form.Field name="country">
+                {(field) => {
+                  const isInvalid =
+                    field.state.meta.isTouched && !field.state.meta.isValid;
+                  return (
+                    <Field data-invalid={isInvalid} className="flex-1">
+                      <FieldLabel htmlFor={field.name}>Country</FieldLabel>
+                      <Input
+                        id={field.name}
+                        name={field.name}
+                        value={field.state.value ?? ""}
+                        onBlur={field.handleBlur}
+                        onChange={(ev) => field.handleChange(ev.target.value)}
+                        aria-invalid={isInvalid}
+                      />
+                      {isInvalid && (
+                        <FieldError errors={field.state.meta.errors} />
+                      )}
+                    </Field>
+                  );
+                }}
+              </form.Field>
+            </div>
 
             <Field orientation="horizontal">
               <Button className="cursor-pointer" type="submit">
@@ -449,6 +465,9 @@ export default function EditUserForm({ data }: Props) {
                 onClick={() => form.reset()}
               >
                 Reset
+              </Button>
+              <Button asChild variant="outline">
+                <Link href={`/dashboard/admin/users`}>Back to user table</Link>
               </Button>
             </Field>
           </FieldGroup>

@@ -21,7 +21,7 @@ const formSchema = z.object({
   city: z.string(),
   zip: z.string(),
   country: z.string(),
-  userInfoId: z.string()
+  userInfoId: z.string(),
 });
 
 type FormValues = z.infer<typeof formSchema>;
@@ -38,7 +38,6 @@ export default async function UserAction(id: string, input: FormValues) {
       user_info: {
         upsert: {
           update: {
-
             phoneNumber: data.phone,
             birthdate: new Date(data.birthdate),
             address: {
@@ -50,43 +49,40 @@ export default async function UserAction(id: string, input: FormValues) {
                   zip: data.zip,
                 },
                 create: {
-                city: data.city,
-                country: data.country,
-                street: data.street,
-                zip: data.zip,
+                  city: data.city,
+                  country: data.country,
+                  street: data.street,
+                  zip: data.zip,
+                },
               },
-              },
-              
             },
-
-
           },
           create: {
             phoneNumber: data.phone,
             birthdate: new Date(data.birthdate),
-          
+
             address: {
               connectOrCreate: {
                 where: {
-                  id: data.userInfoId
+                  id: data.userInfoId,
                 },
                 create: {
-                city: data.city,
-                country: data.country,
-                street: data.street,
-                zip: data.zip,
+                  city: data.city,
+                  country: data.country,
+                  street: data.street,
+                  zip: data.zip,
+                },
               },
-              },
-              
             },
           },
         },
-
       },
-      author: {upsert: {
-        update: { alias: data.authorAlias},
-        create: { alias: data.authorAlias}
-      }}
+      author: {
+        upsert: {
+          update: { alias: data.authorAlias },
+          create: { alias: data.authorAlias },
+        },
+      },
     },
   });
   revalidatePath("/dashboard/admin/users");
