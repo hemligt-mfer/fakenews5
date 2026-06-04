@@ -165,7 +165,6 @@ model UserInfo {
     address_id       String
     address          Address           @relation(fields: [address_id], references: [id])
     birthdate        DateTime
-    role             Role              @default(UNSUBSCRIBED)
     bookmark         Bookmark[]
     comments         Comment[]
     commentReactions CommentReaction[]

@@ -68,6 +68,58 @@ type Bookmark = {
     user_id: string;
 };
 
+// Lean type for listing pages — no views/reactions needed
+type ArticleSummary = {
+    id: string;
+    title: string;
+    summary: string | null;
+    image: string | null;
+    createdAt: Date;
+    updatedAt: Date;
+    location: string | null;
+    editorsChoice: boolean;
+    author: Author[];
+    category: Category[];
+};
+
+export async function getArticles(): Promise<Result<ArticleSummary[]>> {
+    try {
+        const articles = await prisma.article.findMany({
+            include: { author: true, category: true },
+            orderBy: { createdAt: "desc" },
+        });
+        return { success: true, data: articles };
+    } catch (err) {
+        return { success: false, error: `Couldn't fetch articles.\n\n${err}` };
+    }
+}
+
+export async function getEditorsChoiceArticles(): Promise<Result<ArticleSummary[]>> {
+    try {
+        const articles = await prisma.article.findMany({
+            where: { editorsChoice: true },
+            include: { author: true, category: true },
+            orderBy: { createdAt: "desc" },
+        });
+        return { success: true, data: articles };
+    } catch (err) {
+        return { success: false, error: `Couldn't fetch editor's choice articles.\n\n${err}` };
+    }
+}
+
+export async function getMostPopularArticles(limit = 3): Promise<Result<ArticleSummary[]>> {
+    try {
+        const articles = await prisma.article.findMany({
+            include: { author: true, category: true },
+            orderBy: { views: { _count: "desc" } },
+            take: limit,
+        });
+        return { success: true, data: articles };
+    } catch (err) {
+        return { success: false, error: `Couldn't fetch popular articles.\n\n${err}` };
+    }
+}
+
 export async function getArticle(articleId: string): Promise<Result<Article>> {
     try {
         const article = await prisma.article.findUnique({
