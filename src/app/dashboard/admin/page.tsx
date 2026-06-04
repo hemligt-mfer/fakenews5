@@ -17,6 +17,7 @@ import {
   Counts,
   TopCommenter,
 } from "./_components/charts/user-counts";
+import { ChartPieUserSub } from "./_components/charts/pie-chart";
 
 export default async function AdminDashboardPage() {
   const session = await auth.api.getSession({
@@ -48,7 +49,7 @@ export default async function AdminDashboardPage() {
   return (
     <div>
       <RouteHeading label="Admin dashboard" />
-      <div className="flex m-10 gap-10">
+      <div className="flex justify-between m-10 gap-10">
         <ChartLineLinear />
 
         <div className="flex-row">
@@ -67,6 +68,7 @@ export default async function AdminDashboardPage() {
           user={topComment.user}
           commentCount={topComment.commentCount}
         />
+        <ChartPieUserSub/>
       </div>
     </div>
   );
