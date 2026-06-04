@@ -13,7 +13,7 @@ export const user = ac.newRole({
 });
 
 export const admin = ac.newRole({
-    article: ["create", "update", "delete", "read"],
+    article: ["create", "update", "delete", "comment", "like", "dislike", "read"],
     ...adminAc.statements,
 });
 
