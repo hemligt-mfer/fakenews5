@@ -11,11 +11,15 @@ import {
   userCounts,
   commentCount,
   topCommenter,
+  topViewedArticle,
+  topLikedArticle,
 } from "./_actions/chart-actions";
 import {
   LatestRegUsers,
   Counts,
   TopCommenter,
+  TopViewedArticles,
+  TopLikedArticles,
 } from "./_components/charts/user-counts";
 import { ChartPieUserSub } from "./_components/charts/pie-chart";
 
@@ -45,30 +49,40 @@ export default async function AdminDashboardPage() {
   const users = await userCounts();
   const comments = await commentCount();
   const topComment = await topCommenter();
+  const topArticles = await topViewedArticle();
+  const likes = await topLikedArticle();
 
   return (
-    <div>
+    <div className="mb-10">
       <RouteHeading label="Admin dashboard" />
       <div className="flex justify-between m-10 gap-10">
         <ChartLineLinear />
 
         <div className="flex-row">
-          <LatestRegUsers data={latest} />
-
-          <Counts
-            articleCount={articleCount}
-            userCount={users}
-            comments={comments}
-          />
+          <div className="mb-8">
+            <Counts
+              articleCount={articleCount}
+              userCount={users}
+              comments={comments}
+            />
+          </div>
+          <div className="mb-8">
+            <TopLikedArticles likes={likes} />
+            {/* <TopCommenter
+              user={topComment.user}
+              commentCount={topComment.commentCount}
+            /> */}
+          </div>
+          <div>
+            <TopViewedArticles articles={topArticles} />
+          </div>
         </div>
       </div>
-      <div className="flex m-10 gap-12">
+      <div className="flex m-10 gap-12 justify-between">
         <CountryChart chartData={chartData} />
-        <TopCommenter
-          user={topComment.user}
-          commentCount={topComment.commentCount}
-        />
-        <ChartPieUserSub/>
+        <LatestRegUsers data={latest} />
+
+        <ChartPieUserSub />
       </div>
     </div>
   );

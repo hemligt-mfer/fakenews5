@@ -79,4 +79,46 @@ export async function topCommenter(){
   return { user: topUser, commentCount: result[0]._count.id}
 }
 
+export async function topViewedArticle(){
+const result = await prisma.articleView.groupBy({
+  by: ["articleId"],
+  _count: {articleId: true},
+  orderBy: { _count: {articleId: "desc"}},
+  take: 1,
+})
+
+const articles = await prisma.article.findMany({
+  where: {id: {in : result.map((r) => r.articleId)},
+  deleted: null
+},
+  select: {id: true, title: true}
+})
+return result.map((r) => ({
+  articleId: r.articleId,
+  title: articles.find((a) => a.id === r.articleId)?.title,
+  views: r._count.articleId
+}))
+}
+
+export async function topLikedArticle(){
+  const result = await prisma.articleReaction.groupBy({
+    by: ["article_id"],
+    _count: {article_id: true},
+    orderBy: {_count: {article_id: "desc"}},
+    take: 2
+  })
+  const articles = await prisma.article.findMany({
+    where: { id: { in: result.map((r) => r.article_id)}, 
+  deleted: null},
+  select: {id: true, title: true}
+    
+  })
+
+  return result.map((r) => ({
+    articleId: r.article_id,
+    title: articles.find((a) => a.id === r.article_id)?.title,
+    likes: r._count.article_id
+  }))
+}
+
 
