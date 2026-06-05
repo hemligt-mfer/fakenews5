@@ -59,7 +59,7 @@ export default function ClientComment({
     userReaction: number | undefined;
     articleId: string;
     level: number;
-    parentComment: string;
+    parentComment: string | null;
     children?: ReactNode;
 }) {
     const [showReplyForm, setShowReplyForm] = useState(false);

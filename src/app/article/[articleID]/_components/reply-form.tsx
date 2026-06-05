@@ -26,7 +26,7 @@ export default function ReplyForm({
     edit,
 }: {
     articleId: string;
-    replyTo: string;
+    replyTo: string | null;
     edit: boolean;
 }) {
     const [loading, setLoading] = useState(false);
