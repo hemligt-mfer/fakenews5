@@ -37,7 +37,6 @@ export default async function AdminDashboardPage() {
             },
         },
     });
-    console.log(hasPermission);
     if (!hasPermission.success) {
         redirect("/");
     }
