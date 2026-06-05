@@ -1,13 +1,13 @@
 "use client";
 import Link from "next/link";
-// import {
-//   DropdownMenu,
-//   DropdownMenuContent,
-//   DropdownMenuItem,
-//   DropdownMenuTrigger,
-// } from "@/components/ui/dropdown-menu";
-// import { ChevronDown } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import { ChevronDown } from "lucide-react";
 
 export default function AdminNavbar() {
   return (
@@ -25,8 +25,23 @@ export default function AdminNavbar() {
         </li>
         <li>
           <Button asChild variant="ghost" className="text-white">
-            <Link  href="/dashboard/admin/users">User table</Link>
+            <Link href="/dashboard/admin/users">User table</Link>
           </Button>
+        </li>
+        <li>
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <Button variant="ghost" className="text-white">
+                Editor tools
+                <ChevronDown color="white" />
+              </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent>
+              <DropdownMenuItem>
+                <Link href="/article/add-article">Create article</Link>
+              </DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
         </li>
       </ul>
     </div>

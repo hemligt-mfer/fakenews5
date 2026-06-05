@@ -1,26 +1,37 @@
-import { auth } from "@/lib/auth";
-import { headers } from "next/headers";
-import SidebarClient from "./sidebar-client";
+"use client";
 
-export default async function AppSidebar() {
-  const session = await auth.api.getSession({
-    headers: await headers(),
-  });
+import {
+  Sidebar,
+  SidebarContent,
+  SidebarFooter,
+  SidebarGroup,
+  SidebarHeader,
+  SidebarMenu,
+  SidebarMenuItem,
+} from "@/components/ui/sidebar";
+import { NewsDropdownSM, NewsPages, SportPages } from "./dropdown-menus";
+import { SidebarLink } from "./sidebar-link";
 
-  let hasPermission = false;
-
-  if (session != null) {
-    const res = await auth.api.userHasPermission({
-      body: {
-        userId: session.user.id,
-        permissions: { article: ["create", "update", "delete"] },
-      },
-      headers: await headers(),
-    });
-    if (res?.success) {
-      hasPermission = true;
-    }
-  }
-
-  return <SidebarClient hasPermission={hasPermission} />;
+export default function AppSidebar() {
+  return (
+    <Sidebar variant="sidebar" collapsible="offcanvas">
+      <SidebarHeader>
+        <SidebarMenu>
+          <SidebarMenuItem>
+            <SidebarLink href="/">Home</SidebarLink>
+          </SidebarMenuItem>
+        </SidebarMenu>
+      </SidebarHeader>
+      <SidebarContent>
+        {/* Dropdown components */}
+        <SidebarGroup>
+          <SidebarMenu>
+            <NewsDropdownSM label="News" links={NewsPages} />
+            <NewsDropdownSM label="Sports" links={SportPages} />
+          </SidebarMenu>
+        </SidebarGroup>
+      </SidebarContent>
+      <SidebarFooter></SidebarFooter>
+    </Sidebar>
+  );
 }

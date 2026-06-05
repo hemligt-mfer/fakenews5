@@ -1,25 +1,23 @@
-import NavbarClient from "./_components/navbar-client";
-import { auth } from "@/lib/auth";
-import { headers } from "next/headers";
+"use client";
+import {
+  NewsDropdown,
+  SportPages,
+  NewsPages,
+} from "./_components/dropdown-menus";
 
-export default async function Navbar() {
-  const session = await auth.api.getSession({
-    headers: await headers(),
-  });
-
-  let hasPermission = false;
-
-  if (session != null) {
-    const res = await auth.api.userHasPermission({
-      body: {
-        userId: session.user.id,
-        permissions: { article: ["create", "update", "delete"] },
-      },
-      headers: await headers(),
-    });
-    if (res?.success) {
-      hasPermission = true;
-    }
-  }
-  return <NavbarClient hasPermission={hasPermission} />;
+export default function Navbar() {
+  return (
+    <div className="flex">
+      <div className="hidden lg:flex w-full items-center gap-2 px-6 bg-[#2d2d2d]">
+        <ul className="flex items-center mx-auto">
+          <li>
+            <NewsDropdown label="News" links={NewsPages} />
+          </li>
+          <li>
+            <NewsDropdown label="Sports" links={SportPages} />
+          </li>
+        </ul>
+      </div>
+    </div>
+  );
 }
