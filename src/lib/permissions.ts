@@ -8,7 +8,7 @@ const statement = {
 
 export const ac = createAccessControl(statement);
 
-export const user = ac.newRole({
+export const subscriber = ac.newRole({
     article: ["comment", "like", "dislike", "read"],
 });
 
@@ -21,4 +21,4 @@ export const editor = ac.newRole({
     article: ["create", "update", "delete", "comment", "like", "dislike"]
 })
 
-export const roles = ["user", "admin", "editor"] as const;
+export const roles = ["user", "subscriber","admin", "editor"] as const;

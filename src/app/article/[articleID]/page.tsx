@@ -1,4 +1,4 @@
-import { auth } from "@/lib/auth";
+
 import {
     addView,
     getArticle,
@@ -6,7 +6,6 @@ import {
     hasUserBookmarkedArticle,
     hasUserViewedArticle,
 } from "@/_actions/article-actions";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import Link from "next/link";
 import Likes from "./_components/likes";
 import Bookmark from "./_components/bookmark";

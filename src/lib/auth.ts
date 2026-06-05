@@ -6,7 +6,7 @@ import { nextCookies } from "better-auth/next-js";
 import nodemailer from "nodemailer";
 import dotenv from "dotenv";
 import { admin as adminPlugin } from "better-auth/plugins";
-import { editor, admin, user, ac } from "./permissions";
+import { editor, admin, subscriber, ac } from "./permissions";
 
 dotenv.config();
 
@@ -52,7 +52,7 @@ export const auth = betterAuth({
             );
         },
     },
-    plugins: [adminPlugin({ ac, roles: { admin, user, editor } }), nextCookies()],
+    plugins: [adminPlugin({ ac, roles: { admin, subscriber, editor } }), nextCookies()],
     emailVerification: {
         autoSignInAfterVerification: true,
         sendOnSignUp: true,
