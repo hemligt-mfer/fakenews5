@@ -6,7 +6,7 @@ School project at Lexicon GR18. Team repo: https://github.com/hemligt-mfer/faken
 
 ## Key rules
 - **Never push directly to `main`** — always work on a branch, push the branch, open a PR
-- **Always run `pnpm prisma migrate deploy && pnpm prisma generate` after pulling** if migrations changed
+- **After pulling, always run `pnpm prisma db push && pnpm prisma generate`** — ⚠️ `prisma migrate deploy` does NOT work (migration history is broken, see Database section below)
 - **Clear `.next` only when the dev server is stopped** — never while it is running
 - `package.json` dev script has a local-only fix (`env -u MallocNanoZone next dev`) — do not commit it
 - `prisma/schema.prisma` must NOT have `role` in the `UserInfo` model — the migration dropped it but the team forgot to update the schema. Re-remove it after every pull if it reappears.
@@ -46,11 +46,13 @@ SMTP_PASS="weT4wHztKm2nYrBVTy"
 
 ## Database
 - **Schema:** `prisma/schema.prisma`
-- **Migrations:** `prisma/migrations/` — 17 migrations applied
-- **Known issue:** `UserInfo.role` was dropped by migration but team keeps adding it back to schema — always remove it and regenerate
+- **Migrations:** `prisma/migrations/` — ⚠️ **history is broken** (the `init` migration was deleted in a merge). `prisma migrate deploy` and `prisma migrate dev` will fail with a drift error. Use `prisma db push` instead (see below).
+- **Sync schema to DB:** `pnpm prisma db push` — safe, preserves data, works despite broken migration history
 - **Regenerate client:** `pnpm prisma generate`
-- **Apply migrations:** `pnpm prisma migrate deploy`
+- **DO NOT use:** `pnpm prisma migrate deploy` or `pnpm prisma migrate dev` — these will report massive drift and offer to reset (wipe) the database
+- **Known issue:** `UserInfo.role` was dropped by migration but team keeps adding it back to schema — always remove it and regenerate
 - **Set user as admin:** `docker exec postgres_sv psql -U postgres -d fakenews5 -c "UPDATE \"user\" SET role = 'admin' WHERE email = 'your@email.com';"`
+- **Fix needed (GitHub issue #44):** Migration history needs a baseline recreation so `migrate deploy` can work again — see the issue for instructions
 
 ## Folder structure
 ```
@@ -142,8 +144,11 @@ Roles live on the `User.role` (Better Auth) field, NOT on `UserInfo` (that colum
 | Problem | Fix |
 |---|---|
 | `column "role" does not exist` | Remove `role` from `UserInfo` in schema.prisma, run `pnpm prisma generate`, clear `.next` |
-| Blank article page | Run `pnpm prisma migrate deploy && pnpm prisma generate` — missing migrations |
+| Blank article page / "Couldn't find article" | Schema out of sync — run `pnpm prisma db push && pnpm prisma generate`, clear `.next` |
+| `prisma migrate dev` wants to reset the database | ⚠️ Do NOT reset — migration history is broken. Use `pnpm prisma db push` instead |
+| `prisma migrate deploy` reports drift | Same cause — use `pnpm prisma db push` until the migration history is fixed (see issue #44) |
 | Turbopack workspace root warning | `next.config.ts` must have `turbopack: { root: __dirname }` |
 | `MallocStackLogging` spam | `~/.zshrc` has `export MallocNanoZone=1` — open a new terminal |
 | Computer slow / out of RAM | Quit Teams + DeepL; only run `postgres_sv` Docker container |
 | `pnpm dev` won't start | Stop dev server first, then `rm -rf .next`, then restart |
+| Hydration mismatch from ProtonPass / password manager | Add `suppressHydrationWarning` to the div wrapping the email input |
