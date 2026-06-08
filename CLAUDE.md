@@ -8,7 +8,7 @@ School project at Lexicon GR18. Team repo: https://github.com/hemligt-mfer/faken
 - **Never push directly to `main`** — always work on a branch, push the branch, open a PR
 - **After pulling, always run `pnpm prisma db push && pnpm prisma generate`** — ⚠️ `prisma migrate deploy` does NOT work (migration history is broken, see Database section below)
 - **Clear `.next` only when the dev server is stopped** — never while it is running
-- `package.json` dev script has a local-only fix (`env -u MallocNanoZone next dev`) — do not commit it
+- `package.json` dev script has a local-only fix (`MallocNanoZone=0 next dev --no-turbopack`) — do not commit it
 - `prisma/schema.prisma` must NOT have `role` in the `UserInfo` model — the migration dropped it but the team forgot to update the schema. Re-remove it after every pull if it reappears.
 
 ## Local dev setup
@@ -149,6 +149,7 @@ Roles live on the `User.role` (Better Auth) field, NOT on `UserInfo` (that colum
 | `prisma migrate deploy` reports drift | Same cause — use `pnpm prisma db push` until the migration history is fixed (see issue #44) |
 | Turbopack workspace root warning | `next.config.ts` must have `turbopack: { root: __dirname }` |
 | `MallocStackLogging` spam | `~/.zshrc` has `export MallocNanoZone=1` — open a new terminal |
+| `malloc: pointer being freed was not allocated` crash (M1) | Turbopack native module heap corruption. Fix: `"dev": "MallocNanoZone=0 next dev --no-turbopack"` in `package.json` (local only, do not commit) |
 | Computer slow / out of RAM | Quit Teams + DeepL; only run `postgres_sv` Docker container |
 | `pnpm dev` won't start | Stop dev server first, then `rm -rf .next`, then restart |
 | Hydration mismatch from ProtonPass / password manager | Add `suppressHydrationWarning` to the div wrapping the email input |

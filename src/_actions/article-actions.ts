@@ -2,7 +2,6 @@
 
 import prisma from "@/lib/prisma";
 import { Result } from "@/lib/types";
-import { getUserId } from "./user-actions";
 
 type Article = {
     id: string;

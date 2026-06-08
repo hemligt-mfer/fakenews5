@@ -56,7 +56,8 @@ export default function NewsSidebar({ mostRead }: Props) {
       )}
 
       {/* Morning Briefing / Newsletter */}
-      <div className="bg-muted border border-border p-3.5">
+      {/* suppressHydrationWarning: password managers (e.g. ProtonPass) inject attributes onto forms */}
+      <div className="bg-muted border border-border p-3.5" suppressHydrationWarning>
         <h3 className="font-sans text-[10px] font-bold uppercase tracking-widest border-b-2 border-foreground pb-1.5 mb-3">
           Morning Briefing
         </h3>

@@ -8,7 +8,7 @@
 ## Last session
 
 **Date:** 2026-06-08
-**Branch:** merged `feature/dark-mode-toggle` → `main` (PR #42)
+**Branch:** `fix/article-page-and-paywall` (pushed, PR not yet created)
 
 ---
 
@@ -40,10 +40,24 @@
 - ✅ Admin navbar moved into root layout (#41)
 - ✅ Hydration fix (#40)
 - ✅ Reactions bug fixed — users can now react to multiple articles
+- ✅ Paywall infrastructure — `auth.api.userHasPermission` with `article: ["read"]` permission check in article page (redirect commented out until subscription system is live)
 
 ---
 
 ## In progress
+
+### Branch: `fix/article-page-and-paywall` (not yet merged)
+
+- ✅ Fixed blank article page for logged-in users (`getUserId()` returns `false`/`undefined` — both falsy; article now always rendered, user-specific code guarded by `typeof userId === "string"`)
+- ✅ Integrated team's paywall infrastructure into article page (session + permission check)
+- ✅ Restored dark mode + sticky header in `layout.tsx` after bad auto-merge overwrote it
+- ✅ Fixed `CommentReaction` table missing `userInfoId` column — added via `prisma db push` (was causing "Couldn't find article" for all articles)
+- ✅ CLAUDE.md updated: db push workaround, migration history warning, malloc fix
+- ✅ GitHub issue #44 opened: broken migration history — `prisma migrate dev/deploy` will offer to wipe DB, use `prisma db push` instead
+- ✅ Added `priority` to logo `<Image>` in header (fixes Next.js LCP warning)
+- ✅ About page created (`src/app/about/page.tsx`)
+- ✅ Article page refactored to fetch article + session in parallel (`Promise.all`); eliminated triple `getArticle` call (was causing crash on M1 Mac under Turbopack)
+- ✅ `--no-turbopack` added to local dev script (fixes `malloc: pointer being freed was not allocated` crash on M1)
 
 ### Known schema issue (still not fixed in main)
 
@@ -55,10 +69,15 @@
 
 ## Next up
 
+### Open PRs waiting for merge
+- [ ] `fix/article-page-and-paywall` — create PR for this branch (covers all fixes above)
+- [ ] `fix/remove-userinfo-role` — removes role from UserInfo schema
+
 ### Bugs to fix
 
-- [ ] **Article reactions `@unique` on `userId`** — a user can only react to ONE article total. Should be `@@unique([userId, article_id])`. Needs migration. Branch: `fix/article-reaction-unique-constraint`
-- [ ] **Permission check on add-article** — team's version has broken `if (!hasPermission)` (never redirects). Should be `if (!hasPermission.success)` with `article: ["create"]` only.
+- [ ] **`add-article` author field** — article is created with no author if the typed alias doesn't match exactly. Should show a dropdown of existing authors instead of a free-text input.
+- [ ] **`add-article` redirect after submit** — currently redirects to `/` (home). Should redirect to the new article's page using `router.push(\`/article/${result.data}\`)`.
+- [ ] **Migration history broken (GitHub issue #44)** — one team member needs to follow issue steps to recreate the baseline migration so `prisma migrate deploy` works again.
 
 ### Project requirements still to build
 
@@ -79,28 +98,31 @@
 
 ## Known issues
 
-| Issue                                  | Status                    | Fix                                                       |
-| -------------------------------------- | ------------------------- | --------------------------------------------------------- |
-| `UserInfo.role` in schema crashes app  | Recurring after each pull | Remove from schema, `pnpm prisma generate`, clear `.next` |
-| Article reactions `@unique` on userId  | Not fixed                 | New branch needed                                         |
-| `add-article` permission check broken  | Not fixed                 | Team's version reverts our fix each time                  |
-| OMX data only live during market hours | By design                 | Shows `–` outside trading hours                           |
+| Issue | Status | Fix |
+|---|---|---|
+| `UserInfo.role` in schema crashes app | Recurring after each pull | Remove from schema, `pnpm prisma generate`, clear `.next` |
+| `prisma migrate dev/deploy` wants to reset DB | Not fixed (issue #44) | Use `pnpm prisma db push` instead — preserves data |
+| `malloc: pointer being freed was not allocated` on M1 | Fixed locally | `"dev": "MallocNanoZone=0 next dev --no-turbopack"` in `package.json` (local only) |
+| OMX data only live during market hours | By design | Shows `–` outside trading hours |
+| `commentary-section.tsx` TS error (missing `Role` enum) | Not fixed | Tied to `fix/remove-userinfo-role` PR |
+| `calendar.tsx` TS error (`table` not in ClassNames) | Not fixed | shadcn/ui version mismatch — low priority |
 
 ---
 
 ## Git state
 
 ```
-main                        ← fully up to date with origin/main
-feature/landing-page-cards  ← merged into main ✅
-feature/dark-mode-toggle    ← merged into main ✅ (PR #42, 2026-06-08)
-fix/remove-userinfo-role    ← pushed, PR open, not merged yet
+main                           ← fully up to date with origin/main
+fix/article-page-and-paywall   ← active branch, pushed, PR not yet created
+fix/remove-userinfo-role       ← pushed, PR open, not merged yet
+feature/dark-mode-toggle       ← merged into main ✅ (PR #42)
+feature/landing-page-cards     ← merged into main ✅
 ```
 
 ## Local environment
 
-- **Project path:** '/Users/petedw/Documents/GR18-Lexicon/Project 2 - News'
+- **Project path:** `/Users/petedw/Documents/GR18-Lexicon/Project 2 - News/fakenews5`
 - **Docker container:** `postgres_sv` must be running (port 5434, password `Merkava`)
-- **Run dev:** `pnpm dev` (MallocNanoZone fix is in `~/.zshrc` — open a fresh terminal)
+- **Run dev:** `pnpm dev` — uses `MallocNanoZone=0 next dev --no-turbopack` (local fix in `package.json`, do not commit)
 - **Browser for dev:** Firefox (Safari has localhost cookie issues)
 - **Alpha Vantage key:** in `.env` as `ALPHAVANTAGE_API_KEY` (not currently used — OMX via Nasdaq instead)
