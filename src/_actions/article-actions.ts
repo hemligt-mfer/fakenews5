@@ -18,6 +18,8 @@ type Article = {
     location: string | null;
     author: Author[];
     category: Category[];
+    editorsChoice: boolean;
+    deleted: null | Date;
 };
 
 type Comment = {
@@ -166,16 +168,16 @@ export async function changeReaction(
 ): Promise<Result<ArticleReaction>> {
     try {
         const reaction = await getUserReaction(articleId, userId);
-        if (reaction.success && reaction.data == 1) {
+        if (reaction.success && reaction.data && reaction.data.val == 1) {
             const newReaction = await prisma.articleReaction.update({
                 data: { val: -1 },
-                where: { article_id: articleId, userId: userId },
+                where: { id: reaction.data.id },
             });
             return { success: true, data: newReaction };
-        } else if (reaction.success && reaction.data == -1) {
+        } else if (reaction.success && reaction.data && reaction.data.val == -1) {
             const newReaction = await prisma.articleReaction.update({
                 data: { val: 1 },
-                where: { article_id: articleId, userId: userId },
+                where: { id: reaction.data.id },
             });
             return { success: true, data: newReaction };
         } else {
@@ -203,13 +205,13 @@ export async function changeReaction(
 export async function getUserReaction(
     articleId: string,
     userId: string,
-): Promise<Result<number | null>> {
+): Promise<Result<ArticleReaction | null>> {
     try {
         const article = await getArticle(articleId);
         if (article.success && article.data) {
             for (const r of article.data.reactions) {
                 if (r.userId === userId) {
-                    return { success: true, data: r.val };
+                    return { success: true, data: r };
                 }
             }
             return { success: true, data: null };
@@ -233,10 +235,15 @@ export async function removeUserReaction(
     userId: string,
 ): Promise<Result<ArticleReaction>> {
     try {
-        const res = await prisma.articleReaction.delete({
-            where: { article_id: articleId, userId: userId },
-        });
-        return { success: true, data: res };
+        const reaction = await getUserReaction(articleId, userId);
+        if (reaction.success && reaction.data) {
+            const res = await prisma.articleReaction.delete({
+                where: { id: reaction.data.id },
+            });
+            return { success: true, data: res };
+        } else {
+            return { success: false, error: `Unable to fetch user reaction from the database.` };
+        }
     } catch (err) {
         console.error(
             `An unknown error occurred when trying to remove an article reaction to article ${articleId}.\n\n${err}`,

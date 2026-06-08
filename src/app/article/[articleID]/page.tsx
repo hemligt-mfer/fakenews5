@@ -1,4 +1,3 @@
-
 import {
     addView,
     getArticle,
@@ -14,6 +13,11 @@ import Views from "./_components/views";
 import { format } from "date-fns";
 import CommentarySection from "./_components/commentary-section";
 import TopLevelCommentForm from "./_components/top-level-comment-form";
+import { auth } from "@/lib/auth";
+import { headers } from "next/headers";
+import RouteHeading from "@/components/route-heading";
+import { redirect } from "next/navigation";
+import ArticleDoesntExist from "./_components/article-doesnt-exists";
 
 export default async function ArticlePage({ params }: { params: Promise<{ articleID: string }> }) {
     const { articleID } = await params;
@@ -21,20 +25,38 @@ export default async function ArticlePage({ params }: { params: Promise<{ articl
     const userId = await getUserId();
     const article = await getArticle(articleID);
 
+    // Article not found
     if (!article.success || !article.data) {
-        return <div className="p-2 text-muted-foreground">Article not found.</div>;
+        return <ArticleDoesntExist />;
     }
 
-    const views = article.data.views.length;
+    // Check subscription permission
+    let hasPermission = false;
+    const session = await auth.api.getSession({ headers: await headers() });
+    if (session) {
+        const checkPermission = await auth.api.userHasPermission({
+            body: {
+                userId: session.user.id,
+                permissions: { article: ["read"] },
+            },
+        });
+        if (checkPermission.success) hasPermission = true;
+    }
 
-    // Total reaction score — always calculated, shown to everyone
+    // Paywall: uncomment when subscription system is live
+    // if (!hasPermission) {
+    //     redirect(`/preview/${articleID}`);
+    // }
+
+    // Always calculate views and reactions (shown to everyone)
+    const views = article.data.views.length;
     let totalReactions = 0;
     for (const r of article.data.reactions) {
         totalReactions += r.val;
     }
 
     // User-specific data — only fetched when logged in with a UserInfo record
-    let userReaction: number | undefined;
+    let userReaction: { id: string; val: number } | undefined;
     let bookmarked = false;
 
     if (typeof userId === "string") {
@@ -50,14 +72,16 @@ export default async function ArticlePage({ params }: { params: Promise<{ articl
         bookmarked = bookmark.success && bookmark.data === true;
     }
 
+    // Build category heading
+    let heading = "";
+    article.data.category.forEach((c, i) => {
+        heading += i + 1 !== article.data.category.length ? `${c.name}, ` : c.name;
+    });
+
     return (
         <div className="p-2">
             <div className="w-5xl">
-                {article.data.category.length > 0
-                    ? article.data.category.map((c, i) =>
-                          i + 1 !== article.data.category.length ? `${c.name}, ` : `${c.name}`,
-                      )
-                    : ""}
+                {heading.length > 0 && <RouteHeading label={heading} />}
                 <h1 className="font-extrabold text-2xl text-center">{article.data.title}</h1>
                 <p className="text-lg font-semibold text-center">
                     by{" "}
@@ -76,7 +100,7 @@ export default async function ArticlePage({ params }: { params: Promise<{ articl
                                 <Likes
                                     articleId={article.data.id}
                                     userId={userId}
-                                    userReaction={userReaction}
+                                    userReaction={userReaction?.val}
                                     num={totalReactions}
                                 />
                             </div>

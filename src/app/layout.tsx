@@ -6,6 +6,7 @@ import Header from "@/components/header";
 import Footer from "@/components/footer";
 import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
 import AppSidebar from "@/components/navbar/_components/app-sidebar";
+import { Toaster } from "sonner";
 import AdminNavbar from "./dashboard/admin/_components/admin-navbar";
 import { headers } from "next/headers";
 import { auth } from "@/lib/auth";
@@ -53,6 +54,7 @@ export default async function RootLayout({
       hasPermission = true;
     }
   }
+
   return (
     <html
       lang="en"
@@ -70,7 +72,6 @@ export default async function RootLayout({
           <Navbar />
           {hasPermission && <AdminNavbar />}
         </div>
-
         <div className="flex min-h-screen lg:min-w-5xl max-w-6xl shadow-2xl border-x border-gray-500 flex-1 mx-auto bg-white">
           <SidebarProvider
             defaultOpen={false}
@@ -81,13 +82,13 @@ export default async function RootLayout({
             }
           >
             <AppSidebar />
-
             <main className="flex max-w-6xl lg:min-w-5xl">
               <SidebarTrigger size="lg" className="lg:hidden" />
               {children}
             </main>
           </SidebarProvider>
         </div>
+        <Toaster />
         <Footer />
       </body>
     </html>

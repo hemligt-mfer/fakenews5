@@ -42,8 +42,14 @@ export default function CommentaryReactions({
 
     return (
         <div className="flex mr-auto">
-            <ThumbsUp size={17} onClick={upvote} fill={userReaction == 1 ? "black" : "white"} />
+            <ThumbsUp
+                className="cursor-pointer"
+                size={17}
+                onClick={upvote}
+                fill={userReaction == 1 ? "black" : "white"}
+            />
             <ThumbsDown
+                className="cursor-pointer"
                 size={17}
                 onClick={downvote}
                 fill={userReaction == -1 ? "black" : "white"}
