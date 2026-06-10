@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import CommentaryReactions from "./commentary-reactions";
 import { format } from "date-fns";
-import { Children, useState, type ReactNode } from "react";
+import { useState, type ReactNode } from "react";
 import ReplyForm from "./reply-form";
 
 type CommentData = {
@@ -62,23 +62,28 @@ export default function ClientComment({
     children?: ReactNode;
 }) {
     const [showReplyForm, setShowReplyForm] = useState(false);
+    const [collapsed, setCollapsed] = useState(false);
     const totalReactions = comment.reactions.reduce((acc, r) => acc + r.val, 0);
-    //const replies = Children.toArray(children);
 
     return (
         <div className="mx-auto">
             <Card className="mb-5">
                 <CardHeader className="border-b">
                     <CardTitle>
-                        <div className="flex">
-                            <div className="mr-auto">
+                        <div className="flex items-center">
+                            <button
+                                className="mr-auto flex items-center gap-2 text-left"
+                                onClick={() => setCollapsed((c) => !c)}
+                            >
                                 {level === 0 ? (
                                     <strong className="font-extrabold">#{num + 1}</strong>
                                 ) : (
                                     <span>#{num + 1}</span>
                                 )}
-                            </div>
-
+                                <span className="text-xs font-normal text-muted-foreground">
+                                    {collapsed ? "▶ show" : "▼ hide"}
+                                </span>
+                            </button>
                             <Button
                                 className="cursor-pointer"
                                 onClick={() => setShowReplyForm(true)}
@@ -88,29 +93,37 @@ export default function ClientComment({
                         </div>
                     </CardTitle>
                 </CardHeader>
-                <CardContent>
-                    <p>{comment.content}</p>
-                </CardContent>
-                <CardFooter>
-                    <CommentaryReactions
-                        commentId={comment.id}
-                        userId={comment.user_id}
-                        userReaction={userReaction}
-                        num={totalReactions}
-                    />
-                    <div className="flex">
-                        by {commentAuthor.user.name} {format(comment.createdAt, "yyyy-MM-dd HH:mm")}
-                    </div>
-                </CardFooter>
+
+                {!collapsed && (
+                    <>
+                        <CardContent>
+                            <p>{comment.content}</p>
+                        </CardContent>
+                        <CardFooter>
+                            <CommentaryReactions
+                                commentId={comment.id}
+                                userId={currentUserId}
+                                userReaction={userReaction}
+                                num={totalReactions}
+                            />
+                            <div className="flex">
+                                by {commentAuthor.user.name}{" "}
+                                {format(comment.createdAt, "yyyy-MM-dd HH:mm")}
+                            </div>
+                        </CardFooter>
+                    </>
+                )}
             </Card>
-            {showReplyForm && (
+
+            {!collapsed && showReplyForm && (
                 <ReplyForm
                     articleId={articleId}
                     replyTo={level > 1 ? parentComment : comment.id}
                     edit={false}
                 />
             )}
-            {children}
+
+            {!collapsed && children}
         </div>
     );
 }

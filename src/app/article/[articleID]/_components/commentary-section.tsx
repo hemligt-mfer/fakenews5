@@ -1,24 +1,10 @@
-type Comment = {
-    id: string;
-    articleId: string;
-    user_id: string;
-    content: string;
-    createdAt: Date;
-    updatedAt: Date;
-    replyTo: string | null;
-    reactions: CommentReaction[];
-};
-
-type CommentReaction = {
-    id: string;
-    commentId: string;
-    userId: string;
-    val: number;
-};
-
-import { Card, CardHeader, CardTitle } from "@/components/ui/card";
-import { Role } from "@/generated/prisma/enums";
+"use client";
+import { useState } from "react";
 import CommentItem from "./comment-item";
+import { Comment } from "@/lib/types";
+
+const PAGE_SIZE = 5;
+
 export default function CommentarySection({
     articleId,
     comments,
@@ -26,18 +12,22 @@ export default function CommentarySection({
     articleId: string;
     comments: Comment[];
 }) {
-    const topLevelComments = [];
-    for (const c of comments) {
-        if (!c.replyTo) {
-            topLevelComments.push(c);
-        }
-    }
+    const [page, setPage] = useState(1);
+
+    const topLevel = comments.filter((c) => !c.replyTo);
+    const visible = topLevel.slice(0, page * PAGE_SIZE);
+    const hasMore = visible.length < topLevel.length;
 
     return (
         <div>
-            {topLevelComments.map((c, i) => {
-                return <CommentItem key={i} num={i} data={c} articleId={articleId} level={0} />;
-            })}
+            {visible.map((c, i) => (
+                <CommentItem key={c.id} num={i} data={c} articleId={articleId} level={0} />
+            ))}
+            {hasMore && (
+                <button className="mt-2 text-sm underline" onClick={() => setPage((p) => p + 1)}>
+                    Load more ({topLevel.length - visible.length} remaining)
+                </button>
+            )}
         </div>
     );
 }
