@@ -195,3 +195,20 @@ export async function getReplies(commentId: string) {
         console.error(`Couldn't fetch replies to comment ${commentId}.\n\n${err}`);
     }
 }
+
+export async function getTopComments(articleId: string) {
+    try {
+        const comments = await prisma.comment.findMany({
+            where: { articleId: articleId, replyTo: null },
+            include: { reactions: true },
+            orderBy: { createdAt: "asc" },
+        });
+        return { success: true, data: comments };
+    } catch (err) {
+        console.error(`Couldn't fetch comments to article ${articleId}.\n\n${err}`);
+        return {
+            success: false,
+            error: `Couldn't fetch comments to article ${articleId}.\n\n${err}`,
+        };
+    }
+}

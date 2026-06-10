@@ -11,12 +11,12 @@ import Bookmark from "./_components/bookmark";
 import { getUserId } from "@/_actions/user-actions";
 import Views from "./_components/views";
 import { format } from "date-fns";
-import CommentarySection from "./_components/commentary-section";
 import TopLevelCommentForm from "./_components/top-level-comment-form";
 import { auth } from "@/lib/auth";
 import { headers } from "next/headers";
 import { redirect } from "next/navigation";
 import ArticleDoesntExist from "./_components/article-doesnt-exists";
+import Comments from "./_components/_comments/comments";
 
 export default async function ArticlePage({ params }: { params: Promise<{ articleID: string }> }) {
     const { articleID } = await params;
@@ -123,16 +123,7 @@ export default async function ArticlePage({ params }: { params: Promise<{ articl
                     </div>
                 </div>
                 <h1 className="font-extrabold text-2xl text-center my-2">Comments</h1>
-                <div className="border-b-2 md:w-3xl mx-auto">
-                    {article.data.comments ? (
-                        <CommentarySection
-                            comments={article.data.comments}
-                            articleId={article.data.id}
-                        />
-                    ) : (
-                        ""
-                    )}
-                </div>
+                <Comments articleId={article.data.id} />
                 {userId !== null ? (
                     <div className="mt-4">
                         <TopLevelCommentForm articleId={article.data.id} />
