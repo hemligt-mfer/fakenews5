@@ -12,6 +12,7 @@ import { MoreHorizontal } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { deletePlan } from "@/_actions/subscription-actions";
 import { toast } from "sonner";
+import { formatPrice } from "@/lib/format-price";
 
 export const columns: ColumnDef<Plan>[] = [
     {
@@ -45,7 +46,7 @@ export const columns: ColumnDef<Plan>[] = [
         header: "Price",
         cell: ({ row }) => {
             const price = row.original.price;
-            return <span className="text-xs block truncate max-w-20 md:max-w-full">{price}</span>;
+            return <span className="text-xs block truncate max-w-20 md:max-w-full">{formatPrice(price)}</span>;
         },
     },
     {
@@ -62,7 +63,7 @@ export const columns: ColumnDef<Plan>[] = [
         cell: ({ row }) => {
             const annualPrice = row.original.annualPrice;
             return (
-                <span className="text-xs block truncate max-w-20 md:max-w-full">{annualPrice}</span>
+                <span className="text-xs block truncate max-w-20 md:max-w-full">{formatPrice(Number(annualPrice))}</span>
             );
         },
     },

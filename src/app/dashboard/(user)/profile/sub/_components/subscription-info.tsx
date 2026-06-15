@@ -13,7 +13,7 @@ export default function SubscriptionInfo({
     canceledAt,
 }: {
     subscription: Subscription;
-    price: number;
+    price: string;
     canceledAt: Date | undefined;
 }) {
     if (subscription && subscription.stripeSubscriptionId) {

@@ -5,6 +5,7 @@ import { headers } from "next/headers";
 import Link from "next/link";
 import SubscriptionInfo from "./_components/subscription-info";
 import SubscriptionHistory from "./_components/subscription-history";
+import { formatPrice } from "@/lib/format-price";
 
 export default async function SubscriptionPage() {
     const session = await auth.api.getSession({ headers: await headers() });
@@ -15,7 +16,7 @@ export default async function SubscriptionPage() {
         latestSubscription = subscriptions[0];
         const plan = await getPlanByName(latestSubscription.plan);
         console.log(plan);
-        if (plan.success && plan.data) price = plan.data.price / 100;
+        if (plan.success && plan.data) price = plan.data.price;
     }
     let history;
     if (subscriptions.length > 1) {
@@ -50,7 +51,7 @@ export default async function SubscriptionPage() {
                     <div className="p-2">
                         <SubscriptionInfo
                             subscription={latestSubscription}
-                            price={price}
+                            price={formatPrice(price)}
                             canceledAt={latestSubscription.cancelAt}
                         />
                     </div>
