@@ -2,10 +2,12 @@
 import { createPlan } from "@/_actions/subscription-actions";
 import Button from "@/components/button";
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
+import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
 import { Field, FieldError, FieldGroup, FieldLabel } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { useForm } from "@tanstack/react-form";
+import { ChevronDownIcon } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { toast } from "sonner";
@@ -13,12 +15,12 @@ import z from "zod";
 
 const formSchema = z.object({
     name: z.string().min(1, "Name is required.").max(64),
-    description: z.string().optional().nullable(),
-    image: z.string().optional().nullable(),
+    description: z.string(),
+    image: z.string(),
     price: z.number(),
     priceId: z.string().min(10, "You must specify a price ID from Stripe.").max(128),
-    annualPrice: z.number().optional().nullable(),
-    annualPriceId: z.string().optional().nullable(),
+    annualPrice: z.number(),
+    annualPriceId: z.string(),
 });
 
 export default function CreatePlanForm() {
@@ -64,9 +66,17 @@ export default function CreatePlanForm() {
 
     return (
         <Card className="md:w-2xl">
-            <CardHeader>
-                <CardTitle>Create a new subscription plan</CardTitle>
-            </CardHeader>
+            <CardContent>
+                 <Collapsible className="rounded-md data-[state=open]:bg-muted">
+          <CollapsibleTrigger asChild>
+            <Button variant="ghost" className="group w-full">
+              Create a new subscription plan
+              <ChevronDownIcon className="ml-auto group-data-[state=open]:rotate-180" />
+            </Button>
+          </CollapsibleTrigger>
+          <CollapsibleContent className="flex flex-col items-start gap-2 p-2.5 pt-0 text-sm">
+            
+             <Card className="mx-auto w-full">
             <CardContent>
                 <form
                     id="create-plan-form"
@@ -111,6 +121,7 @@ export default function CreatePlanForm() {
                                         <Textarea
                                             id={field.name}
                                             name={field.name}
+                                            value={field.state.value ?? ""}
                                             onBlur={field.handleBlur}
                                             onChange={(ev) => field.handleChange(ev.target.value)}
                                             aria-invalid={isInvalid}
@@ -134,7 +145,7 @@ export default function CreatePlanForm() {
                                         <Input
                                             id={field.name}
                                             name={field.name}
-                                            value={field.state.value}
+                                            value={field.state.value ?? ""}
                                             onBlur={field.handleBlur}
                                             onChange={(ev) => field.handleChange(ev.target.value)}
                                             aria-invalid={isInvalid}
@@ -212,7 +223,7 @@ export default function CreatePlanForm() {
                                             type="number"
                                             id={field.name}
                                             name={field.name}
-                                            value={field.state.value}
+                                            value={field.state.value ?? ""}
                                             onBlur={field.handleBlur}
                                             onChange={(ev) =>
                                                 field.handleChange(Number(ev.target.value))
@@ -240,7 +251,7 @@ export default function CreatePlanForm() {
                                         <Input
                                             id={field.name}
                                             name={field.name}
-                                            value={field.state.value}
+                                            value={field.state.value ?? ""}
                                             onBlur={field.handleBlur}
                                             onChange={(ev) => field.handleChange(ev.target.value)}
                                             aria-invalid={isInvalid}
@@ -259,10 +270,15 @@ export default function CreatePlanForm() {
                 <Button form="create-plan-form" type="reset" variant={"outline"}>
                     Reset
                 </Button>
-                <Button form="create-plan-form" type="submit" variant={"default"}>
+                <Button form="create-plan-form" type="submit" variant={"default"} disabled={loading}>
                     Create
                 </Button>
             </CardFooter>
+        </Card>
+          </CollapsibleContent>
+        </Collapsible>
+            </CardContent>
+       
         </Card>
     );
 }
