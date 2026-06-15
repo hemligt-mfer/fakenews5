@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 export default function CookiesPage() {
   return (
     <div className="mx-auto w-full max-w-2xl px-10 py-14 text-black dark:text-white">
@@ -94,9 +96,9 @@ export default function CookiesPage() {
         <h2 className="font-serif font-bold text-xl mb-3">Contact</h2>
         <p className="leading-relaxed text-sm">
           If you have any questions about our use of cookies, please{" "}
-          <a href="/contact" className="underline hover:opacity-70">
+          <Link href="/contact" className="underline hover:opacity-70">
             contact us
-          </a>
+          </Link>
           .
         </p>
       </section>

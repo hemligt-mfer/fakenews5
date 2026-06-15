@@ -18,17 +18,16 @@ export async function LoginRegButtons() {
             </Button>
           </li>
           <li>
-            <SignOutButton/>
+            <SignOutButton />
           </li>
         </>
       ) : (
         <>
-        <li>
+          <li>
             <Button asChild variant="ghost" className="text-white">
               <Link href="/sign-in">Sign in</Link>
             </Button>
           </li>{" "}
-          {" "}
           <li>
             <Button asChild variant="ghost" className="text-white">
               <Link href="/register">Register</Link>

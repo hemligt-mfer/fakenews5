@@ -118,8 +118,10 @@ export default function Page() {
           </p>
           <p>
             We aim to provide a humorous take on the news while also encouraging
-            critical thinking and media literacy. Please note that all content
-            on Fakenews5 is fictional and should not be taken seriously.
+            critical thinking and media literacy. Unless explicitly identified
+            otherwise, content published on Fakenews5 is fictional, satirical,
+            or parody content and should not be interpreted as factual
+            reporting.
           </p>
         </div>
       </div>

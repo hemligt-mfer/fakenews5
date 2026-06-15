@@ -7,8 +7,8 @@
 
 ## Last session
 
-**Date:** 2026-06-08
-**Branch:** `fix/article-page-and-paywall` (pushed, PR not yet created)
+**Date:** 2026-06-15
+**Branch:** `fix/author-must-be-registered` (PR #68 open, not yet merged)
 
 ---
 
@@ -18,81 +18,84 @@
 
 - ✅ Newspaper landing page layout (hero + side column + Latest News + Most Popular + sidebar)
 - ✅ Live weather widget — Open-Meteo, Linköping, refreshes every 10 min
-- ✅ Live markets widget — OMX Stockholm 30 (Nasdaq), EUR/SEK + USD/SEK (Frankfurter),
-  Electricity SE3 (Elprisetjustnu.se), all with % change vs previous period
+- ✅ Live markets widget — OMX Stockholm 30 (Nasdaq), EUR/SEK + USD/SEK (Frankfurter), Electricity SE3
 - ✅ New components: HeroCard, NewsCard, SidebarCard, SectionHead, WeatherWidget, MarketsWidget, NewsSidebar
 - ✅ API routes: `/(api)/weather`, `/(api)/markets`
 - ✅ CLAUDE.md + STATUS.md added to repo
-- ✅ Dark/light mode toggle with ripple (circle reveal) animation
-- ✅ Anti-flash `<head>` script — prevents wrong theme on reload
-- ✅ Header + navbar both sticky (z-50) — never scroll behind images
-- ✅ Landing page aligned to shadcn design tokens — all hardcoded `#c8a84b` replaced with `text-primary`; raw `<input>`/`<button>` replaced with shadcn `Input`/`Button`; `<hr>` replaced with shadcn `Separator`
+- ✅ Dark/light mode toggle with ripple animation + anti-flash `<head>` script
+- ✅ Header + navbar sticky (z-50)
+- ✅ Landing page aligned to shadcn design tokens
+- ✅ Footer: auth-aware Register/My Page links, admin redirect, Privacy/ToS/Advertise links
+- ✅ Privacy Policy page (`/legal/privacy`) + Terms of Service page (`/legal/tos`)
+- ✅ Advertise page (`/advertise`) — audience stats, formats & rates table, contact CTA
+- ✅ Article page: `next/image` dimensions fix (fill + relative container)
+- ✅ Windows `pnpm dev` fix via `cross-env` (PR #56)
+- ✅ Footer gap removed (PR #58)
 
 ### Team's work (merged to main)
 
 - ✅ Auth: register, sign-in, forgot-password, email verification
-- ✅ Article CRUD: create, view, edit, reactions (like/dislike), bookmarks, views, comments + replies
-- ✅ Admin dashboard: charts (line, bar, pie), user counts, top commenter, article stats (#36)
-- ✅ User dashboard: account page (#35)
-- ✅ Article table with editor's choice toggle
-- ✅ User management table
-- ✅ Nested comments + reply form (#37)
-- ✅ Admin navbar moved into root layout (#41)
-- ✅ Hydration fix (#40)
-- ✅ Reactions bug fixed — users can now react to multiple articles
-- ✅ Paywall infrastructure — `auth.api.userHasPermission` with `article: ["read"]` permission check in article page (redirect commented out until subscription system is live)
+- ✅ Article CRUD: create, view, edit, reactions, bookmarks, views, comments + replies
+- ✅ Paywall: `auth.api.userHasPermission` check; non-subscribers redirected to `/preview`
+- ✅ Admin dashboard: charts (line, bar, pie), user counts, top commenter, article stats
+- ✅ User dashboard: account page, edit profile, change email/password
+- ✅ Article table with editor's choice toggle + soft-delete (`removed-from-site`)
+- ✅ User management table + per-user edit (includes Author alias field)
+- ✅ Admin plans page (`/dashboard/admin/plans`) — create/edit/delete subscription plans
+- ✅ Subscription system — user can subscribe, cancel, restore; history page
+- ✅ Public subscriptions page (`/subscriptions`) listing active plans
+- ✅ Search params update (PR #69)
+- ✅ Auto-create Author on publish (PR #67) — **superseded by PR #68**
 
 ---
 
 ## In progress
 
-### Branch: `fix/article-page-and-paywall` (not yet merged)
+### Branch: `fix/author-must-be-registered` — PR #68 (open)
 
-- ✅ Fixed blank article page for logged-in users (`getUserId()` returns `false`/`undefined` — both falsy; article now always rendered, user-specific code guarded by `typeof userId === "string"`)
-- ✅ Integrated team's paywall infrastructure into article page (session + permission check)
-- ✅ Restored dark mode + sticky header in `layout.tsx` after bad auto-merge overwrote it
-- ✅ Fixed `CommentReaction` table missing `userInfoId` column — added via `prisma db push` (was causing "Couldn't find article" for all articles)
-- ✅ CLAUDE.md updated: db push workaround, migration history warning, malloc fix
-- ✅ GitHub issue #44 opened: broken migration history — `prisma migrate dev/deploy` will offer to wipe DB, use `prisma db push` instead
-- ✅ Added `priority` to logo `<Image>` in header (fixes Next.js LCP warning)
-- ✅ About page created (`src/app/about/page.tsx`)
-- ✅ Article page refactored to fetch article + session in parallel (`Promise.all`); eliminated triple `getArticle` call (was causing crash on M1 Mac under Turbopack)
-- ✅ `--no-turbopack` added to local dev script (fixes `malloc: pointer being freed was not allocated` crash on M1)
+- ✅ `add-article-action`: requires existing Author profile; returns clear error if none
+- ✅ Co-authors typed in form only connected if already registered — no auto-create
+- ✅ `/dashboard/admin/authors` — admin page to register/edit alias/remove authors
+- ✅ `permissions.ts` — added `"author"` role (create + read + comment + like/dislike)
+- ✅ Registering an author atomically sets `User.role = "author"`; removing reverts to `"user"`
+- ✅ "Authors" link added to admin navbar
 
-### Known schema issue (still not fixed in main)
+### Local uncommitted changes on `main` (need to be branched + PRed)
 
-- `UserInfo.role` field is still in `schema.prisma` but was dropped from the database by migration
-- After every pull: check if `role Role @default(UNSUBSCRIBED)` is back in UserInfo — if so, remove it and run `pnpm prisma generate` + clear `.next`
-- Fix is on branch `fix/remove-userinfo-role` — needs team to merge
+These files have local edits that were not committed — they should go on a new branch:
+- `src/components/header.tsx` — `bg-[#2d2d2d]` → `bg-foreground` (design token fix)
+- `src/app/about/page.tsx` — unknown team edit
+- `src/app/contact/ContactForm.tsx` — unknown team edit
+- `src/app/cookies/cookies.tsx` — unknown team edit
+- `src/components/navbar/_components/login-register-buttons.tsx` — unknown team edit
 
 ---
 
 ## Next up
 
-### Open PRs waiting for merge
-- [ ] `fix/article-page-and-paywall` — create PR for this branch (covers all fixes above)
-- [ ] `fix/remove-userinfo-role` — removes role from UserInfo schema
+### Immediate
+- [ ] Merge PR #68 (`fix/author-must-be-registered`)
+- [ ] Branch + PR the local uncommitted changes above
 
-### Bugs to fix
+### Bugs / gaps
 
-- [ ] **`add-article` author field** — article is created with no author if the typed alias doesn't match exactly. Should show a dropdown of existing authors instead of a free-text input.
-- [ ] **`add-article` redirect after submit** — currently redirects to `/` (home). Should redirect to the new article's page using `router.push(\`/article/${result.data}\`)`.
-- [ ] **Migration history broken (GitHub issue #44)** — one team member needs to follow issue steps to recreate the baseline migration so `prisma migrate deploy` works again.
+- [ ] **`add-article` redirect after submit** — currently goes to `/` (home). Should go to `/article/${newId}`.
+- [ ] **Author field in add-article form** — still a free-text input for co-authors. Could become a dropdown of registered authors.
+- [ ] **Migration history broken (GitHub issue #44)** — `prisma migrate deploy` wants to wipe DB. Use `prisma db push` until fixed.
 
 ### Project requirements still to build
 
-- [ ] **Subscription system** — "Subscribe Now" for unsubscribed users, credit card validation (Zod), Stripe integration (`stripe` CLI is installed at `~/.local/bin/stripe`)
-- [ ] **My page / user profile** — edit profile, reset password, view subscriptions, personalised newsletter signup
-- [ ] **Cookie consent / privacy page**
+- [ ] **Stripe live integration** — `priceId` fields are in the schema; payment flow not wired
+- [ ] **Cookie consent banner** — cookies page exists but no consent gate
 - [ ] **AI functionality** — generate article drafts or images (OpenAI/Anthropic key needed)
-- [ ] **Category pages** — wire up nav links (Ekonomi, Inrikes, Väder, Utrikes, Sports subcategories)
-- [ ] **Image upload** — currently articles take a URL; could add Uploadthing or Cloudinary for direct upload
+- [ ] **Category pages** — nav links exist but category listing pages not built
+- [ ] **Image upload** — articles take a URL; Uploadthing or Cloudinary for direct upload
 
 ### Nice to have
 
-- [ ] Add `isMostPopular` badge on news cards
+- [ ] `isMostPopular` badge on news cards
 - [ ] Weather icon animations
-- [ ] Markets widget: add OMX chart (sparkline)
+- [ ] Markets widget sparkline chart (OMX)
 
 ---
 
@@ -101,28 +104,23 @@
 | Issue | Status | Fix |
 |---|---|---|
 | `UserInfo.role` in schema crashes app | Recurring after each pull | Remove from schema, `pnpm prisma generate`, clear `.next` |
-| `prisma migrate dev/deploy` wants to reset DB | Not fixed (issue #44) | Use `pnpm prisma db push` instead — preserves data |
-| `malloc: pointer being freed was not allocated` on M1 | Fixed locally | `"dev": "MallocNanoZone=0 next dev --no-turbopack"` in `package.json` (local only) |
+| `prisma migrate dev/deploy` wants to reset DB | Not fixed (issue #44) | Use `pnpm prisma db push` instead |
+| `malloc: pointer being freed was not allocated` on M1 | Fixed locally | `"dev": "MallocNanoZone=0 next dev"` in `package.json` (local only) |
 | OMX data only live during market hours | By design | Shows `–` outside trading hours |
-| `commentary-section.tsx` TS error (missing `Role` enum) | Not fixed | Tied to `fix/remove-userinfo-role` PR |
-| `calendar.tsx` TS error (`table` not in ClassNames) | Not fixed | shadcn/ui version mismatch — low priority |
 
 ---
 
 ## Git state
 
 ```
-main                           ← fully up to date with origin/main
-fix/article-page-and-paywall   ← active branch, pushed, PR not yet created
-fix/remove-userinfo-role       ← pushed, PR open, not merged yet
-feature/dark-mode-toggle       ← merged into main ✅ (PR #42)
-feature/landing-page-cards     ← merged into main ✅
+main                           ← up to date with origin/main (pulled 2026-06-15)
+fix/author-must-be-registered  ← active branch, pushed, PR #68 open
 ```
 
 ## Local environment
 
 - **Project path:** `/Users/petedw/Documents/GR18-Lexicon/Project 2 - News/fakenews5`
 - **Docker container:** `postgres_sv` must be running (port 5434, password `Merkava`)
-- **Run dev:** `pnpm dev` — uses `MallocNanoZone=0 next dev --no-turbopack` (local fix in `package.json`, do not commit)
+- **Run dev:** `pnpm dev` — uses `MallocNanoZone=0 next dev` (local fix in `package.json`, do not commit)
 - **Browser for dev:** Firefox (Safari has localhost cookie issues)
 - **Alpha Vantage key:** in `.env` as `ALPHAVANTAGE_API_KEY` (not currently used — OMX via Nasdaq instead)

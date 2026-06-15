@@ -4,7 +4,7 @@ import { z } from "zod";
 import { Send } from "lucide-react";
 import { useState, useEffect, useTransition } from "react";
 import { contactSchema } from "./_schemas/contact";
-import { useForm } from "@tanstack/react-form";
+import { useForm, AnyFieldApi } from "@tanstack/react-form";
 import { createMessage } from "./_actions/contact-actions";
 import { FieldError, FieldGroup } from "@/components/ui/field";
 import { Label } from "@/components/ui/label";
@@ -40,8 +40,7 @@ function InputField({
   labelStyling,
   inputStyling,
 }: {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  field: any;
+  field: AnyFieldApi;
   label: string;
   type: string;
   placeholder?: string;
