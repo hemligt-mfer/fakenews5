@@ -2,7 +2,6 @@
 
 import prisma from "@/lib/prisma";
 import { Result } from "@/lib/types";
-import { getUserId } from "./user-actions";
 
 type Article = {
     id: string;
@@ -302,7 +301,7 @@ export async function changeReaction(
     }
 }
 
-// Finds out of user has reacted to an article and in that case if it was an upvote 1 or downvote -1
+// Finds out if user has reacted to an article and in that case if it was an upvote 1 or downvote -1
 // If user hasn't reacted, returns null
 export async function getUserReaction(
     articleId: string,
