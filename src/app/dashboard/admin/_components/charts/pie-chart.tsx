@@ -34,13 +34,15 @@ export function ChartPieUserSub({
   users,
   subscribers,
   latestSub,
+  notSub,
 }: {
   users: number;
   subscribers: number;
   latestSub: Date;
+  notSub: number
 }) {
   const chartData = [
-    { category: "users", value: users, fill: "var(--color-users)" },
+    { category: "Users", value: notSub, fill: "var(--color-users)" },
     {
       category: "subscribers",
       value: subscribers,
@@ -48,7 +50,6 @@ export function ChartPieUserSub({
     },
   ];
 
-  console.log(users, subscribers);
 
   return (
     <Card className="flex flex-col">
@@ -96,7 +97,7 @@ export function ChartPieUserSub({
                           y={(viewBox.cy || 0) + 24}
                           className="fill-muted-foreground"
                         >
-                          Users
+                          Total users
                         </tspan>
                       </text>
                     );

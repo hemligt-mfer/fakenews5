@@ -125,6 +125,13 @@ export async function subscribedUsers() {
   });
   return result;
 }
+
+export async function usersNotSubed(){
+  const allUsers = await userCounts()
+  const subbedUsers = await subscribedUsers()
+  const usersNotSubbed = allUsers - subbedUsers
+  return usersNotSubbed
+}
 export async function latestSub() {
   const result = await prisma.subscription.findFirst({
     orderBy: { periodStart: "desc" },

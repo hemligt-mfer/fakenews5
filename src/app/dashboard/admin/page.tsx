@@ -14,6 +14,7 @@ import {
     subscribedUsers,
     latestSub,
     getWeeklyRevenue,
+    usersNotSubed,
 } from "./_actions/chart-actions";
 import {
     LatestRegUsers,
@@ -53,6 +54,7 @@ export default async function AdminDashboardPage() {
     const subs = await subscribedUsers()
     const latestS = await latestSub()
     const revenueData = await getWeeklyRevenue()
+    const usersNotSubbed = await usersNotSubed()
     let mostUpvotedArticle;
     if (likes.success && likes.data) {
         mostUpvotedArticle = likes.data[0];
@@ -84,7 +86,7 @@ export default async function AdminDashboardPage() {
                     <CountryChart chartData={chartData} />
                     <LatestRegUsers data={latest} />
 
-                    <ChartPieUserSub users={users} subscribers={subs} latestSub={latestS}/>
+                    <ChartPieUserSub users={users} subscribers={subs} latestSub={latestS} notSub={usersNotSubbed}/>
                 </div>
             </div>
         );
