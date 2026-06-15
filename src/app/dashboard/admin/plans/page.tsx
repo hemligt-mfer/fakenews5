@@ -30,8 +30,8 @@ export default async function SubscriptionPage() {
     if (res.success && res.data) {
         plans = res.data;
         return (
-            <div className="p-2">
-                <RouteHeading label="Subscriptions" />
+            <div className="">
+                <RouteHeading label="Plans" />
                 <DataTable columns={columns} data={plans} />
                 <div className="flex justify-center mb-4">
                     <CreatePlanForm />

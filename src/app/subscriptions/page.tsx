@@ -3,6 +3,7 @@ import { auth } from "@/lib/auth";
 import { headers } from "next/headers";
 import SubCard from "./_components/sub-card";
 import { getActiveSubscriptionsPriceId } from "@/lib/require-sub";
+import RouteHeading from "@/components/route-heading";
 
 export default async function SubscriptionsPage() {
     const plans = await getPlans();
@@ -19,7 +20,8 @@ export default async function SubscriptionsPage() {
 
     if (plans.success && plans.data && plans.data.length >= 1) {
         return (
-            <div className="p-2">
+            <div className="">
+                <RouteHeading label="Subscriptions"/>
                 <h1 className="text-xl md:text-2xl font-extrabold text-center">
                     Subscription plans
                 </h1>

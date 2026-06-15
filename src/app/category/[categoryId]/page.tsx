@@ -3,6 +3,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Article } from "@/lib/types";
 import ArticleList from "@/components/article-list";
 import { compareAsc, compareDesc } from "date-fns";
+import RouteHeading from "@/components/route-heading";
 
 export default async function CategoryPage({
     params,
@@ -25,9 +26,10 @@ export default async function CategoryPage({
             articles.sort((a, b) => compareDesc(a.createdAt, b.createdAt));
         }
         return (
-            <div className="w-full p-4">
-                <h1 className="font-extrabold text-2xl text-center">{category.data.name}</h1>
-                <div className="flex">
+            <div className="w-full">
+                <RouteHeading label={category.data.name}/>
+               
+                <div className="flex mt-8">
                     <ArticleList articles={articles} articlesPerPage={6} />
                 </div>
             </div>
