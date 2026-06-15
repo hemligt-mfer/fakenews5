@@ -13,85 +13,82 @@ import Link from "next/link";
 
 export default function UserDetailsTable(user: Props) {
   return (
-    <div className="flex-col mx-auto max-w-3xl">
-      <div className="m-5 border">
-        <Table>
-          <TableHeader className="">
-            <TableRow>
-              <TableHead>Name</TableHead>
-              <TableHead className="text-center">Role</TableHead>
-              <TableHead className="text-right">Email</TableHead>
-            </TableRow>
-          </TableHeader>
-          <TableBody className="bg-sidebar-accent">
-            <TableRow>
-              <TableCell className="text-left truncate max-w-20 md:max-w-full">
-                {user.data.name}
-              </TableCell>
-              <TableCell className="text-center">{user.data.role}</TableCell>
-              <TableCell className="text-right truncate max-w-20 md:max-w-full">
-                {user.data.email}
-              </TableCell>
-            </TableRow>
-          </TableBody>
-        </Table>
-      </div>
-
-      <div className="m-5 border">
-        <Table>
-          <TableHeader className="">
-            <TableRow>
-              <TableHead>Birthdate</TableHead>
-              <TableHead className="text-center">Phone</TableHead>
-              <TableHead className="text-right">Author alias</TableHead>
-            </TableRow>
-          </TableHeader>
-          <TableBody className="bg-sidebar-accent">
-            <TableRow>
-              <TableCell className="text-left">
-                {new Intl.DateTimeFormat("sv-SE").format(
-                  user.data.user_info?.birthdate,
-                ) ?? ""}
-              </TableCell>
-              <TableCell className="text-center">
-                {user.data.user_info?.phoneNumber ?? ""}
-              </TableCell>
-              <TableCell className="text-right">
-                {user.data.author?.alias ?? ""}
-              </TableCell>
-            </TableRow>
-          </TableBody>
-        </Table>
-      </div>
-
-      <div className="m-5 border">
-        <Table>
-          <TableHeader className="">
-            <TableRow>
-              <TableHead>Street</TableHead>
-              <TableHead className="text-center">City</TableHead>
-              <TableHead className="text-center">Zip</TableHead>
-              <TableHead className="text-right">Country</TableHead>
-            </TableRow>
-          </TableHeader>
-          <TableBody className="bg-sidebar-accent">
-            <TableRow>
-              <TableCell className="text-left">
-                {user.data.user_info?.address.street ?? ""}
-              </TableCell>
-              <TableCell className="text-center">
-                {user.data.user_info?.address.city ?? ""}
-              </TableCell>
-              <TableCell className="text-center">
-                {user.data.user_info?.address.zip ?? ""}
-              </TableCell>
-              <TableCell className="text-right">
-                {user.data.user_info?.address.country ?? ""}
-              </TableCell>
-            </TableRow>
-          </TableBody>
-        </Table>
-      </div>
-    </div>
+    <Table className="md:w-xl mx-auto mt-5">
+      <TableBody>
+        <TableRow>
+          <TableCell className="font-semibold">Name</TableCell>
+          <TableCell className="capitalize">{user.data.name}</TableCell>
+        </TableRow>
+        <TableRow>
+          <TableCell className="font-semibold">Role</TableCell>
+          <TableCell className="capitalize">{user.data.role}</TableCell>
+        </TableRow>
+        <TableRow>
+          <TableCell className="font-semibold">Email</TableCell>
+          <TableCell className="truncate max-w-20 md:max-w-full">
+            {user.data.email}
+          </TableCell>
+        </TableRow>
+        <TableRow>
+          <TableCell className="font-semibold">ID</TableCell>
+          <TableCell className="truncate max-w-20 md:max-w-full">
+            {user.data.id}
+          </TableCell>
+        </TableRow>
+        <TableRow>
+          <TableCell className="font-semibold">User created at</TableCell>
+          <TableCell className="">
+            {new Intl.DateTimeFormat("sv-SE").format(
+              user.data.createdAt,
+            )}
+          </TableCell>
+        </TableRow>
+        <TableRow>
+          <TableCell className="font-semibold">Birthdate</TableCell>
+          <TableCell className="">
+            {new Intl.DateTimeFormat("sv-SE").format(
+              user.data.user_info?.birthdate,
+            ) ?? ""}
+          </TableCell>
+        </TableRow>
+        <TableRow>
+          <TableCell className="font-semibold">Phone</TableCell>
+          <TableCell className="">
+            {user.data.user_info?.phoneNumber ?? ""}
+          </TableCell>
+        </TableRow>
+        <TableRow>
+          <TableCell className="font-semibold">Author name</TableCell>
+          <TableCell className="">
+            {user.data.author?.alias ?? ""}
+          </TableCell>
+        </TableRow>
+        <TableRow >
+          <TableCell className="font-semibold">Street</TableCell>
+          <TableCell className="">
+           {user.data.user_info?.address.street ?? ""}
+          </TableCell>
+        </TableRow>
+        <TableRow>
+          <TableCell className="font-semibold">City</TableCell>
+          <TableCell className="">
+           {user.data.user_info?.address.city ?? ""}
+          </TableCell>
+        </TableRow>
+        
+        <TableRow>
+          <TableCell className="font-semibold">Zip</TableCell>
+          <TableCell className="">
+           {user.data.user_info?.address.zip ?? ""}
+          </TableCell>
+        </TableRow>
+        <TableRow>
+          <TableCell className="font-semibold">Country</TableCell>
+          <TableCell className="">
+           {user.data.user_info?.address.country ?? ""}
+          </TableCell>
+        </TableRow>
+      </TableBody>
+    </Table>
   );
 }

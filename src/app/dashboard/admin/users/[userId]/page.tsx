@@ -25,28 +25,20 @@ export default async function UserDetailsPage(
       author: true,
     },
   });
-  if(!user){
-    return notFound()
+  if (!user) {
+    return notFound();
   }
   return (
     <div>
       <RouteHeading label="User details" />
       <div className="border bg-sidebar rounded-2xl m-6 px-6 py-2">
-        <p className="truncate max-w-20 md:max-w-full text-center">ID: {user.id}</p>
-        
-        
         <UserDetailsTable data={user} />
-        <p className="mb-5 text-center">
-          Created at: {new Intl.DateTimeFormat("sv-SE").format(user?.createdAt)}
-        </p>
         <Button asChild variant="outline">
-        <Link href={`/dashboard/admin/users`}>Back to user table</Link>
-      </Button>
-      <Button asChild>
-        <Link href={`/dashboard/admin/users/${user.id}/edit`}>
-          Edit user
-        </Link>
-      </Button>
+          <Link href={`/dashboard/admin/users`}>Back to user table</Link>
+        </Button>
+        <Button asChild>
+          <Link href={`/dashboard/admin/users/${user.id}/edit`}>Edit user</Link>
+        </Button>
       </div>
     </div>
   );

@@ -11,6 +11,9 @@ import {
     userCounts,
     commentCount,
     topViewedArticle,
+    subscribedUsers,
+    latestSub,
+    getWeeklyRevenue,
 } from "./_actions/chart-actions";
 import {
     LatestRegUsers,
@@ -47,6 +50,9 @@ export default async function AdminDashboardPage() {
     const comments = await commentCount();
     const topArticles = await topViewedArticle();
     const likes = await topUpvotedArticle();
+    const subs = await subscribedUsers()
+    const latestS = await latestSub()
+    const revenueData = await getWeeklyRevenue()
     let mostUpvotedArticle;
     if (likes.success && likes.data) {
         mostUpvotedArticle = likes.data[0];
@@ -56,7 +62,7 @@ export default async function AdminDashboardPage() {
             <div className="mb-10">
                 <RouteHeading label="Admin dashboard" />
                 <div className="flex justify-between m-10 gap-10">
-                    <ChartLineLinear />
+                    <ChartLineLinear data={revenueData}/>
 
                     <div className="flex-row">
                         <div className="mb-8">
@@ -78,7 +84,7 @@ export default async function AdminDashboardPage() {
                     <CountryChart chartData={chartData} />
                     <LatestRegUsers data={latest} />
 
-                    <ChartPieUserSub />
+                    <ChartPieUserSub users={users} subscribers={subs} latestSub={latestS}/>
                 </div>
             </div>
         );

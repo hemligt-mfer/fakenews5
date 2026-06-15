@@ -60,65 +60,116 @@ export async function commentCount() {
   return comments;
 }
 
-export async function topCommenter(){
+export async function topCommenter() {
   const result = await prisma.user.groupBy({
     by: ["id"],
-    _count: { id: true},
-    orderBy: { _count: {id: "desc"}},
+    _count: { id: true },
+    orderBy: { _count: { id: "desc" } },
     take: 1,
-  })
+  });
 
-  if(!result.length){
-    return {user:{ name: ""}, commentCount: 0}
+  if (!result.length) {
+    return { user: { name: "" }, commentCount: 0 };
   }
 
   const topUser = await prisma.user.findUnique({
     where: { id: result[0].id },
-    select: { name: true }
-  })
-  return { user: topUser, commentCount: result[0]._count.id}
+    select: { name: true },
+  });
+  return { user: topUser, commentCount: result[0]._count.id };
 }
 
-export async function topViewedArticle(){
-const result = await prisma.articleView.groupBy({
-  by: ["articleId"],
-  _count: {articleId: true},
-  orderBy: { _count: {articleId: "desc"}},
-  take: 1,
-})
+export async function topViewedArticle() {
+  const result = await prisma.articleView.groupBy({
+    by: ["articleId"],
+    _count: { articleId: true },
+    orderBy: { _count: { articleId: "desc" } },
+    take: 1,
+  });
 
-const articles = await prisma.article.findMany({
-  where: {id: {in : result.map((r) => r.articleId)},
-  deleted: null
-},
-  select: {id: true, title: true}
-})
-return result.map((r) => ({
-  articleId: r.articleId,
-  title: articles.find((a) => a.id === r.articleId)?.title,
-  views: r._count.articleId
-}))
+  const articles = await prisma.article.findMany({
+    where: { id: { in: result.map((r) => r.articleId) }, deleted: null },
+    select: { id: true, title: true },
+  });
+  return result.map((r) => ({
+    articleId: r.articleId,
+    title: articles.find((a) => a.id === r.articleId)?.title,
+    views: r._count.articleId,
+  }));
 }
 
-export async function topLikedArticle(){
+export async function topLikedArticle() {
   const result = await prisma.articleReaction.groupBy({
     by: ["article_id"],
-    _count: {article_id: true},
-    orderBy: {_count: {article_id: "desc"}},
-    take: 2
-  })
+    _count: { article_id: true },
+    orderBy: { _count: { article_id: "desc" } },
+    take: 2,
+  });
   const articles = await prisma.article.findMany({
-    where: { id: { in: result.map((r) => r.article_id)}, 
-  deleted: null},
-  select: {id: true, title: true}
-    
-  })
+    where: { id: { in: result.map((r) => r.article_id) }, deleted: null },
+    select: { id: true, title: true },
+  });
 
   return result.map((r) => ({
     articleId: r.article_id,
     title: articles.find((a) => a.id === r.article_id)?.title,
-    likes: r._count.article_id
-  }))
+    likes: r._count.article_id,
+  }));
 }
 
+export async function subscribedUsers() {
+  const result = await prisma.subscription.count({
+    where: {
+      status: { equals: "active" },
+    },
+  });
+  return result;
+}
+export async function latestSub() {
+  const result = await prisma.subscription.findFirst({
+    orderBy: { periodStart: "desc" },
+    select: { periodStart: true },
+  });
 
+  if (!result || result.periodStart === null) return new Date(0);
+
+  return result.periodStart;
+}
+
+export async function getWeeklyRevenue() {
+  const subscription = await prisma.subscription.findMany({
+    where: {
+      periodStart: {
+        gte: new Date(new Date().getFullYear(), new Date().getMonth(), 1),
+        lte: new Date(),
+      },
+      status: "active"
+    },
+    select: {
+      periodStart: true,
+      billingInterval: true,
+      plan: true
+    },
+    orderBy: { periodStart: "asc"}
+  });
+  const plans = await prisma.plan.findMany({
+    select: { name: true, price: true, annualPrice: true}
+  })
+  const planMap = Object.fromEntries(plans.map(p => [p.name, p]))
+
+  const weeklyMap: Record<string, number> = {}
+
+  for(const sub of subscription){
+    if(!sub.periodStart) continue
+    const planData = planMap[sub.plan]
+    if(!planData) continue
+    const amount = sub.billingInterval === "year"
+    ? (planData.annualPrice ?? 0) : planData.price
+    const week = String(Math.ceil(sub.periodStart.getDate()/7))
+    weeklyMap[week] = (weeklyMap[week] ?? 0) + amount
+  }
+  return [
+  { week: "0", income: 0 },
+  ...Object.entries(weeklyMap).map(([week, income]) => ({ week, income }))
+]
+}

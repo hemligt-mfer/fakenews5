@@ -2,7 +2,6 @@
 "use client";
 import Link from "next/link";
 import Button from "../button";
-import SubButton from "../Subscribe-button";
 import { NewsDropdown } from "./_components/dropdown-menus";
 import { Category } from "@/lib/types";
 import { SearchBar } from "./_components/search-bar";
@@ -27,7 +26,6 @@ export default function Navbar({ categories }: { categories: Category[] | null }
                                 Subscriptions
                             </Button>
                         </Link>
-                        <SubButton />
                     </li>
                     <li className="ml-auto my-auto"><SearchBar/></li>
                 </ul>
