@@ -95,9 +95,9 @@ router.refresh();
         }
       }}
     >
-      <label className="font-heading text-base leading-snug font-medium">
+      {/* <label className="font-heading text-base leading-snug font-medium">
         Email and Password
-      </label>
+      </label> */}
       <div className=" flex flex-row gap-11">
         <p className="my-auto text-black/60 font-semibold">{currentEmail}</p>
         <DialogTrigger className="my-auto" asChild>
