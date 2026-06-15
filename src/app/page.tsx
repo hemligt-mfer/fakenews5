@@ -3,7 +3,7 @@ import Link from "next/link";
 import { Separator } from "@/components/ui/separator";
 import { format, formatDistanceToNow } from "date-fns";
 import {
-  getArticles,
+  getArticlesForWebsite,
   getEditorsChoiceArticles,
   getMostPopularArticles,
 } from "@/_actions/article-actions";
@@ -14,7 +14,7 @@ import NewsSidebar from "@/components/news-sidebar";
 
 export default async function HomePage() {
   const [allResult, editorsResult, popularResult] = await Promise.all([
-    getArticles(),
+    getArticlesForWebsite(),
     getEditorsChoiceArticles(),
     getMostPopularArticles(5),
   ]);
