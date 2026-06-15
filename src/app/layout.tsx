@@ -11,6 +11,7 @@ import AdminNavbar from "./dashboard/admin/_components/admin-navbar";
 import { headers } from "next/headers";
 import { auth } from "@/lib/auth";
 import { getCategories } from "@/_actions/category-actions";
+import EditorNavbar from "./dashboard/admin/_components/editor-navbar";
 
 const fontSans = Anuphan({
     subsets: ["latin"],
@@ -42,6 +43,7 @@ export default async function RootLayout({
     });
 
     let hasPermission = false;
+    let editor = false
 
     if (session != null) {
         const res = await auth.api.userHasPermission({
@@ -51,9 +53,12 @@ export default async function RootLayout({
             },
             headers: await headers(),
         });
-        if (res?.success) {
+        if (res?.success && session.user.role === "admin") {
             hasPermission = true;
         }
+    }
+    if(session?.user.role === "editor"){
+        editor = true
     }
 
     const cats = await getCategories();
@@ -78,6 +83,7 @@ export default async function RootLayout({
                     <Header />
                     <Navbar categories={cats.success && cats.data ? cats.data : null} />
                     {hasPermission && <AdminNavbar />}
+                    {editor && <EditorNavbar />}
                 </div>
 
                 <div className="flex min-h-screen lg:min-w-5xl max-w-6xl shadow-2xl border-x border-gray-500/50 flex-1 mx-auto bg-white">
