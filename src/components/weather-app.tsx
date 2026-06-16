@@ -146,7 +146,7 @@ export default function WeatherApp() {
             <ChevronDownIcon className="ml-auto group-data-[state=open]:rotate-180" />
           </Button>
         </CollapsibleTrigger>
-        <CollapsibleContent className="flex flex-col items-start gap-2 p-2.5 pt-0 text-sm">
+        <CollapsibleContent className="flex flex-col items-start p-2.5 pt-0 text-sm">
           <ul>
             {forecast.timeseries.slice(0, 12).map((t) => {
               return (
@@ -154,7 +154,8 @@ export default function WeatherApp() {
                   <span>{format(t.validTime, "HH:mm")}</span>
                   {WeatherIconSM(t.symbol)}
                   <span>{Math.round(t.temp)} °C</span>
-                  <span>{t.summary}</span>
+                  <span className="truncate">{t.summary}</span>
+                 
                 </li>
               );
             })}
