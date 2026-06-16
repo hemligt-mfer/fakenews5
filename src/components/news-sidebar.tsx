@@ -1,8 +1,8 @@
 import Link from "next/link";
-import WeatherWidget from "./weather-widget";
 import MarketsWidget from "./markets-widget";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
+import WeatherApp from "./weather-app";
 
 type SidebarArticle = {
   id: string;
@@ -18,10 +18,7 @@ export default function NewsSidebar({ mostRead }: Props) {
     <aside className="border-l border-border pl-6">
       {/* Weather */}
       <div className="mb-7">
-        <h3 className="font-sans text-[10px] font-bold uppercase tracking-widest border-b-2 border-foreground pb-1.5 mb-3">
-          Weather · Linköping
-        </h3>
-        <WeatherWidget />
+        <WeatherApp/>
       </div>
 
       {/* Markets */}

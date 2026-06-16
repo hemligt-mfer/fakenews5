@@ -2,12 +2,6 @@
 
 import prisma from "@/lib/prisma";
 
-// export default async function ToggleChoice(id: string) {
-//   await prisma.article.update({
-//     where: { id },
-//     data: { editorsChoice: true },
-//   });
-// }
 
 export default async function ToggleChoice(id: string) {
   const article = await prisma.article.findUnique({

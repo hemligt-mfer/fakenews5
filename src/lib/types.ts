@@ -114,3 +114,33 @@ export type {
     Bookmark,
     Plan,
 };
+
+export type Forecast = {
+  timeseries: Series[]
+  location: {name: string}
+}
+
+export type Series = {
+  validTime: string
+  airPressure: number
+  temp: number
+  visibility: number
+  windDirection: number
+  windSpeed: number
+  humidity: number
+  thunderProbability: number
+  cloudCover: number
+  lowerCloudCover: number
+  higherCloudCover: number
+  windGust: number
+  precipitationMin: number
+  precipitationMax: number
+  precipitationFrozen: number
+  precipitationCategory: string
+  precipitationCategoryValue: number
+  precipitationMean: number
+  precipitationMedian: number
+  symbol: number
+  summary: string
+}
+
