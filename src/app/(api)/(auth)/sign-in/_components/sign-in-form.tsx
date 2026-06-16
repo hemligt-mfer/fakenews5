@@ -164,7 +164,7 @@ export default function SignInForm() {
                 <CardFooter>
                     <Button
                         onClick={() => {
-                            toast("Logged for new updates");
+                            toast.success(`Welcome back! You are now signed in.`);
                         }}
                         className="w-full"
                         form="sign-in-form"

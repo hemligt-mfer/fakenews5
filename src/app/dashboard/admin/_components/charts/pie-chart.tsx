@@ -110,7 +110,7 @@ export function ChartPieUserSub({
       </CardContent>
       <CardFooter className="flex-col gap-2 text-sm">
         <div className="flex items-center gap-2 leading-none font-medium">
-          Latest subsriber {format(latestSub, "yyyy-MM-dd HH:mm")}
+          Latest subscriber {format(latestSub, "yyyy-MM-dd HH:mm")}
         </div>
       </CardFooter>
     </Card>
