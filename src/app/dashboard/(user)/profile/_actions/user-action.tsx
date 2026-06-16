@@ -1,7 +1,6 @@
 "use server";
 import z from "zod";
 import prisma from "@/lib/prisma";
-import { redirect } from "next/navigation";
 
 const editUserSchema = z.object({
   id: z.string(),
@@ -56,4 +55,5 @@ export async function EditUser(id: string, input: EditUserInput) {
         : {}),
     },
   });
+  return updateUser
 }
