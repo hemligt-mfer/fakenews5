@@ -130,9 +130,10 @@ export default function WeatherApp() {
           {forecast.location?.name ?? "Your location"}
         </h1>
         <div>
-          <span className="flex justify-between mb-1.5">
-            {Math.round(now.temp)} °C {WeatherIcon(now.symbol)} {now.summary}
+          <span className="flex justify-center gap-2 mb-1.5">
+            {Math.round(now.temp)} °C {WeatherIcon(now.symbol)}
           </span>
+          <p>{now.summary}</p>
           <p>
             Wind {now.windSpeed} m/s. Humidity {now.humidity}%
           </p>
@@ -152,10 +153,9 @@ export default function WeatherApp() {
               return (
                 <li key={t.validTime} className="flex items-center gap-2">
                   <span>{format(t.validTime, "HH:mm")}</span>
-                  {WeatherIconSM(t.symbol)}
-                  <span>{Math.round(t.temp)} °C</span>
-                  <span className="truncate">{t.summary}</span>
-                 
+                  <span>{WeatherIconSM(t.symbol)}</span>
+                  <span>{Math.round(t.temp)}°C</span>
+                  <span className="truncate max-w-30">{t.summary}</span>
                 </li>
               );
             })}
