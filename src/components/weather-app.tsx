@@ -133,8 +133,8 @@ export default function WeatherApp() {
           <span className="flex justify-center gap-2 mb-1.5">
             {Math.round(now.temp)} °C {WeatherIcon(now.symbol)}
           </span>
-          <p>{now.summary}</p>
-          <p>
+          <p className="text-center">{now.summary}</p>
+          <p className="text-center">
             Wind {now.windSpeed} m/s. Humidity {now.humidity}%
           </p>
         </div>
