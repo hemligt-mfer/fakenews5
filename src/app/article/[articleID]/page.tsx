@@ -144,7 +144,7 @@ export default async function ArticlePage({ params }: { params: Promise<{ articl
         );
     } else if (article.success === false) {
         return <ArticleDoesntExist />;
-    } else if (!userId || !hasPermission) {
+    } else if (!userId) {
         redirect(`preview/${articleID}`);
     }
 }

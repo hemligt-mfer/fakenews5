@@ -400,11 +400,11 @@ export async function unBookmarkArticle(
         }
     } catch (err) {
         console.error(
-            `An unknown error occurred when trying to delete bookmark to article ${articleId}.`,
+            `An unknown error occurred when trying to delete bookmark to article ${articleId}.\n\n${err}`,
         );
         return {
             success: false,
-            error: `An unknown error occurred when trying to delete bookmark to article ${articleId}.`,
+            error: `An unknown error occurred when trying to delete bookmark to article ${articleId}.\n\n${err}`,
         };
     }
 }

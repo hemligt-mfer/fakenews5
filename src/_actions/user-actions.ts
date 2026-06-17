@@ -5,7 +5,7 @@ import { auth } from "@/lib/auth";
 import prisma from "@/lib/prisma";
 import { Result } from "@/lib/types";
 import { headers } from "next/headers";
-import { z } from "zod";
+import { success, z } from "zod";
 
 const userInfoSchema = z.object({
     userId: z.string(),
@@ -86,5 +86,19 @@ export async function getAllUserDataFromId(userId: string) {
     } else {
         console.error(`Couldn't find user with id ${userId}.`);
         return { success: false, error: `Couldn't find user with id ${userId}.` };
+    }
+}
+
+export async function getUser(userId: string) {
+    try {
+        const user = await prisma.user.findUnique({ where: { id: userId } });
+        if (user) {
+            return { success: true, data: user };
+        }
+        return { success: false, error: `Couldn't fetch user role for user with id ${userId}` };
+    } catch (err) {
+        const msg = `An error occurred while trying to fetch user role for user id ${userId}.\n\n${err}`;
+        console.error(msg);
+        return { success: false, error: msg };
     }
 }

@@ -53,9 +53,10 @@ export default function CreatePlanForm() {
             });
             if (res.success && res.data) {
                 toast.success(
-                    `New subscription plan named "${res.data.name} added to the database.`,
+                    `New subscription plan named "${res.data.name}" added to the database.`,
                     { position: "top-center" },
                 );
+                router.refresh();
             } else if (res.success == false && res.error) {
                 toast.error(`Couldn't create a new subscription.\n\n${res.error}`, {
                     position: "top-center",
@@ -68,218 +69,266 @@ export default function CreatePlanForm() {
     return (
         <Card className="md:w-2xl">
             <CardContent>
-                 <Collapsible className="rounded-md data-[state=open]:bg-muted">
-          <CollapsibleTrigger asChild>
-            <Button variant="ghost" className="group w-full">
-              Create a new subscription plan
-              <ChevronDownIcon className="ml-auto group-data-[state=open]:rotate-180" />
-            </Button>
-          </CollapsibleTrigger>
-          <CollapsibleContent className="flex flex-col items-start gap-2 p-2.5 pt-0 text-sm">
-            
-             <Card className="mx-auto w-full">
-            <CardContent>
-                <form
-                    id="create-plan-form"
-                    onSubmit={(ev) => {
-                        ev.preventDefault();
-                        form.handleSubmit();
-                    }}
-                >
-                    <FieldGroup>
-                        <form.Field name="name">
-                            {(field) => {
-                                const isInvalid =
-                                    field.state.meta.isTouched && !field.state.meta.isValid;
+                <Collapsible className="rounded-md data-[state=open]:bg-muted">
+                    <CollapsibleTrigger asChild>
+                        <Button variant="ghost" className="group w-full">
+                            Create a new subscription plan
+                            <ChevronDownIcon className="ml-auto group-data-[state=open]:rotate-180" />
+                        </Button>
+                    </CollapsibleTrigger>
+                    <CollapsibleContent className="flex flex-col items-start gap-2 p-2.5 pt-0 text-sm">
+                        <Card className="mx-auto w-full">
+                            <CardContent>
+                                <form
+                                    id="create-plan-form"
+                                    onSubmit={(ev) => {
+                                        ev.preventDefault();
+                                        form.handleSubmit();
+                                    }}
+                                >
+                                    <FieldGroup>
+                                        <form.Field name="name">
+                                            {(field) => {
+                                                const isInvalid =
+                                                    field.state.meta.isTouched &&
+                                                    !field.state.meta.isValid;
 
-                                return (
-                                    <Field data-invalid={isInvalid}>
-                                        <FieldLabel htmlFor={field.name}>Name</FieldLabel>
-                                        <Input
-                                            id={field.name}
-                                            name={field.name}
-                                            value={field.state.value}
-                                            onBlur={field.handleBlur}
-                                            onChange={(ev) => field.handleChange(ev.target.value)}
-                                            aria-invalid={isInvalid}
-                                        />
-                                        {isInvalid && (
-                                            <FieldError errors={field.state.meta.errors} />
-                                        )}
-                                    </Field>
-                                );
-                            }}
-                        </form.Field>
+                                                return (
+                                                    <Field data-invalid={isInvalid}>
+                                                        <FieldLabel htmlFor={field.name}>
+                                                            Name
+                                                        </FieldLabel>
+                                                        <Input
+                                                            id={field.name}
+                                                            name={field.name}
+                                                            value={field.state.value}
+                                                            onBlur={field.handleBlur}
+                                                            onChange={(ev) =>
+                                                                field.handleChange(ev.target.value)
+                                                            }
+                                                            aria-invalid={isInvalid}
+                                                        />
+                                                        {isInvalid && (
+                                                            <FieldError
+                                                                errors={field.state.meta.errors}
+                                                            />
+                                                        )}
+                                                    </Field>
+                                                );
+                                            }}
+                                        </form.Field>
 
-                        <form.Field name="description">
-                            {(field) => {
-                                const isInvalid =
-                                    field.state.meta.isTouched && !field.state.meta.isValid;
+                                        <form.Field name="description">
+                                            {(field) => {
+                                                const isInvalid =
+                                                    field.state.meta.isTouched &&
+                                                    !field.state.meta.isValid;
 
-                                return (
-                                    <Field data-invalid={isInvalid}>
-                                        <FieldLabel htmlFor={field.name}>Description</FieldLabel>
-                                        <Textarea
-                                            id={field.name}
-                                            name={field.name}
-                                            value={field.state.value ?? ""}
-                                            onBlur={field.handleBlur}
-                                            onChange={(ev) => field.handleChange(ev.target.value)}
-                                            aria-invalid={isInvalid}
-                                        />
-                                        {isInvalid && (
-                                            <FieldError errors={field.state.meta.errors} />
-                                        )}
-                                    </Field>
-                                );
-                            }}
-                        </form.Field>
+                                                return (
+                                                    <Field data-invalid={isInvalid}>
+                                                        <FieldLabel htmlFor={field.name}>
+                                                            Description
+                                                        </FieldLabel>
+                                                        <Textarea
+                                                            id={field.name}
+                                                            name={field.name}
+                                                            value={field.state.value ?? ""}
+                                                            onBlur={field.handleBlur}
+                                                            onChange={(ev) =>
+                                                                field.handleChange(ev.target.value)
+                                                            }
+                                                            aria-invalid={isInvalid}
+                                                        />
+                                                        {isInvalid && (
+                                                            <FieldError
+                                                                errors={field.state.meta.errors}
+                                                            />
+                                                        )}
+                                                    </Field>
+                                                );
+                                            }}
+                                        </form.Field>
 
-                        <form.Field name="image">
-                            {(field) => {
-                                const isInvalid =
-                                    field.state.meta.isTouched && !field.state.meta.isValid;
+                                        <form.Field name="image">
+                                            {(field) => {
+                                                const isInvalid =
+                                                    field.state.meta.isTouched &&
+                                                    !field.state.meta.isValid;
 
-                                return (
-                                    <Field data-invalid={isInvalid}>
-                                        <FieldLabel htmlFor={field.name}>Image</FieldLabel>
-                                        <Input
-                                            id={field.name}
-                                            name={field.name}
-                                            value={field.state.value ?? ""}
-                                            onBlur={field.handleBlur}
-                                            onChange={(ev) => field.handleChange(ev.target.value)}
-                                            aria-invalid={isInvalid}
-                                        />
-                                        {isInvalid && (
-                                            <FieldError errors={field.state.meta.errors} />
-                                        )}
-                                    </Field>
-                                );
-                            }}
-                        </form.Field>
+                                                return (
+                                                    <Field data-invalid={isInvalid}>
+                                                        <FieldLabel htmlFor={field.name}>
+                                                            Image
+                                                        </FieldLabel>
+                                                        <Input
+                                                            id={field.name}
+                                                            name={field.name}
+                                                            value={field.state.value ?? ""}
+                                                            onBlur={field.handleBlur}
+                                                            onChange={(ev) =>
+                                                                field.handleChange(ev.target.value)
+                                                            }
+                                                            aria-invalid={isInvalid}
+                                                        />
+                                                        {isInvalid && (
+                                                            <FieldError
+                                                                errors={field.state.meta.errors}
+                                                            />
+                                                        )}
+                                                    </Field>
+                                                );
+                                            }}
+                                        </form.Field>
 
-                        <form.Field name="price">
-                            {(field) => {
-                                const isInvalid =
-                                    field.state.meta.isTouched && !field.state.meta.isValid;
+                                        <form.Field name="price">
+                                            {(field) => {
+                                                const isInvalid =
+                                                    field.state.meta.isTouched &&
+                                                    !field.state.meta.isValid;
 
-                                return (
-                                    <Field data-invalid={isInvalid}>
-                                        <FieldLabel htmlFor={field.name}>Price</FieldLabel>
-                                        <Input
-                                            type="number"
-                                            id={field.name}
-                                            name={field.name}
-                                            value={field.state.value}
-                                            onBlur={field.handleBlur}
-                                            onChange={(ev) =>
-                                                field.handleChange(Number(ev.target.value))
-                                            }
-                                            aria-invalid={isInvalid}
-                                        />
-                                        {isInvalid && (
-                                            <FieldError errors={field.state.meta.errors} />
-                                        )}
-                                    </Field>
-                                );
-                            }}
-                        </form.Field>
+                                                return (
+                                                    <Field data-invalid={isInvalid}>
+                                                        <FieldLabel htmlFor={field.name}>
+                                                            Price
+                                                        </FieldLabel>
+                                                        <Input
+                                                            type="number"
+                                                            id={field.name}
+                                                            name={field.name}
+                                                            value={field.state.value}
+                                                            onBlur={field.handleBlur}
+                                                            onChange={(ev) =>
+                                                                field.handleChange(
+                                                                    Number(ev.target.value),
+                                                                )
+                                                            }
+                                                            aria-invalid={isInvalid}
+                                                        />
+                                                        {isInvalid && (
+                                                            <FieldError
+                                                                errors={field.state.meta.errors}
+                                                            />
+                                                        )}
+                                                    </Field>
+                                                );
+                                            }}
+                                        </form.Field>
 
-                        <form.Field name="priceId">
-                            {(field) => {
-                                const isInvalid =
-                                    field.state.meta.isTouched && !field.state.meta.isValid;
+                                        <form.Field name="priceId">
+                                            {(field) => {
+                                                const isInvalid =
+                                                    field.state.meta.isTouched &&
+                                                    !field.state.meta.isValid;
 
-                                return (
-                                    <Field data-invalid={isInvalid}>
-                                        <FieldLabel htmlFor={field.name}>
-                                            (Stripe) price ID
-                                        </FieldLabel>
-                                        <Input
-                                            id={field.name}
-                                            name={field.name}
-                                            value={field.state.value}
-                                            onBlur={field.handleBlur}
-                                            onChange={(ev) => field.handleChange(ev.target.value)}
-                                            aria-invalid={isInvalid}
-                                        />
-                                        {isInvalid && (
-                                            <FieldError errors={field.state.meta.errors} />
-                                        )}
-                                    </Field>
-                                );
-                            }}
-                        </form.Field>
+                                                return (
+                                                    <Field data-invalid={isInvalid}>
+                                                        <FieldLabel htmlFor={field.name}>
+                                                            (Stripe) price ID
+                                                        </FieldLabel>
+                                                        <Input
+                                                            id={field.name}
+                                                            name={field.name}
+                                                            value={field.state.value}
+                                                            onBlur={field.handleBlur}
+                                                            onChange={(ev) =>
+                                                                field.handleChange(ev.target.value)
+                                                            }
+                                                            aria-invalid={isInvalid}
+                                                        />
+                                                        {isInvalid && (
+                                                            <FieldError
+                                                                errors={field.state.meta.errors}
+                                                            />
+                                                        )}
+                                                    </Field>
+                                                );
+                                            }}
+                                        </form.Field>
 
-                        <form.Field name="annualPrice">
-                            {(field) => {
-                                const isInvalid =
-                                    field.state.meta.isTouched && !field.state.meta.isValid;
+                                        <form.Field name="annualPrice">
+                                            {(field) => {
+                                                const isInvalid =
+                                                    field.state.meta.isTouched &&
+                                                    !field.state.meta.isValid;
 
-                                return (
-                                    <Field data-invalid={isInvalid}>
-                                        <FieldLabel htmlFor={field.name}>Annual price</FieldLabel>
-                                        <Input
-                                            type="number"
-                                            id={field.name}
-                                            name={field.name}
-                                            value={field.state.value ?? ""}
-                                            onBlur={field.handleBlur}
-                                            onChange={(ev) =>
-                                                field.handleChange(Number(ev.target.value))
-                                            }
-                                            aria-invalid={isInvalid}
-                                        />
-                                        {isInvalid && (
-                                            <FieldError errors={field.state.meta.errors} />
-                                        )}
-                                    </Field>
-                                );
-                            }}
-                        </form.Field>
+                                                return (
+                                                    <Field data-invalid={isInvalid}>
+                                                        <FieldLabel htmlFor={field.name}>
+                                                            Annual price
+                                                        </FieldLabel>
+                                                        <Input
+                                                            type="number"
+                                                            id={field.name}
+                                                            name={field.name}
+                                                            value={field.state.value ?? ""}
+                                                            onBlur={field.handleBlur}
+                                                            onChange={(ev) =>
+                                                                field.handleChange(
+                                                                    Number(ev.target.value),
+                                                                )
+                                                            }
+                                                            aria-invalid={isInvalid}
+                                                        />
+                                                        {isInvalid && (
+                                                            <FieldError
+                                                                errors={field.state.meta.errors}
+                                                            />
+                                                        )}
+                                                    </Field>
+                                                );
+                                            }}
+                                        </form.Field>
 
-                        <form.Field name="annualPriceId">
-                            {(field) => {
-                                const isInvalid =
-                                    field.state.meta.isTouched && !field.state.meta.isValid;
+                                        <form.Field name="annualPriceId">
+                                            {(field) => {
+                                                const isInvalid =
+                                                    field.state.meta.isTouched &&
+                                                    !field.state.meta.isValid;
 
-                                return (
-                                    <Field data-invalid={isInvalid}>
-                                        <FieldLabel htmlFor={field.name}>
-                                            (Stripe) price ID
-                                        </FieldLabel>
-                                        <Input
-                                            id={field.name}
-                                            name={field.name}
-                                            value={field.state.value ?? ""}
-                                            onBlur={field.handleBlur}
-                                            onChange={(ev) => field.handleChange(ev.target.value)}
-                                            aria-invalid={isInvalid}
-                                        />
-                                        {isInvalid && (
-                                            <FieldError errors={field.state.meta.errors} />
-                                        )}
-                                    </Field>
-                                );
-                            }}
-                        </form.Field>
-                    </FieldGroup>
-                </form>
+                                                return (
+                                                    <Field data-invalid={isInvalid}>
+                                                        <FieldLabel htmlFor={field.name}>
+                                                            (Stripe) price ID
+                                                        </FieldLabel>
+                                                        <Input
+                                                            id={field.name}
+                                                            name={field.name}
+                                                            value={field.state.value ?? ""}
+                                                            onBlur={field.handleBlur}
+                                                            onChange={(ev) =>
+                                                                field.handleChange(ev.target.value)
+                                                            }
+                                                            aria-invalid={isInvalid}
+                                                        />
+                                                        {isInvalid && (
+                                                            <FieldError
+                                                                errors={field.state.meta.errors}
+                                                            />
+                                                        )}
+                                                    </Field>
+                                                );
+                                            }}
+                                        </form.Field>
+                                    </FieldGroup>
+                                </form>
+                            </CardContent>
+                            <CardFooter className="flex justify-center gap-4">
+                                <Button form="create-plan-form" type="reset" variant={"outline"}>
+                                    Reset
+                                </Button>
+                                <Button
+                                    form="create-plan-form"
+                                    type="submit"
+                                    variant={"default"}
+                                    disabled={loading}
+                                >
+                                    Create
+                                </Button>
+                            </CardFooter>
+                        </Card>
+                    </CollapsibleContent>
+                </Collapsible>
             </CardContent>
-            <CardFooter className="flex justify-center gap-4">
-                <Button form="create-plan-form" type="reset" variant={"outline"}>
-                    Reset
-                </Button>
-                <Button form="create-plan-form" type="submit" variant={"default"} disabled={loading}>
-                    Create
-                </Button>
-            </CardFooter>
-        </Card>
-          </CollapsibleContent>
-        </Collapsible>
-            </CardContent>
-       
         </Card>
     );
 }

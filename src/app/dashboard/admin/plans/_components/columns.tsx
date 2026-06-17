@@ -46,7 +46,11 @@ export const columns: ColumnDef<Plan>[] = [
         header: "Price",
         cell: ({ row }) => {
             const price = row.original.price;
-            return <span className="text-xs block truncate max-w-20 md:max-w-full">{formatPrice(price)}</span>;
+            return (
+                <span className="text-xs block truncate max-w-20 md:max-w-full">
+                    {formatPrice(price)}
+                </span>
+            );
         },
     },
     {
@@ -63,7 +67,9 @@ export const columns: ColumnDef<Plan>[] = [
         cell: ({ row }) => {
             const annualPrice = row.original.annualPrice;
             return (
-                <span className="text-xs block truncate max-w-20 md:max-w-full">{formatPrice(Number(annualPrice))}</span>
+                <span className="text-xs block truncate max-w-20 md:max-w-full">
+                    {formatPrice(Number(annualPrice))}
+                </span>
             );
         },
     },
@@ -94,10 +100,13 @@ function ActionsCell({ id }: { id: string }) {
         if (res.success && res.data) {
             toast.success(
                 `The plan named "${res.data.name}" was successfully deleted from the database.`,
+                { position: "top-center" },
             );
+            router.refresh();
         } else if (!res.success && res.error) {
             toast.error(
                 `An error occurred when trying to delete the plan with id ${id}.\n\n${res.error}`,
+                { position: "top-center" },
             );
         }
     }
