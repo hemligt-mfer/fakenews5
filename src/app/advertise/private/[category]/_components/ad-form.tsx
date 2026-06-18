@@ -60,6 +60,7 @@ export default function AdForm({ categorySlug, subcategories, titlePlaceholder }
     const [fields, setFields]       = useState(EMPTY_FIELDS);
     const [photos, setPhotos]       = useState<File[]>([]);
     const [previews, setPreviews]   = useState<string[]>([]);
+    const [listingTypePicked, setListingTypePicked] = useState(false);
     const fileInputRef              = useRef<HTMLInputElement>(null);
 
     const maxPhotos = MAX_PHOTOS[fields.tier] ?? 1;
@@ -110,6 +111,7 @@ export default function AdForm({ categorySlug, subcategories, titlePlaceholder }
         setPhotos([]);
         setPreviews([]);
         setFields(EMPTY_FIELDS);
+        setListingTypePicked(false);
         setDone(false);
         setError(null);
     };
@@ -179,9 +181,9 @@ export default function AdForm({ categorySlug, subcategories, titlePlaceholder }
                         <label
                             key={opt.value}
                             className={`rounded-xl border p-3 cursor-pointer text-center transition-colors text-sm font-semibold ${
-                                fields.listingType === opt.value
+                                listingTypePicked && fields.listingType === opt.value
                                     ? "border-primary bg-primary/5 text-primary"
-                                    : "bg-popover hover:border-muted-foreground"
+                                    : "bg-popover hover:border-primary hover:bg-primary/5 hover:text-primary"
                             }`}
                         >
                             <input
@@ -189,7 +191,7 @@ export default function AdForm({ categorySlug, subcategories, titlePlaceholder }
                                 name="listingType"
                                 value={opt.value}
                                 checked={fields.listingType === opt.value}
-                                onChange={set("listingType")}
+                                onChange={(e) => { setListingTypePicked(true); set("listingType")(e); }}
                                 className="sr-only"
                             />
                             {opt.label}
