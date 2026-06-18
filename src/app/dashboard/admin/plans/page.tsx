@@ -33,7 +33,8 @@ export default async function SubscriptionPage() {
             <div className="">
                 <RouteHeading label="Plans" />
                 <DataTable columns={columns} data={plans} />
-                <div className="flex justify-center mb-4">
+                <div className="m-6">
+                  <h1 className="text-2xl mb-4">Add more plans</h1>
                     <CreatePlanForm />
                 </div>
             </div>
@@ -43,7 +44,7 @@ export default async function SubscriptionPage() {
             <div className="p-2">
                 <RouteHeading label="Subscriptions" />
                 <p>No subscription plans in the database.</p>
-                <div className="flex justify-center mb-4">
+                <div className="mb-4">
                     <CreatePlanForm />
                 </div>
             </div>

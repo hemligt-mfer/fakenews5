@@ -42,15 +42,15 @@ export function LatestRegUsers(data: Props) {
             {data.data.map((u) => (
                 <div
                     key={u.id}
-                    className="border rounded-full bg-chart-3 py-2 px-2 m-4 text-center"
+                    className="border rounded-full bg-chart-2 py-2 px-2 m-4 text-center"
                 >
                     <Link
-                        className="text-sm text-muted-foreground"
+                        className="text-sm"
                         href={`/dashboard/admin/users/${u.id}`}
                     >
                         {u.name}
                     </Link>
-                    <p className="text-xs text-muted-foreground">
+                    <p className="text-xs">
                         {new Intl.DateTimeFormat("sv-SE").format(u.createdAt)}
                     </p>
                 </div>
@@ -71,22 +71,22 @@ export function Counts({
     return (
         <div className="border rounded-2xl bg-card p-4">
             <h1 className="font-heading text-base font-medium">Counts</h1>
-            <div className="flex justify-between items-center border rounded-full bg-chart-3 px-4 py-1 m-4">
-                <Link className="text-sm text-muted-foreground" href={"/dashboard/admin/articles"}>
+            <div className="flex justify-between items-center border rounded-full bg-chart-2 px-4 py-1 m-4">
+                <Link className="text-sm" href={"/dashboard/admin/articles"}>
                     Articles
                 </Link>
                 <span className="bg-chart-1 rounded-full p-1 ml-2">{articleCount}</span>
             </div>
 
-            <div className="flex justify-between items-center border rounded-full bg-chart-3 px-4 py-1 m-4">
-                <Link className="text-sm text-muted-foreground" href={"/dashboard/admin/users"}>
+            <div className="flex justify-between items-center border rounded-full bg-chart-2 px-4 py-1 m-4">
+                <Link className="text-sm" href={"/dashboard/admin/users"}>
                     Users
                 </Link>
                 <span className="bg-chart-1 rounded-full p-1 ml-2">{userCount}</span>
             </div>
 
-            <div className="flex justify-between items-center border rounded-full bg-chart-3 px-4 py-1 m-4">
-                <p className="text-sm text-muted-foreground">Comments</p>
+            <div className="flex justify-between items-center border rounded-full bg-chart-2 px-4 py-1 m-4">
+                <p className="text-sm">Comments</p>
                 <span className="bg-chart-1 rounded-full p-1 ml-2">{comments}</span>
             </div>
         </div>
@@ -112,15 +112,15 @@ export function TopViewedArticles({ articles }: TopViewedProps) {
             {articles.map((a) => (
                 <div
                     key={a.articleId}
-                    className="border rounded-full bg-chart-3 py-2 px-2 m-4 text-center"
+                    className="border rounded-full bg-chart-2 py-2 px-2 m-4 text-center"
                 >
                     <Link
-                        className="text-sm text-muted-foreground"
+                        className="text-sm"
                         href={`/article/${a.articleId}`}
                     >
                         {a.title}
                     </Link>
-                    <p className="text-xs text-muted-foreground">{a.views} views</p>
+                    <p className="text-xs">{a.views} views</p>
                 </div>
             ))}
         </div>
@@ -133,12 +133,12 @@ export function TopUpvotedArticle({ article }: { article: ArticleWithScore }) {
             <h1 className="font-heading text-base font-medium">Most upvoted article</h1>
             <div
                 key={article.a.id}
-                className="border rounded-full bg-chart-3 py-2 px-2 m-4 text-center"
+                className="border rounded-full bg-chart-2 py-2 px-2 m-4 text-center"
             >
-                <Link className="text-sm text-muted-foreground" href={`/article/${article.a.id}`}>
+                <Link className="text-sm" href={`/article/${article.a.id}`}>
                     {article.a.title}
                 </Link>
-                <p className="text-xs text-muted-foreground">{article.totalScore} upvotes</p>
+                <p className="text-xs">{article.totalScore} upvotes</p>
             </div>
         </div>
     );

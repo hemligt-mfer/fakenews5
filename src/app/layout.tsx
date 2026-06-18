@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Anuphan, Lora, Roboto_Mono } from "next/font/google";
+import { Anuphan, Lora, Roboto_Mono, Gelasio } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/navbar/navbar";
 import Header from "@/components/header";
@@ -20,7 +20,7 @@ const fontSans = Anuphan({
     variable: "--font-sans",
 });
 
-const fontSerif = Lora({
+const fontSerif = Gelasio({
     subsets: ["latin"],
     variable: "--font-serif",
 });
@@ -81,7 +81,7 @@ export default async function RootLayout({
                     }}
                 />
             </head>
-            <body className="flex flex-col bg-gray-200 dark:bg-gray-900">
+            <body className="flex flex-col">
                 <div className="sticky top-0 z-50">
                     <Header />
                     <Navbar categories={cats.success && cats.data ? cats.data : null} />
@@ -91,7 +91,7 @@ export default async function RootLayout({
 
                 {!adFree && <AdBanner />}
 
-                <div className="flex min-h-screen lg:min-w-5xl max-w-6xl shadow-2xl border-x border-gray-500/50 flex-1 mx-auto bg-white">
+                <div className="flex min-h-screen lg:min-w-5xl max-w-6xl shadow-2xl border-x border-gray-500/50 flex-1 mx-auto">
                     <SidebarProvider
                         defaultOpen={false}
                         style={

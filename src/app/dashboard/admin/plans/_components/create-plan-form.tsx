@@ -70,8 +70,8 @@ export default function CreatePlanForm() {
     });
 
     return (
-        <Card className="md:w-2xl">
-            <CardContent>
+        
+          <div>
                  <Collapsible className="rounded-md data-[state=open]:bg-muted">
           <CollapsibleTrigger asChild>
             <Button variant="ghost" className="group w-full">
@@ -81,7 +81,7 @@ export default function CreatePlanForm() {
           </CollapsibleTrigger>
           <CollapsibleContent className="flex flex-col items-start gap-2 p-2.5 pt-0 text-sm">
             
-             <Card className="mx-auto w-full">
+             <Card className="w-full">
             <CardContent>
                 <form
                     id="create-plan-form"
@@ -303,8 +303,8 @@ export default function CreatePlanForm() {
         </Card>
           </CollapsibleContent>
         </Collapsible>
-            </CardContent>
+          </div>
        
-        </Card>
+       
     );
 }
