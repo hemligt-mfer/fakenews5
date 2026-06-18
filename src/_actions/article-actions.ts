@@ -135,22 +135,44 @@ export async function getMostPopularArticles(limit = 3): Promise<Result<ArticleS
     }
 }
 
-export async function getArticle(articleId: string): Promise<Result<Article>> {
-    try {
-        const article = await prisma.article.findUnique({
-            where: { id: articleId },
-            include: {
-                author: true,
-                category: true,
-                comments: { include: { reactions: true } },
-                reactions: true,
-                views: true,
-            },
-        });
-        if (article) return { success: true, data: article };
-        else return { success: false, error: "Couldn't find article." };
-    } catch (err) {
-        return { success: false, error: `Couldn't fetch article from database.\n\n${err}` };
+export async function getArticle(
+    articleId: string,
+    includeDeleted: boolean = true,
+): Promise<Result<Article>> {
+    if (includeDeleted) {
+        try {
+            const article = await prisma.article.findUnique({
+                where: { id: articleId },
+                include: {
+                    author: true,
+                    category: true,
+                    comments: { include: { reactions: true } },
+                    reactions: true,
+                    views: true,
+                },
+            });
+            if (article) return { success: true, data: article };
+            else return { success: false, error: "Couldn't find article." };
+        } catch (err) {
+            return { success: false, error: `Couldn't fetch article from database.\n\n${err}` };
+        }
+    } else {
+        try {
+            const article = await prisma.article.findUnique({
+                where: { id: articleId, deleted: null },
+                include: {
+                    author: true,
+                    category: true,
+                    comments: { include: { reactions: true } },
+                    reactions: true,
+                    views: true,
+                },
+            });
+            if (article) return { success: true, data: article };
+            else return { success: false, error: "Couldn't find article." };
+        } catch (err) {
+            return { success: false, error: `Couldn't fetch article from database.\n\n${err}` };
+        }
     }
 }
 
@@ -219,7 +241,7 @@ export async function getArticleIdsByCategory(
 ): Promise<Result<string[] | null>> {
     try {
         const category = await prisma.category.findUnique({
-            where: { id: categoryId, deleted: null },
+            where: { id: categoryId },
             include: { article: true },
         });
         const articleIds: string[] = [];

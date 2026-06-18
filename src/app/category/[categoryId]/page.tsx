@@ -12,9 +12,11 @@ export default async function CategoryPage({
 }) {
     const { categoryId } = await params;
     const category = await getCategoryById(categoryId);
+    console.log(category);
 
     if (category.success && category.data) {
         const articleIds = await getArticleIdsByCategory(categoryId);
+        console.log(articleIds);
         const articles: Article[] = [];
         if (articleIds.success && articleIds.data) {
             for (const id of articleIds.data) {
@@ -27,8 +29,8 @@ export default async function CategoryPage({
         }
         return (
             <div className="w-full">
-                <RouteHeading label={category.data.name}/>
-               
+                <RouteHeading label={category.data.name} />
+
                 <div className="flex mt-8">
                     <ArticleList articles={articles} articlesPerPage={6} />
                 </div>

@@ -74,6 +74,7 @@ export default async function ArticlePage({ params }: { params: Promise<{ articl
         } else {
             bookmarked = false;
         }
+        console.log(article.data.category);
 
         return (
             <div className="p-2">
