@@ -18,7 +18,7 @@ export default async function Footer() {
     : "/dashboard";
 
   return (
-    <footer className="bg-[#111111] text-[#aaa] pt-9 pb-5">
+    <footer className="bg-[#2d2d2d] text-[#aaa] pt-9 pb-5">
       <div className="max-w-305 mx-auto px-5">
         <div className="grid grid-cols-2 md:grid-cols-[2fr_1fr_1fr_1fr] gap-8 mb-7">
           <div className="col-span-2 md:col-span-1">
