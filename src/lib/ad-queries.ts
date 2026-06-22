@@ -24,9 +24,11 @@ export async function getActiveAd(format: string): Promise<Advertisement | null>
                 AND: [{ OR: [{ endsAt: null }, { endsAt: { gte: now } }] }],
             },
         });
+        console.log(`[getActiveAd] format="${format}" found=${ads.length} now=${now.toISOString()}`);
         if (ads.length === 0) return null;
         return ads[Math.floor(Math.random() * ads.length)];
-    } catch {
+    } catch (err) {
+        console.error(`[getActiveAd] format="${format}" ERROR:`, err);
         return null;
     }
 }
