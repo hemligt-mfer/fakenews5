@@ -21,6 +21,7 @@ import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import remarkIns from "remark-ins";
 import InArticleAd from "@/components/in-article-ad";
+import Image from "next/image";
 
 export default async function ArticlePage({ params }: { params: Promise<{ articleID: string }> }) {
     const { articleID } = await params;
@@ -97,6 +98,19 @@ export default async function ArticlePage({ params }: { params: Promise<{ articl
                             );
                     })}
                 <h1 className="font-extrabold text-3xl text-center">{article.data.title}</h1>
+
+                {article.data.image && (
+                    <div className="relative w-full aspect-video my-4 overflow-hidden border border-border">
+                        <Image
+                            src={article.data.image}
+                            alt={article.data.title}
+                            fill
+                            className="object-cover"
+                            priority
+                            sizes="(max-width: 768px) 100vw, 900px"
+                        />
+                    </div>
+                )}
 
                 <article className="mt-2 mb-4 max-w-none prose border p-4">
                     <ReactMarkdown remarkPlugins={[remarkGfm, remarkIns]}>
