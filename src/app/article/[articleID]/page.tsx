@@ -92,7 +92,8 @@ export default async function ArticlePage({ params }: { params: Promise<{ articl
                                 </Link>
                             );
                     })}
-                <h1 className="font-extrabold text-2xl text-center">{article.data.title}</h1>
+                <h1 className="font-extrabold text-2xl text-center">
+                    {article.data.title}</h1>
                 <p className="text-lg font-semibold text-center">
                     by{" "}
                     {article.data.author.map((a, i) =>
