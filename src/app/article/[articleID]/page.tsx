@@ -17,6 +17,7 @@ import { auth } from "@/lib/auth";
 import { headers } from "next/headers";
 import { redirect } from "next/navigation";
 import ArticleDoesntExist from "./_components/article-doesnt-exists";
+import InArticleAd from "@/components/in-article-ad";
 
 export default async function ArticlePage({ params }: { params: Promise<{ articleID: string }> }) {
     const { articleID } = await params;
@@ -100,6 +101,7 @@ export default async function ArticlePage({ params }: { params: Promise<{ articl
                     )}
                 </p>
                 <p className="mt-2 mb-4">{article.data.content}</p>
+                <InArticleAd />
                 <div className="flex border-b-2 mt-2 pb-2 text-sm">
                     <div className="flex border-r pr-2">
                         <Views num={views} />
