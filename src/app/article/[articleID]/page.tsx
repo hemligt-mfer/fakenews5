@@ -100,7 +100,7 @@ export default async function ArticlePage({ params }: { params: Promise<{ articl
                 <h1 className="font-extrabold text-3xl text-center">{article.data.title}</h1>
 
                 {article.data.image && (
-                    <div className="relative w-full aspect-video my-4 overflow-hidden border border-border">
+                    <div className="relative w-1/2 mx-auto aspect-video my-4 overflow-hidden border border-border">
                         <Image
                             src={article.data.image}
                             alt={article.data.title}
