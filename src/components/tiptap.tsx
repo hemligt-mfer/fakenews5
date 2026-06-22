@@ -37,12 +37,7 @@ function promptForLink(editor: TiptapEditor) {
     editor.chain().focus().extendMarkRange("link").unsetLink().run();
     return;
   }
-  editor
-    .chain()
-    .focus()
-    .extendMarkRange("link")
-    .setLink({ href: url })
-    .run();
+  editor.chain().focus().extendMarkRange("link").setLink({ href: url }).run();
 }
 
 // Grouped toolbar. Each inner array is rendered as a section separated by a divider.

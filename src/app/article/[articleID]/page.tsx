@@ -18,8 +18,8 @@ import { headers } from "next/headers";
 import { redirect } from "next/navigation";
 import ArticleDoesntExist from "./_components/article-doesnt-exists";
 import ReactMarkdown from "react-markdown";
-import remarkGfm from "remark-gfm"
-import remarkIns from "remark-ins"
+import remarkGfm from "remark-gfm";
+import remarkIns from "remark-ins";
 
 export default async function ArticlePage({
   params,
@@ -83,7 +83,7 @@ export default async function ArticlePage({
     }
 
     return (
-      <div className="p-2">
+      <div className="flex-row justify-center w-full px-4 py-2">
         {article.data.category.length > 0 &&
           article.data.category.map((c, i) => {
             if (i + 1 !== article.data.category.length)
@@ -99,19 +99,14 @@ export default async function ArticlePage({
                 </Link>
               );
           })}
-        <h1 className="font-extrabold text-2xl text-center">
+        <h1 className="font-extrabold text-3xl text-center">
           {article.data.title}
         </h1>
-        <p className="text-lg font-semibold text-center">
-          by{" "}
-          {article.data.author.map((a, i) =>
-            i + 1 !== article.data.author.length
-              ? `${a.alias}, `
-              : `${a.alias}`,
-          )}
-        </p>
-        <article className="mt-2 mb-4 prose">
-          <ReactMarkdown remarkPlugins={[remarkGfm, remarkIns]}>{article.data.content}</ReactMarkdown>
+
+        <article className="mt-2 mb-4 max-w-none prose border p-4">
+          <ReactMarkdown remarkPlugins={[remarkGfm, remarkIns]}>
+            {article.data.content}
+          </ReactMarkdown>
         </article>
         <div className="flex border-b-2 mt-2 pb-2 text-sm">
           <div className="flex border-r pr-2">
@@ -135,6 +130,14 @@ export default async function ArticlePage({
           </div>
 
           <div className="flex ml-auto">
+            <p className="text-md font-semibold text-center mr-4">
+              by{" "}
+              {article.data.author.map((a, i) =>
+                i + 1 !== article.data.author.length
+                  ? `${a.alias}, `
+                  : `${a.alias}`,
+              )}
+            </p>
             {article.data.location ? article.data.location + ", " : ""}
             {format(article.data.createdAt, "yyyy-MM-dd HH:mm")}
           </div>

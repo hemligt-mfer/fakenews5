@@ -16,7 +16,6 @@ import {
   FieldLabel,
 } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import addArticle from "../_actions/add-article-action";
@@ -112,49 +111,51 @@ export default function AddArticleForm() {
               }}
             </form.Field>
 
-       <form.Field name="summary">
-    {(field) => {
-        const isInvalid =
-            field.state.meta.isTouched && !field.state.meta.isValid;
-        return (
-            <Field data-invalid={isInvalid}>
-                <FieldLabel htmlFor={field.name}>Summary</FieldLabel>
-                <Editor
-                    initialMarkdown={field.state.value}
-                    onChange={(markdown) => {
-                        field.handleChange(markdown);
-                        field.handleBlur(); // mark touched so validation errors show
-                    }}
-                />
-                {isInvalid && (
-                    <FieldError errors={field.state.meta.errors} />
-                )}
-            </Field>
-        );
-    }}
-</form.Field>
+            <form.Field name="summary">
+              {(field) => {
+                const isInvalid =
+                  field.state.meta.isTouched && !field.state.meta.isValid;
+                return (
+                  <Field data-invalid={isInvalid}>
+                    <FieldLabel htmlFor={field.name}>Summary</FieldLabel>
+                    <Input
+                      className="border-r border-b"
+                      id={field.name}
+                      name={field.name}
+                      value={field.state.value}
+                      onBlur={field.handleBlur}
+                      onChange={(ev) => field.handleChange(ev.target.value)}
+                      aria-invalid={isInvalid}
+                    />
+                    {isInvalid && (
+                      <FieldError errors={field.state.meta.errors} />
+                    )}
+                  </Field>
+                );
+              }}
+            </form.Field>
 
-<form.Field name="content">
-    {(field) => {
-        const isInvalid =
-            field.state.meta.isTouched && !field.state.meta.isValid;
-        return (
-            <Field data-invalid={isInvalid}>
-                <FieldLabel htmlFor={field.name}>Content</FieldLabel>
-                <Editor
-                    initialMarkdown={field.state.value}
-                    onChange={(markdown) => {
+            <form.Field name="content">
+              {(field) => {
+                const isInvalid =
+                  field.state.meta.isTouched && !field.state.meta.isValid;
+                return (
+                  <Field data-invalid={isInvalid}>
+                    <FieldLabel htmlFor={field.name}>Content</FieldLabel>
+                    <Editor
+                      initialMarkdown={field.state.value}
+                      onChange={(markdown) => {
                         field.handleChange(markdown);
                         field.handleBlur();
-                    }}
-                />
-                {isInvalid && (
-                    <FieldError errors={field.state.meta.errors} />
-                )}
-            </Field>
-        );
-    }}
-</form.Field>
+                      }}
+                    />
+                    {isInvalid && (
+                      <FieldError errors={field.state.meta.errors} />
+                    )}
+                  </Field>
+                );
+              }}
+            </form.Field>
             {/* 
                         <form.Field name="content">
                             {(field) => {
