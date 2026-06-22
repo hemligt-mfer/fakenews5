@@ -26,9 +26,9 @@ export default async function InArticleAd() {
                 href={ad.linkUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="block"
+                className="block w-full max-w-[728px]"
             >
-                <div className="relative w-full max-w-[728px] h-[90px]">
+                <div className="relative w-full h-[90px]">
                     <Image
                         src={ad.imageUrl}
                         alt={ad.label}

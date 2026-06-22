@@ -112,17 +112,14 @@ export default async function HomePage() {
             <div className="grid grid-cols-1 lg:grid-cols-[1fr_300px] gap-8">
                 <div>
                     <SectionHead title="Latest News" />
-                    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-0">
+                    <div className="divide-y divide-border">
                         {latestNews.length === 0 ? (
-                            <p className="text-sm text-muted-foreground col-span-3">
+                            <p className="text-sm text-muted-foreground py-4">
                                 No articles published yet.
                             </p>
                         ) : (
-                            latestNews.map((a, i) => (
-                                <div
-                                    key={a.id}
-                                    className={`px-0 sm:px-5 first:pl-0 last:pr-0 py-4 sm:py-0 border-b border-border sm:border-b-0 last:border-b-0 ${i < latestNews.length - 1 ? "md:border-r md:border-border" : ""}`}
-                                >
+                            latestNews.map((a) => (
+                                <div key={a.id} className="py-6 first:pt-0">
                                     <NewsCard
                                         id={a.id}
                                         title={a.title}
@@ -133,7 +130,7 @@ export default async function HomePage() {
                                         image={a.image}
                                         createdAt={a.createdAt}
                                         updatedAt={a.updatedAt}
-                                        size="medium"
+                                        size="hero"
                                     />
                                 </div>
                             ))
