@@ -1,7 +1,8 @@
 "use client";
 
 import { useState } from "react";
-import { AD_FORMATS, createAdvertisement } from "@/_actions/advertisement-actions";
+import { createAdvertisement } from "@/_actions/advertisement-actions";
+import { AD_FORMATS } from "@/lib/ad-formats";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Spinner } from "@/components/ui/spinner";
@@ -31,22 +32,27 @@ export default function CreateAdForm() {
             return;
         }
         setLoading(true);
-        const res = await createAdvertisement({
-            label: fields.label,
-            format: fields.format,
-            imageUrl: fields.imageUrl,
-            linkUrl: fields.linkUrl,
-            active: false,
-            startsAt: fields.startsAt ? new Date(fields.startsAt) : null,
-            endsAt: fields.endsAt ? new Date(fields.endsAt) : null,
-        });
-        setLoading(false);
-        if (res.success) {
-            toast.success("Ad created — remember to activate it.");
-            setFields({ label: "", format: "banner", imageUrl: "", linkUrl: "", startsAt: "", endsAt: "" });
-            router.refresh();
-        } else {
-            toast.error(res.error ?? "Failed to create ad.");
+        try {
+            const res = await createAdvertisement({
+                label: fields.label,
+                format: fields.format,
+                imageUrl: fields.imageUrl,
+                linkUrl: fields.linkUrl,
+                active: false,
+                startsAt: fields.startsAt ? new Date(fields.startsAt) : null,
+                endsAt: fields.endsAt ? new Date(fields.endsAt) : null,
+            });
+            if (res.success) {
+                toast.success("Ad created — remember to activate it.");
+                setFields({ label: "", format: "banner", imageUrl: "", linkUrl: "", startsAt: "", endsAt: "" });
+                router.refresh();
+            } else {
+                toast.error(res.error ?? "Failed to create ad.");
+            }
+        } catch (err) {
+            toast.error(`Unexpected error: ${err}`);
+        } finally {
+            setLoading(false);
         }
     };
 

@@ -1,4 +1,4 @@
-import { getActiveAd } from "@/_actions/advertisement-actions";
+import { getActiveAd } from "@/lib/ad-queries";
 import Image from "next/image";
 
 export default async function InArticleAd() {

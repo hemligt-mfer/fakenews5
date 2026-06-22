@@ -1,7 +1,7 @@
 import { auth } from "@/lib/auth";
 import { headers } from "next/headers";
 import { redirect } from "next/navigation";
-import { getAdvertisements } from "@/_actions/advertisement-actions";
+import { getAdvertisements } from "@/lib/ad-queries";
 import RouteHeading from "@/components/route-heading";
 import CreateAdForm from "./_components/create-ad-form";
 import AdList from "./_components/ad-list";
