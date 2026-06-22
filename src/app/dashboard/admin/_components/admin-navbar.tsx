@@ -40,6 +40,11 @@ export default function AdminNavbar() {
                     </Button>
                 </li>
                 <li>
+                    <Button asChild variant="ghost" className="text-white">
+                        <Link href="/dashboard/admin/advertisements">Ads</Link>
+                    </Button>
+                </li>
+                <li>
                     <DropdownMenu>
                         <DropdownMenuTrigger asChild>
                             <Button variant="ghost" className="text-white">

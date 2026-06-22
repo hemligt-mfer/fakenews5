@@ -20,6 +20,7 @@ import ArticleDoesntExist from "./_components/article-doesnt-exists";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import remarkIns from "remark-ins";
+import InArticleAd from "@/components/in-article-ad";
 
 export default async function ArticlePage({ params }: { params: Promise<{ articleID: string }> }) {
     const { articleID } = await params;
@@ -102,6 +103,7 @@ export default async function ArticlePage({ params }: { params: Promise<{ articl
                         {article.data.content}
                     </ReactMarkdown>
                 </article>
+                <InArticleAd />
                 <div className="flex border-b-2 mt-2 pb-2 text-sm">
                     <div className="flex border-r pr-2">
                         <Views num={views} />

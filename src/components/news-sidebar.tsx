@@ -3,6 +3,7 @@ import MarketsWidget from "./markets-widget";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import WeatherApp from "./weather-app";
+import SidebarAd from "./sidebar-ad";
 
 type SidebarArticle = {
   id: string;
@@ -51,6 +52,11 @@ export default function NewsSidebar({ mostRead }: Props) {
           </ul>
         </div>
       )}
+
+      {/* Sidebar ad */}
+      <div className="mb-7">
+        <SidebarAd />
+      </div>
 
       {/* Morning Briefing / Newsletter */}
       {/* suppressHydrationWarning: password managers (e.g. ProtonPass) inject attributes onto forms */}
