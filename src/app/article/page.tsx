@@ -58,14 +58,14 @@ export default async function SearchPage({
     return (
         <main className="max-w-5xl mx-auto px-4 py-8">
             {search && (
-                <p className="text-sm text-muted-foreground mb-6">
+                <p className="text-sm mb-6">
                     {articles.length} result{articles.length !== 1 ? "s" : ""} for &quot;
                     {search}&quot;
                 </p>
             )}
 
             {articles.length === 0 && search && (
-                <p className="text-muted-foreground">
+                <p className="">
                     No articles matched your search. Try a different title, author, or category.
                 </p>
             )}
