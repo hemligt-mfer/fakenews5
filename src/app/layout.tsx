@@ -91,7 +91,7 @@ export default async function RootLayout({
 
                 {!adFree && <AdBanner />}
 
-                <div className="flex min-h-screen lg:min-w-5xl max-w-6xl shadow-2xl border-x border-gray-500/50 flex-1 mx-auto">
+                <div className="flex min-h-screen lg:min-w-5xl dark:bg-muted max-w-6xl shadow-2xl border-x border-gray-500/50 flex-1 mx-auto">
                     <SidebarProvider
                         defaultOpen={false}
                         style={

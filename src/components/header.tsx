@@ -5,17 +5,17 @@ import { ThemeToggle } from "./theme-toggle";
 
 export default function Header() {
   return (
-    <div className="flex justify-between  bg-[#2d2d2d] border-b-5 border-b-primary">
+    <div className="flex justify-between dark:bg-[#2d2d2d]  bg-background border-b-5 border-b-primary">
         <div className="flex md:hidden"><Image src={"/logo.svg"} width={90} height={90} alt="Logo" priority /></div>
       <div className="hidden md:flex w-full text-center p-5  mx-auto justify-center">
         <Link href="/">
           <div className="flex">
             <Image src={"/logo.svg"} width={90} height={90} alt="Logo" priority />
             <div className="flex flex-col justify-center">
-              <h1 className="font-serif text-4xl text-white text-shadow-xs text-shadow-black md:text-5xl">
+              <h1 className="font-serif text-4xl text-shadow-xs text-shadow-black md:text-5xl">
                 Fakenews5
               </h1>
-              <h2 className="text-primary text-sm uppercase mr-auto text-shadow-black text-shadow-xs">
+              <h2 className="text-primary text-sm uppercase mr-auto text-shadow-black">
                 Your daily dose of doubt
               </h2>
             </div>

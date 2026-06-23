@@ -13,7 +13,7 @@ export async function LoginRegButtons() {
       {session ? (
         <>
           <li>
-            <Button asChild variant="ghost" className="text-white">
+            <Button asChild variant="outline" className="">
               <Link href="/dashboard">Dashboard</Link>
             </Button>
           </li>
@@ -24,13 +24,13 @@ export async function LoginRegButtons() {
       ) : (
         <>
         <li>
-            <Button asChild variant="ghost" className="text-white">
+            <Button asChild variant="outline" className="">
               <Link href="/sign-in">Sign in</Link>
             </Button>
           </li>{" "}
           {" "}
           <li>
-            <Button asChild variant="ghost" className="text-white">
+            <Button asChild variant="outline" className="">
               <Link href="/register">Register</Link>
             </Button>
           </li>

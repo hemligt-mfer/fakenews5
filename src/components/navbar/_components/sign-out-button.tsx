@@ -32,11 +32,11 @@ export function SignOutButton({ children, disabled, ...props }: Props) {
 
   return (
     <Button
-      variant="ghost"
+      variant="outline"
       disabled={loading || disabled}
       onClick={handleClick}
       {...props}
-      className="cursor-pointer text-white"
+      className="cursor-pointer"
     >
       {loading ? (
         <>

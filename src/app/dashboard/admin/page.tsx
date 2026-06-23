@@ -46,6 +46,7 @@ export default async function AdminDashboardPage() {
     redirect("/");
   }
 
+
   const chartData = await userCountryChart();
   const latest = await userReg();
   const articleCount = await articleCounts();

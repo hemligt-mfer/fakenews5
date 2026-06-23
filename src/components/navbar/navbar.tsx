@@ -15,21 +15,21 @@ export default function Navbar({ categories }: { categories: Category[] | null }
     }
     return (
         <div className="flex">
-            <div className="hidden lg:flex w-full items-center gap-2 px-6 bg-[#2d2d2d]">
+            <div className="hidden lg:flex w-full items-center gap-2 px-6 dark:bg-[#2d2d2d]  bg-background">
                 <ul className="flex justify-start w-5xl mx-auto">
                     <li>
                         <NewsDropdown label="News" links={links} />
                     </li>
                     <li>
                         <Link href="/marketplace">
-                            <Button variant="ghost" className="text-white cursor-pointer">
+                            <Button variant="ghost" className="cursor-pointer">
                                 Marketplace
                             </Button>
                         </Link>
                     </li>
                     <li>
                         <Link href="/subscriptions">
-                            <Button variant="ghost" className="text-white cursor-pointer">
+                            <Button variant="ghost" className="cursor-pointer">
                                 Subscriptions
                             </Button>
                         </Link>
