@@ -97,7 +97,7 @@ export default async function ArticlePage({ params }: { params: Promise<{ articl
                 <h1 className="font-extrabold text-3xl text-center">{article.data.title}</h1>
 
                 {article.data.image && (
-                    <div className="relative w-1/2 mx-auto aspect-video my-4 overflow-hidden border border-border">
+                    <div className="relative w-3/4 mx-auto mt-2 aspect-video overflow-hidden border border-border">
                         <Image
                             src={article.data.image}
                             alt={article.data.title}
@@ -106,16 +106,20 @@ export default async function ArticlePage({ params }: { params: Promise<{ articl
                             priority
                             sizes="(max-width: 768px) 100vw, 900px"
                         />
+                        
                     </div>
                 )}
+                <div className="w-3/4 flex-row mx-auto max-w-none bg-gray-100 dark:bg-[#2d2d2d] text-black dark:text-white  p-4"><p>
+                        {article.data.summary}</p></div>
+                
 
-                <article className="mt-2 mb-4 max-w-none prose dark:bg-[#2d2d2d] dark:text-white dark:prose-headings:text-white border p-4">
+                <article className="w-3/4 flex-row mx-auto mt-2 mb-4 max-w-none prose  dark:bg-[#2d2d2d] dark:text-white dark:prose-headings:text-white p-4">
                     <ReactMarkdown remarkPlugins={[remarkGfm, remarkIns]}>
                         {hasPermission ? article.data.content : article.data.content.slice(0, 500)}
                     </ReactMarkdown>
                 </article>
                 {/* <InArticleAd /> */}
-                <div className="flex border-b-2 mt-2 pb-2 text-sm">
+                <div className="flex border-b-2 mt-2 pb-2 text-sm bg-gray-100 dark:bg-[#2d2d2d] p-4">
                     <div className="flex border-r pr-2">
                         <Views num={views} />
                     </div>

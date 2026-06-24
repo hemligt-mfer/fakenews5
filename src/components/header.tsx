@@ -10,13 +10,13 @@ export default function Header() {
       <div className="hidden md:flex w-full text-center p-5  mx-auto justify-center">
         <Link href="/">
           <div className="flex">
-            <Image src={"/fn_logo.svg"} width={90} height={90} alt="Logo" priority />
+            <Image src={"/tdc_logo_gelasio_larger.svg"} width={90} height={90} alt="Logo" priority />
             <div className="flex flex-col justify-center">
               <h1 className="font-serif text-4xl text-shadow-xs  md:text-5xl">
-                Fakenews5
+                The Daily Commit
               </h1>
               <h2 className="text-primary text-sm uppercase mr-auto ">
-                Your daily dose of doubt
+                Committed to the truth.
               </h2>
             </div>
           </div>
