@@ -26,8 +26,7 @@ export default async function Footer() {
               The Daily Commit
             </p>
             <p className="font-serif text-[16px] font-bold mb-2">
-              The World&apos;s <br />
-              Most Unreliable <br></br>News Source
+              YOUR DAILY DOSE OF NEWS. <br /> COMMITTED TO THE TRUTH.
             </p>
             <p className="font-sans text-[11px] leading-relaxed"></p>
           </div>{" "}
@@ -54,10 +53,10 @@ export default async function Footer() {
             </p>
             <ul className="space-y-1.5 font-sans text-[12px]">
               <li>
-                <Link href="/sign-in">Sign in</Link>
+                <Link href="/sign-in" className="hover:text-primary transition-colors">Sign in</Link>
               </li>
               <li>
-                <Link href={registerHref}>Register</Link>
+                <Link href={registerHref} className="hover:text-primary transition-colors">Register</Link>
               </li>
               <li>
                 <Link

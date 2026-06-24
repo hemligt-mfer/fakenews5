@@ -43,7 +43,7 @@ export default async function HomePage() {
     }
 
     return (
-        <div className="w-full px-5 pb-10">
+        <div className="w-full px-5 pb-10">     
             {/* ── Hero section ── */}
             <div className="flex items-center gap-3 mt-6 mb-4">
                 <div className="flex-1 border-t border-border" />

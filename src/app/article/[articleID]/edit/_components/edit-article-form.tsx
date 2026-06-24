@@ -203,7 +203,7 @@ export default function EditArticleForm({ articleId, defaultValues }: EditArticl
                                                 alt="Selected article image preview"
                                                 width={100}
                                                 height={100}
-                                                className="mt-2 h-28 w-auto rounded object-cover border"
+                                                className="mt-2 h-100 w-auto rounded object-contain"
                                             />
                                         )}
 
