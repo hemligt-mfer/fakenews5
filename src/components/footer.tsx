@@ -18,21 +18,21 @@ export default async function Footer() {
     : "/dashboard";
 
   return (
-    <footer className="bg-[#2d2d2d] text-[#aaa] pt-9 pb-5">
+    <footer className="bg-grey-100 dark:bg-[#2d2d2d] pt-9 pb-5 border-t-5 border-t-primary">
       <div className="max-w-305 mx-auto px-5">
         <div className="grid grid-cols-2 md:grid-cols-[2fr_1fr_1fr_1fr] gap-8 mb-7">
           <div className="col-span-2 md:col-span-1">
-            <p className="font-serif text-[40px] font-bold text-white mb-2">
+            <p className="font-serif text-[40px] mb-2">
               Fakenews5
             </p>
-            <p className="font-serif text-[16px] font-bold text-white mb-2">
+            <p className="font-serif text-[16px] font-bold mb-2">
               The World&apos;s <br />
               Most Unreliable <br></br>News Source
             </p>
             <p className="font-sans text-[11px] leading-relaxed"></p>
           </div>{" "}
           <div>
-            <p className="font-sans text-[10px] font-bold uppercase tracking-[0.08em] text-white mb-3">
+            <p className="font-sans text-[10px] font-bold uppercase tracking-[0.08em] mb-3">
               News
             </p>
             <ul className="space-y-1.5 font-sans text-[12px]">
@@ -40,7 +40,7 @@ export default async function Footer() {
                 <li key={c}>
                   <Link
                     href={`/category/${c}`}
-                    className="hover:text-white transition-colors capitalize"
+                    className="hover:text-primary transition-colors capitalize"
                   >
                     {c}
                   </Link>
@@ -49,7 +49,7 @@ export default async function Footer() {
             </ul>
           </div>
           <div>
-            <p className="font-sans text-[10px] font-bold uppercase tracking-[0.08em] text-white mb-3">
+            <p className="font-sans text-[10px] font-bold uppercase tracking-[0.08em] mb-3">
               Account
             </p>
             <ul className="space-y-1.5 font-sans text-[12px]">
@@ -62,7 +62,7 @@ export default async function Footer() {
               <li>
                 <Link
                   href="/subscribe"
-                  className="hover:text-white transition-colors"
+                  className="hover:text-primary transition-colors"
                 >
                   Subscribe
                 </Link>
@@ -70,7 +70,7 @@ export default async function Footer() {
               <li>
                 <Link
                   href={myPageHref}
-                  className="hover:text-white transition-colors"
+                  className="hover:text-primary transition-colors"
                 >
                   My Page
                 </Link>
@@ -78,14 +78,14 @@ export default async function Footer() {
             </ul>
           </div>
           <div>
-            <p className="font-sans text-[10px] font-bold uppercase tracking-[0.08em] text-white mb-3">
+            <p className="font-sans text-[10px] font-bold uppercase tracking-[0.08em] mb-3">
               Company
             </p>
             <ul className="space-y-1.5 font-sans text-[12px]">
               <li>
                 <Link
                   href="/about"
-                  className="hover:text-white transition-colors"
+                  className="hover:text-primary transition-colors"
                 >
                   About Us
                 </Link>
@@ -93,7 +93,7 @@ export default async function Footer() {
               <li>
                 <Link
                   href="/advertise"
-                  className="hover:text-white transition-colors"
+                  className="hover:text-primary transition-colors"
                 >
                   Advertise
                 </Link>
@@ -101,7 +101,7 @@ export default async function Footer() {
               <li>
                 <Link
                   href="/advertise/private"
-                  className="hover:text-white transition-colors"
+                  className="hover:text-primary transition-colors"
                 >
                   Classifieds
                 </Link>
@@ -109,7 +109,7 @@ export default async function Footer() {
               <li>
                 <Link
                   href="/marketplace"
-                  className="hover:text-white transition-colors"
+                  className="hover:text-primary transition-colors"
                 >
                   Marketplace
                 </Link>
@@ -117,7 +117,7 @@ export default async function Footer() {
               <li>
                 <Link
                   href="/legal/privacy"
-                  className="hover:text-white transition-colors"
+                  className="hover:text-primary transition-colors"
                 >
                   Privacy Policy
                 </Link>
@@ -125,7 +125,7 @@ export default async function Footer() {
               <li>
                 <Link
                   href="/legal/tos"
-                  className="hover:text-white transition-colors"
+                  className="hover:text-primary transition-colors"
                 >
                   Terms of Service
                 </Link>
@@ -133,7 +133,7 @@ export default async function Footer() {
               <li>
                 <Link
                   href="/contact"
-                  className="hover:text-white transition-colors"
+                  className="hover:text-primary transition-colors"
                 >
                   Contact
                 </Link>
@@ -147,18 +147,18 @@ export default async function Footer() {
           <span className="flex gap-3">
             <Link
               href="/legal/privacy"
-              className="hover:text-white transition-colors"
+              className="hover:text-primary transition-colors"
             >
               Privacy
             </Link>
             <span>·</span>
-            <Link href="/legal/tos" className="hover:text-white transition-colors">
+            <Link href="/legal/tos" className="hover:text-primary transition-colors">
               Terms
             </Link>
             <span>·</span>
             <Link
               href="/cookies"
-              className="hover:text-white transition-colors"
+              className="hover:text-primary transition-colors"
             >
               Cookies
             </Link>

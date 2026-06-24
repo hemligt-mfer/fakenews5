@@ -11,7 +11,7 @@ import { ChevronDown } from "lucide-react";
 
 export default function EditorNavbar() {
   return (
-    <div className="flex w-full gap-2 px-6 sticky top-0 bg-muted-foreground">
+    <div className="flex w-full gap-2 px-6 sticky top-0 bg-muted-foreground dark:bg-muted">
       <ul className="flex items-center mx-auto">
         <li>
           <Button asChild variant="ghost" className="text-white">

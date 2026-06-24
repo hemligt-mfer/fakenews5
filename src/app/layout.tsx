@@ -89,7 +89,7 @@ export default async function RootLayout({
                     }}
                 />
             </head>
-            <body className="flex flex-col">
+            <body className="flex flex-col  bg-gray-100 dark:bg-background">
                 <div className="sticky top-0 z-50">
                     <Header />
                     <Navbar categories={cats.success && cats.data ? cats.data : null} />
@@ -99,7 +99,7 @@ export default async function RootLayout({
 
                 {showAds && <AdBanner />}
 
-                <div className="flex min-h-screen lg:min-w-5xl dark:bg-muted max-w-6xl shadow-2xl border-x border-gray-500/50 flex-1 mx-auto">
+                <div className="flex min-h-screen lg:min-w-5xl  bg-white dark:bg-muted max-w-6xl shadow-2xl border-x border-gray-500/50 flex-1 mx-auto">
                     <SidebarProvider
                         defaultOpen={false}
                         style={
