@@ -21,7 +21,7 @@ export default function Navbar({
   }
   return (
     <div className="flex">
-      <div className="flex w-full items-center h-8 gap-2 px-6 dark:bg-primary/20 border-b-5 border-b-primary bg-primary">
+      <div className="flex w-full items-center h-8 gap-2 px-6 dark:bg-background  bg-background">
         <ul className="flex justify-start w-5xl mx-auto">
           <li className="lg:hidden">
             {" "}
