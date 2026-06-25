@@ -107,6 +107,7 @@ export default async function RootLayout({
             <div className="relative z-20">
               <Header />
             </div>
+              <ScrollAwareNav>
             <div className="flex justify-between bg-background mx-70">
               <Navbar
                 categories={cats.success && cats.data ? cats.data : null}
@@ -118,7 +119,6 @@ export default async function RootLayout({
                 <LoginRegButtons />
               </div>
             </div>
-            <ScrollAwareNav>
               {hasPermission && <AdminNavbar />}
               {editor && <EditorNavbar />}
             </ScrollAwareNav>
