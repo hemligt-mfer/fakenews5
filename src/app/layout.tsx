@@ -114,7 +114,7 @@ export default async function RootLayout({
 
         {showAds && <AdBanner />}
 
-        <div className="  min-h-screen w-full mx-auto md:max-w-5xl dark:bg-muted  shadow-2xl border-x border-gray-500/50 flex-1 ">
+        <div className="  min-h-screen w-full mx-auto md:max-w-5xl bg-background dark:bg-muted border-x border-gray-500/50 flex-1 ">
           
             <AppSidebar
               categories={cats.success && cats.data ? cats.data : null}

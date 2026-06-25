@@ -36,7 +36,7 @@ export default function DeleteCommentButton({ commentId }: { commentId: string }
     return (
         <Dialog open={openDialog} onOpenChange={setOpenDialog}>
             <DialogTrigger asChild>
-                <Button variant="destructive" className="ml-2">
+                <Button size="xs" variant="destructive" className="ml-2">
                     <Trash2 size={14} />
                 </Button>
             </DialogTrigger>
