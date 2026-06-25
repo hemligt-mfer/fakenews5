@@ -54,14 +54,18 @@ export default async function ArticlePage({ params }: { params: Promise<{ articl
     }
 
     if (userId && hasPermission && article.success && article.data) {
+        // Only add a view when the referer url is not the same as the article url.
+        // This prevents the view counter from increasing when the user refresh the page
+        // or clicks on thumbs up/down, writing comments etc, since all those actions
+        // end with a router.refresh() call.
         const referer = await getReferer();
         const currentUrl = `http://localhost:3000/article/${articleID}`;
+        //console.log(referer, currentUrl);
+        let views = article.data.views;
         if (referer !== currentUrl) {
             await addView(articleID);
+            views++;
         }
-
-        const views = article.data.views;
-        // console.log(views);
 
         // Calculate the total reactions (upvotes/downvotes) to one score
         const reactions = article.data.reactions;

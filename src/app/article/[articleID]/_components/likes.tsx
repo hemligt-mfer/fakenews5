@@ -25,7 +25,7 @@ export default function Likes({
         } else if (userReaction == 1) {
             await removeUserReaction(articleId, userId);
         }
-        router.refresh();
+        router.push(`http://localhost:3000/article/${articleId}`);
     }
 
     async function downvote() {
@@ -36,7 +36,7 @@ export default function Likes({
         } else if (userReaction == -1) {
             await removeUserReaction(articleId, userId);
         }
-        router.refresh();
+        router.push(`http://localhost:3000/article/${articleId}`);
     }
 
     return (

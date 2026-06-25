@@ -36,6 +36,14 @@ export default async function CommentItem({
     const userData = await getAllUserDataFromId(data.user_id);
     const currentUserId = await getUserId();
 
+    let canEdit = false;
+    console.log(userData.data?.userInfoTable.id, currentUserId);
+    if (userData.success && userData.data && currentUserId) {
+        if (userData.data.userInfoTable.id == currentUserId) {
+            canEdit = true;
+        }
+    }
+
     let userReaction: number | undefined;
     let reaction;
     if (currentUserId) {
@@ -76,6 +84,7 @@ export default async function CommentItem({
             articleId={articleId}
             level={level}
             parentComment={data.replyTo}
+            canEdit={canEdit}
             canDelete={hasPermission.success}
         >
             {renderedReplies}
