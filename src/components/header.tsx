@@ -1,23 +1,43 @@
+"use client";
 import Image from "next/image";
 import Link from "next/link";
-import { LoginRegButtons } from "./navbar/_components/login-register-buttons";
 import { ThemeToggle } from "./theme-toggle";
+import { useTheme } from "next-themes";
+import { useEffect, useState } from "react";
 
 export default function Header() {
-  return (
-    <div className="grid grid-cols-[1fr_auto_1fr] items-end dark:bg-[#2d2d2d] bg-background border-b-5 border-b-primary">
-      <div />
+  const { resolvedTheme } = useTheme();
+  const [mounted, setMounted] = useState(false);
 
-      <span className="hidden md:flex p-5 justify-center">
+  useEffect(() => setMounted(true), []);
+
+  if (!mounted) return null; // avoid hydration mismatch
+
+  const isDark = resolvedTheme === "dark";
+  return (
+    <div className="flex justify-between dark:bg-[#2d2d2d] bg-background border-b-3 border-b-primary">
+      <span className="hidden md:flex p-5 justify-center mx-70">
         <Link href="/">
-          <div className="flex gap-3">
-            <Image
-              src={"/tdc_logo_gelasio_larger.svg"}
-              width={90}
-              height={90}
-              alt="Logo"
-              priority
-            />
+          <div className="flex gap-1">
+            <div className="relative">
+              <Image
+                src="/lightlogo.png"
+                width={200}
+                height={200}
+                alt="Logo"
+                className="dark:hidden"
+                priority
+              />
+              <Image
+                src="/darklogo.png"
+                width={200}
+                height={200}
+                alt="Logo"
+                className="hidden dark:block"
+                priority
+              />
+            </div>
+
             <div className="w-full max-w-100 pt-2">
               <div className="flex items-center gap-3 mb-1">
                 <div className="flex-1 h-px bg-black dark:bg-white"></div>
@@ -42,7 +62,6 @@ export default function Header() {
 
       <span className="flex items-end justify-end gap-3 pb-3 pr-4">
         <ThemeToggle />
-        <LoginRegButtons />
       </span>
     </div>
   );

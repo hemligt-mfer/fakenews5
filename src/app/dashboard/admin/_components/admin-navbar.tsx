@@ -12,44 +12,44 @@ import { ChevronDown } from "lucide-react";
 export default function AdminNavbar() {
 
     return (
-        <div className="flex w-full gap-2 px-6 sticky top-0 bg-muted-foreground dark:bg-muted">
+        <div className="flex w-full gap-2 px-6 sticky top-0 bg-chart-5 dark:bg-muted">
             <ul className="flex items-center mx-auto">
                 <li>
-                    <Button asChild variant="ghost" className="text-white">
+                    <Button asChild variant="ghost" className="">
                         <Link href="/dashboard/admin">Overview</Link>
                     </Button>
                 </li>
                 <li>
-                    <Button asChild variant="ghost" className="text-white">
+                    <Button asChild variant="ghost" className="">
                         <Link href="/dashboard/admin/articles">Article table</Link>
                     </Button>
                 </li>
                 <li>
-                    <Button asChild variant="ghost" className="text-white">
+                    <Button asChild variant="ghost" className="">
                         <Link href="/dashboard/admin/users">User table</Link>
                     </Button>
                 </li>
          <li>
-          <Button asChild variant="ghost" className="text-white">
+          <Button asChild variant="ghost" className="">
             <Link href="/dashboard/admin/saved-articles">Saved articles</Link>
           </Button>
         </li>
                 <li>
-                    <Button asChild variant="ghost" className="text-white">
+                    <Button asChild variant="ghost" className="">
                         <Link href="/dashboard/admin/plans">Plans</Link>
                     </Button>
                 </li>
                 <li>
-                    <Button asChild variant="ghost" className="text-white">
+                    <Button asChild variant="ghost" className="">
                         <Link href="/dashboard/admin/advertisements">Ads</Link>
                     </Button>
                 </li>
                 <li>
                     <DropdownMenu>
                         <DropdownMenuTrigger asChild>
-                            <Button variant="ghost" className="text-white">
+                            <Button variant="ghost" className="">
                                 Editor tools
-                                <ChevronDown color="white" />
+                                <ChevronDown color="black" />
                             </Button>
                         </DropdownMenuTrigger>
                         <DropdownMenuContent>

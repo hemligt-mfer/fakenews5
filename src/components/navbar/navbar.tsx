@@ -44,9 +44,9 @@ export default function Navbar({
               </Button>
             </Link>
           </li>
-          <li className="ml-auto my-auto">
+          {/* <li className="ml-auto my-auto">
             <SearchBar />
-          </li>
+          </li> */}
         </ul>
       </div>
     </div>
