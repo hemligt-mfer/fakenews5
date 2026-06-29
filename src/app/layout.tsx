@@ -115,7 +115,6 @@ export default async function RootLayout({
                 <div className="my-auto">
                 <SearchBar />
                 </div>
-                <LoginRegButtons />
               </div>
             </div>
               {hasPermission && <AdminNavbar />}

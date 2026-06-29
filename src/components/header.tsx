@@ -1,19 +1,13 @@
-"use client";
 import Image from "next/image";
 import Link from "next/link";
 import { ThemeToggle } from "./theme-toggle";
-import { useTheme } from "next-themes";
-import { useEffect, useState } from "react";
+import { LoginRegButtons } from "./navbar/_components/login-register-buttons";
 
-export default function Header() {
-    const { resolvedTheme } = useTheme();
-    const [mounted, setMounted] = useState(false);
 
-    useEffect(() => setMounted(true), []);
 
-    if (!mounted) return null; // avoid hydration mismatch
 
-    const isDark = resolvedTheme === "dark";
+
+export default async function Header() {
     return (
         <div className="flex justify-between dark:bg-[#2d2d2d] bg-background border-b-3 border-b-primary">
             <span className="hidden md:flex p-5 justify-center mx-auto">
@@ -61,6 +55,7 @@ export default function Header() {
             </span>
 
             <span className="flex items-end justify-end gap-3 pb-3 pr-4">
+                 <LoginRegButtons />
                 <ThemeToggle />
             </span>
         </div>
