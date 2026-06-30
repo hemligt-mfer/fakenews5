@@ -66,8 +66,6 @@ export default function AddArticleForm() {
         onSubmit: async ({ value }) => {
             setLoading(true);
             const result = await addArticle(value);
-            console.log(result);
-            console.log("aaa", result.success);
             if (result.success === false && result.error) {
                 toast.error(result.error, { position: "top-center" });
                 setLoading(false);

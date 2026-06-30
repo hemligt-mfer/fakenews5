@@ -12,6 +12,5 @@ type Article = {
 };
 
 export default function ArticlePreview({ article }: { article: Article }) {
-    console.log(article);
     return <div className="p-2"></div>;
 }

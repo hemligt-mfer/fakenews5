@@ -52,7 +52,6 @@ export async function addComment(
 ): Promise<Result<boolean>> {
     const userId = await getUserId();
     if (userId) {
-        console.log(userId);
         try {
             const res = await prisma.comment.create({
                 data: {

@@ -21,8 +21,8 @@ export default async function SubscriptionPage() {
     if (subscriptions.length > 1) {
         history = subscriptions.slice(1);
     }
-    console.log(subscriptions);
-    console.log(latestSubscription);
+    // console.log(subscriptions);
+    // console.log(latestSubscription);
     // console.log(subscriptions);
     // console.log(subscriptions.length);
     // console.log(latestSubscription, price);
