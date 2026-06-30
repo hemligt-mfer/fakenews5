@@ -43,7 +43,6 @@ export async function markArticleAsViewed(articleId: string) {
         const articleIdsString = viewedArticles?.value;
         const idsArray = articleIdsString.toString().split("/");
         for (const id of idsArray) {
-            console.log(id);
             if (id === articleId) {
                 return;
             }
@@ -56,5 +55,4 @@ export async function markArticleAsViewed(articleId: string) {
         });
         await addView(articleId);
     }
-    console.log(viewedArticles);
 }

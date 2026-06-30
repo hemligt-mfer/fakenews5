@@ -104,5 +104,4 @@ export async function getUserFromStripeId(stripeId: string): Promise<Result<User
 
 export async function getUserInfoFromId(userId: string) {
     const userInfoId = getUserId();
-    console.log(userInfoId);
 }

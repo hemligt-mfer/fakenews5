@@ -45,11 +45,10 @@ export default async function HomePage() {
   const user = await auth.api.getSession({ headers: await headers() });
   if (user) {
     const plan = await getSubscriptionPlanFromUserId(user.user.id);
-    //console.log(plan);
   }
 
   const consent = await getConsent();
-  console.log(consent);
+ 
 
   const cats = await getCategories();
   const auths = await getAuthors();
