@@ -30,7 +30,6 @@
         "cmdk": "^1.1.1",
         "country-data-list": "^1.6.3",
         "date-fns": "^4.3.0",
-        "dotenv": "^17.4.2",
         "embla-carousel-react": "^8.6.0",
         "input-otp": "^1.4.2",
         "libphonenumber-js": "^1.13.3",
@@ -71,10 +70,12 @@
         "@types/react-dom": "^19",
         "babel-plugin-react-compiler": "1.0.0",
         "cross-env": "^10.1.0",
+        "dotenv": "^17.4.2",
         "eslint": "^9",
         "eslint-config-next": "16.2.6",
         "prisma": "^7.8.0",
         "tailwindcss": "^4",
+        "tsx": "^4.22.4",
         "typescript": "^5"
     }
 }

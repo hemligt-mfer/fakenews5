@@ -139,7 +139,7 @@ model Category {
     name       String               @unique
     article    Article[]
     newsletter NewsletterSettings[]
- 
+
     @@map("category")
 }
  
@@ -150,7 +150,7 @@ model Author {
     articles           Article[]
     user_info          User                 @relation(fields: [userId], references: [id])
     newsletterSettings NewsletterSettings[]
- 
+
     @@map("author")
 }
  
