@@ -3,11 +3,11 @@ generator client {
     output          = "../src/generated/prisma"
     previewFeatures = ["relationJoins"]
 }
-
+ 
 datasource db {
     provider = "postgresql"
 }
-
+ 
 model User {
     id            String    @id
     name          String
@@ -24,13 +24,13 @@ model User {
     accounts      Account[]
     user_info     UserInfo?
     author        Author?
-
+ 
     stripeCustomerId String?
-
+ 
     @@unique([email])
     @@map("user")
 }
-
+ 
 model Session {
     id             String   @id
     expiresAt      DateTime
@@ -42,12 +42,12 @@ model Session {
     userId         String
     user           User     @relation(fields: [userId], references: [id], onDelete: Cascade)
     impersonatedBy String?
-
+ 
     @@unique([token])
     @@index([userId])
     @@map("session")
 }
-
+ 
 model Account {
     id                    String    @id
     accountId             String
@@ -63,11 +63,11 @@ model Account {
     password              String?
     createdAt             DateTime  @default(now())
     updatedAt             DateTime  @default(now())
-
+ 
     @@index([userId])
     @@map("account")
 }
-
+ 
 model Verification {
     id         String   @id
     identifier String
@@ -75,11 +75,11 @@ model Verification {
     expiresAt  DateTime
     createdAt  DateTime @default(now())
     updatedAt  DateTime @updatedAt
-
+ 
     @@index([identifier])
     @@map("verification")
 }
-
+ 
 model Article {
     id            String            @id @default(ulid())
     title         String
@@ -97,10 +97,10 @@ model Article {
     comments      Comment[]
     editorsChoice Boolean           @default(false)
     deleted       DateTime?
-
+ 
     @@map("article")
 }
-
+ 
 model Comment {
     id        String            @id @default(ulid())
     articleId String            @map("article_id")
@@ -113,7 +113,7 @@ model Comment {
     updatedAt DateTime
     replyTo   String?           @map("reply_to") // Stores a comment id to which the comment in questions is a reply
 }
-
+ 
 model CommentReaction {
     id         String    @id @default(ulid())
     userId     String
@@ -123,39 +123,37 @@ model CommentReaction {
     userInfo   UserInfo? @relation(fields: [userInfoId], references: [id])
     userInfoId String?
 }
-
+ 
 model Bookmark {
     id        String   @id @default(ulid())
     user_id   String
     user      UserInfo @relation(fields: [user_id], references: [id])
     article   Article  @relation(fields: [articleId], references: [id])
     articleId String
-
+ 
     @@map("bookmark")
 }
-
+ 
 model Category {
-    id           String               @id @default(ulid())
-    name         String               @unique
-    article      Article[]
-    newsletterId String               @unique
-    newsletter   NewsletterSettings[]
-
+    id         String               @id @default(ulid())
+    name       String               @unique
+    article    Article[]
+    newsletter NewsletterSettings[]
+ 
     @@map("category")
 }
-
+ 
 model Author {
-    id                   String              @id @default(ulid())
-    alias                String              @unique
-    userId               String              @unique @map("user_id")
-    articles             Article[]
-    user_info            User                @relation(fields: [userId], references: [id])
-    newsletterSettings   NewsletterSettings? @relation(fields: [newsletterSettingsId], references: [id])
-    newsletterSettingsId String?
-
+    id                 String               @id @default(ulid())
+    alias              String               @unique
+    userId             String               @unique @map("user_id")
+    articles           Article[]
+    user_info          User                 @relation(fields: [userId], references: [id])
+    newsletterSettings NewsletterSettings[]
+ 
     @@map("author")
 }
-
+ 
 model UserInfo {
     id               String            @id @default(ulid())
     userId           String            @unique @map("user_id")
@@ -167,20 +165,20 @@ model UserInfo {
     bookmark         Bookmark[]
     comments         Comment[]
     commentReactions CommentReaction[]
-
+ 
     @@map("user_info")
 }
-
+ 
 model ArticleReaction {
     id         String  @id @default(ulid())
     userId     String
     article_id String
     article    Article @relation(fields: [article_id], references: [id])
     val        Int     @default(1)
-
+ 
     @@map("article_reaction")
 }
-
+ 
 model Address {
     id        String     @id @default(ulid())
     street    String
@@ -188,10 +186,10 @@ model Address {
     country   String
     zip       String
     userInfos UserInfo[]
-
+ 
     @@map("address")
 }
-
+ 
 model Plan {
     id            String  @id @default(ulid())
     name          String  @unique
@@ -202,10 +200,10 @@ model Plan {
     annualPrice   Int?    @default(0)
     annualPriceId String?
     annualImage   String?
-
+ 
     @@map("plan")
 }
-
+ 
 model Subscription {
     id                   String    @id
     plan                 String
@@ -224,10 +222,10 @@ model Subscription {
     seats                Int?
     billingInterval      String?
     stripeScheduleId     String?
-
+ 
     @@map("subscription")
 }
-
+ 
 model ContactMessage {
     id        String   @id @default(cuid())
     name      String
@@ -235,10 +233,10 @@ model ContactMessage {
     subject   String
     message   String
     createdAt DateTime @default(now())
-
+ 
     @@map("contact_message")
 }
-
+ 
 model Ad {
     id           String   @id @default(ulid())
     createdAt    DateTime @default(now())
@@ -257,16 +255,16 @@ model Ad {
     tier         String   @default("basic")
     photos       String[]
     status       String   @default("pending")
-
+ 
     @@map("ad")
 }
-
+ 
 model Image {
     id   String @id @default(uuid())
     name String
     url  String
 }
-
+ 
 model Advertisement {
     id        String    @id @default(ulid())
     createdAt DateTime  @default(now())
@@ -277,13 +275,14 @@ model Advertisement {
     active    Boolean   @default(false)
     startsAt  DateTime?
     endsAt    DateTime?
-
+ 
     @@map("advertisement")
 }
-
+ 
 model NewsletterSettings {
     id         String     @id @default(ulid())
     user_id    String     @unique
+    email      String
     categories Category[]
     authors    Author[]
     active     Boolean

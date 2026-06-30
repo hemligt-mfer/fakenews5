@@ -136,6 +136,18 @@ export async function getMostPopularArticles(limit = 3): Promise<Result<ArticleS
     }
 }
 
+export async function getAuthors(): Promise<Result<Author[]>>{
+    try {
+        const authors = await prisma.author.findMany({
+            select: { id: true, alias: true, userId: true}
+        })
+        return {success: true, data: authors}
+    } catch (err) {
+        return { success: false, error: `Couldn't fetch authors.\n\n${err}` };
+    }
+
+}
+
 export async function getArticle(articleId: string): Promise<Result<Article>> {
     try {
         const article = await prisma.article.findUnique({

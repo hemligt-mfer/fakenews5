@@ -99,22 +99,6 @@ export default async function Footer() {
               </li>
               <li>
                 <Link
-                  href="/advertise/private"
-                  className="hover:text-primary transition-colors"
-                >
-                  Classifieds
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/buy-and-sell"
-                  className="hover:text-primary transition-colors"
-                >
-                  Buy &amp; Sell
-                </Link>
-              </li>
-              <li>
-                <Link
                   href="/legal/privacy"
                   className="hover:text-primary transition-colors"
                 >

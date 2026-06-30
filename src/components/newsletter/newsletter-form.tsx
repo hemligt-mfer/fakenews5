@@ -7,47 +7,47 @@ import {
   FieldLabel,
 } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
-import { Category, Author } from "@/lib/types";
 import z from "zod";
 import { Button } from "../ui/button";
 import { useState } from "react";
 import { Spinner } from "../ui/spinner";
+import { Checkbox } from "../ui/checkbox";
 
 const formSchema = z.object({
-  email: z.email(),
-  category: z.array(z.string()),
+  email: z.email("Enter a valid email address"),
+  categories: z.array(z.string()),
   authors: z.array(z.string()),
 });
 
 export default function NewsletterForm({
   categories,
   authors,
-  userId,
 }: {
-  categories: Category[];
-  authors: Author[];
-  userId: string;
+  categories: string[];
+  authors: string[];
 }) {
   const [loading, setLoading] = useState(false);
-  const user = userId;
- 
+
   const form = useForm({
     defaultValues: {
       email: "",
-      categories: categories,
-      authors: authors,
+      categories: [] as string[],
+      authors: [] as string[],
     },
     validators: { onSubmit: formSchema },
-    onSubmit: (value) => console.log(value),
+    onSubmit: ({ value }) => {
+      console.log(value);
+    },
   });
 
   return (
-    <div>
+    <div className="w-full max-w-2xl border p-4 ">
       <form
         id="newsletter-form"
         onSubmit={(ev) => {
           ev.preventDefault();
-          form.handleSubmit(ev);
+          ev.stopPropagation();
+          form.handleSubmit();
         }}
       >
         <FieldGroup>
@@ -74,85 +74,66 @@ export default function NewsletterForm({
             }}
           </form.Field>
 
-          <form.Field name="categories" mode="array">
-            {(field) => {
-              return (
-                <div>
-                  {field.state.value.map((_, i) => {
-                    return (
-                      <form.Field key={i} name={`categories[${i}].name`}>
-                        {(subField) => {
-                          return (
-                            <div>
-                              <label>
-                                <div>Name for category {i}</div>
-                                <input
-                                  value={subField.state.value}
-                                  onChange={(e) =>
-                                    subField.handleChange(e.target.value)
-                                  }
-                                ></input>
-                              </label>
-                            </div>
+          <form.Field name="categories">
+            {(field) => (
+              <div>
+                {categories.map((category) => {
+                  const checked = field.state.value.includes(category);
+                  return (
+                    <label key={category} className="flex items-center gap-2">
+                      <Checkbox
+                        checked={checked}
+                        onCheckedChange={(isChecked) => {
+                          field.handleChange((prev) =>
+                            isChecked
+                              ? [...prev, category]
+                              : prev.filter((c) => c !== category),
                           );
                         }}
-                      </form.Field>
-                    );
-                  })}
-                </div>
-              );
-            }}
+                      />
+                      <span>{category}</span>
+                    </label>
+                  );
+                })}
+              </div>
+            )}
           </form.Field>
 
-          <form.Field name="authors" mode="array">
-            {(field) => {
-              return (
-                <div>
-                  {field.state.value.map((_, i) => {
-                    return (
-                      <form.Field key={i} name={`authors[${i}].alias`}>
-                        {(subField) => {
-                          return (
-                            <div>
-                              <label>
-                                <div>Name for category {i}</div>
-                                <input
-                                  value={subField.state.value}
-                                  onChange={(e) =>
-                                    subField.handleChange(e.target.value)
-                                  }
-                                ></input>
-                              </label>
-                            </div>
+          <form.Field name="authors">
+            {(field) => (
+              <div>
+                {authors.map((author) => {
+                  const checked = field.state.value.includes(author);
+                  return (
+                    <label key={author} className="flex items-center gap-2">
+                      <Checkbox
+                        checked={checked}
+                        onCheckedChange={(isChecked) => {
+                          field.handleChange((prev) =>
+                            isChecked
+                              ? [...prev, author]
+                              : prev.filter((c) => c !== author),
                           );
                         }}
-                      </form.Field>
-                    );
-                  })}
-                </div>
-              );
-            }}
+                      />
+                      <span>{author}</span>
+                    </label>
+                  );
+                })}
+              </div>
+            )}
           </form.Field>
+
+          <Button
+            form="newsletter-form"
+            type="submit"
+            size="lg"
+            disabled={loading}
+          >
+            {loading ? <Spinner /> : "Subscribe now!"}
+          </Button>
         </FieldGroup>
       </form>
-      <div>
-        <Button
-          form="newsletter-form"
-          type="reset"
-          size="lg"
-          onClick={() => form.reset()}
-        >
-          Reset
-        </Button>
-        <Button
-          form="newsletter-form"
-          type="submit"
-          size="lg"
-          disabled={loading}
-        >
-          {loading ? <Spinner /> : "Subscribe now!"}
-        </Button>
-      </div>
     </div>
   );
 }
