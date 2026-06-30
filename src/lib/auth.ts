@@ -89,7 +89,6 @@ export const auth = betterAuth({
                         // console.log(user, newRole);
 
                         if (user.success && user.data) {
-                            console.log("komemr vi hit?!");
                             const res = await prisma.user.update({
                                 where: { id: user.data.id },
                                 data: { role: newRole },

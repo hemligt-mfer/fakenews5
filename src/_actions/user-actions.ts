@@ -6,7 +6,7 @@ import prisma from "@/lib/prisma";
 import { Result } from "@/lib/types";
 import { Role } from "better-auth/plugins";
 import { headers } from "next/headers";
-import { z } from "zod";
+import { success, z } from "zod";
 
 const userInfoSchema = z.object({
     userId: z.string(),
@@ -102,7 +102,15 @@ export async function getUserFromStripeId(stripeId: string): Promise<Result<User
     }
 }
 
-export async function getUserInfoFromId(userId: string) {
-    const userInfoId = getUserId();
-    console.log(userInfoId);
+export async function getEmailFromUserId(userId: string) {
+    const errMsg = `An unknown error occurred when trying to fetch email for user ${userId}.`;
+    try {
+        const user = await prisma.user.findUnique({ where: { id: userId } });
+        if (user?.email) {
+            return { success: true, data: user.email };
+        }
+    } catch (err) {
+        console.error(errMsg + `\n\n${err}`);
+        return { success: false, error: errMsg };
+    }
 }

@@ -5,11 +5,23 @@ dotenv.config();
 console.log(process.env.DATABASE_URL);
 
 import cron from "node-cron";
+import { getEmailFromUserId } from "@/_actions/user-actions";
+import nodemailer from "nodemailer";
 
 const NUMBER_OF_NEW_ARTICLES_PER_CATEGORY = 3;
 const NUMBER_OF_NEW_ARTICLES_PER_AUTHOR = 2;
 const NUMBER_OF_NEW_ARTICLES_MOST_VIEWS = 3;
 const NUMBER_OF_NEW_ARTICLES_MOST_REACTIONS = 3;
+
+export const transporter = nodemailer.createTransport({
+    host: "smtp.ethereal.email",
+    port: 587,
+    secure: false,
+    auth: {
+        user: "nikki.leuschke@ethereal.email",
+        pass: "NWXrggTFV1VkSHmYhd",
+    },
+});
 
 async function generateNewsletter(userId: string) {
     const { default: prisma } = await import("./prisma");
@@ -26,6 +38,9 @@ async function generateNewsletter(userId: string) {
         where: { user_id: userId },
         include: { categories: true, authors: true },
     });
+    if (!newsLetterSettings) {
+        return;
+    }
 
     // Get the five latest articles from each category that the user is subscribed to.
     if (newsLetterSettings?.categories) {
@@ -133,10 +148,21 @@ async function generateNewsletter(userId: string) {
         }
     }
 
-    if (!newsLetterSettings) {
-        return;
+    const email = await getEmailFromUserId(userId);
+    if (email && email.data) {
+        await transporter.sendMail(
+            {
+                from: '"The Daily Commit" <noreply@thedailycommit.com>',
+                to: email.data,
+                subject: "Welcome to The Daily Commit",
+                text: text,
+            },
+            function (error, info) {
+                console.error(`Unable to send email.\n\n${error}\n${info}`);
+            },
+        );
     }
-    // console.log(newsLetterSettings);
+    // console.log(user);
 
     console.log(text);
 }
