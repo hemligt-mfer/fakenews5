@@ -22,7 +22,7 @@ export default function Page() {
             </button>
             {isLoading && <p>Loading ...</p>}
             {result && (
-                <article className="pros">
+                <article className="prose">
                     <Markdown>{result}</Markdown>
                 </article>
             )}

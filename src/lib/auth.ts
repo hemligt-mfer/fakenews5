@@ -82,19 +82,17 @@ export const auth = betterAuth({
                     plan,
                 }) => {
                     const text = `Thank your for signing up to our ${plan.name} plan. Go to http://localhost:3000/dashboard/profile/sub to manage your subscription.`;
-                    console.log(text);
+                  
                     if (subscription.stripeCustomerId) {
                         const user = await getUserFromStripeId(subscription.stripeCustomerId);
                         const newRole = plan.name.toLowerCase();
                         // console.log(user, newRole);
 
                         if (user.success && user.data) {
-                            console.log("komemr vi hit?!");
                             const res = await prisma.user.update({
                                 where: { id: user.data.id },
                                 data: { role: newRole },
                             });
-                            console.log(res);
                             await transporter.sendMail(
                                 {
                                     from: '"The Daily Commit" <noreply@thedailycommit.com>',
@@ -116,7 +114,7 @@ export const auth = betterAuth({
                     cancellationDetails,
                 }) => {
                     const text = `We're sorry to se you go! Your subscription has been cancelled. Go to http://localhost:3000/dashboard/profile/sub to restore and/or manage your subscriptions.`;
-                    console.log(text);
+                
                     if (subscription.stripeCustomerId) {
                         const user = await getUserFromStripeId(subscription.stripeCustomerId);
                         if (user.success && user.data) {
