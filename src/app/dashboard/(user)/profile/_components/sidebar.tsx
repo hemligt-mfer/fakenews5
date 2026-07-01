@@ -3,14 +3,35 @@
 import { useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { PanelLeft, User, Lock, ChartColumn, Bookmark, CreditCard } from "lucide-react";
+import {
+  PanelLeft,
+  User,
+  Lock,
+  ChartColumn,
+  Bookmark,
+  CreditCard,
+  Home
+} from "lucide-react";
 import { cn } from "@/lib/utils";
 
 const items = [
-  { label: "User settings", href: "/dashboard/profile", icon: User },
-  { label: "Email & password", href: "/dashboard/profile/security", icon: Lock },
-  { label: "Analytics", href: "/dashboard/profile/analytics", icon: ChartColumn },
-  { label: "Saved articles", href: "/dashboard/profile/saved-articles", icon: Bookmark },
+  { label: "Profile dashboard", href: "/dashboard/profile/", icon: Home },
+  { label: "User settings", href: "/dashboard/profile/settings", icon: User },
+  {
+    label: "Email & password",
+    href: "/dashboard/profile/security",
+    icon: Lock,
+  },
+  {
+    label: "Analytics",
+    href: "/dashboard/profile/analytics",
+    icon: ChartColumn,
+  },
+  {
+    label: "Saved articles",
+    href: "/dashboard/profile/saved-articles",
+    icon: Bookmark,
+  },
   { label: "Subscription", href: "/dashboard/profile/sub", icon: CreditCard },
 ];
 
@@ -25,7 +46,12 @@ export default function ProfileSidebar() {
         open ? "w-60" : "w-14",
       )}
     >
-      <div className={cn("flex h-12 items-center px-2", open ? "justify-end" : "justify-center")}>
+      <div
+        className={cn(
+          "flex h-12 items-center px-2",
+          open ? "justify-end" : "justify-center",
+        )}
+      >
         <button
           onClick={() => setOpen(!open)}
           aria-label="Toggle sidebar"

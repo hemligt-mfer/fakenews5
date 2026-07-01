@@ -50,25 +50,8 @@ export default async function HomePage() {
   const consent = await getConsent();
  
 
-  const cats = await getCategories();
-  const auths = await getAuthors();
-  const categories = [];
-  const authors = [];
-
-  if (cats.success && cats.data) {
-    for (const c of cats.data) {
-      categories.push(c.name);
-    }
-  }
-  if (auths.success && auths.data) {
-    for (const a of auths.data) {
-      authors.push(a.alias);
-    }
-  }
-
   return (
     <div className="w-full px-5 pb-10">
-      <NewsletterForm categories={categories} authors={authors} />
       {/* ── Hero section ── */}
       <div className="flex items-center gap-3 mt-6 mb-4">
         <div className="flex-1 border-t border-border" />

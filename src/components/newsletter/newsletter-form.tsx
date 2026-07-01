@@ -41,7 +41,7 @@ export default function NewsletterForm({
   });
 
   return (
-    <div className="w-full max-w-2xl border p-4 ">
+    <div className="w-full max-w-100 border p-4 ">
       <form
         id="newsletter-form"
         onSubmit={(ev) => {
@@ -66,6 +66,7 @@ export default function NewsletterForm({
                     onBlur={field.handleBlur}
                     onChange={(ev) => field.handleChange(ev.target.value)}
                     aria-invalid={isInvalid}
+                    placeholder="Your email address"
                     type="email"
                   />
                   {isInvalid && <FieldError errors={field.state.meta.errors} />}
@@ -73,32 +74,37 @@ export default function NewsletterForm({
               );
             }}
           </form.Field>
-
-          <form.Field name="categories">
-            {(field) => (
+          <div>
+            <h1 className="font-medium mb-2">
+              Subscribe to selected categories
+            </h1>
+            <form.Field name="categories">
+              {(field) => (
+                <div>
+                  {categories.map((category) => {
+                    const checked = field.state.value.includes(category);
+                    return (
+                      <label key={category} className="flex items-center gap-2">
+                        <Checkbox
+                          checked={checked}
+                          onCheckedChange={(isChecked) => {
+                            field.handleChange((prev) =>
+                              isChecked
+                                ? [...prev, category]
+                                : prev.filter((c) => c !== category),
+                            );
+                          }}
+                        />
+                        <span>{category}</span>
+                      </label>
+                    );
+                  })}
+                </div>
+              )}
+            </form.Field>
+          </div>
               <div>
-                {categories.map((category) => {
-                  const checked = field.state.value.includes(category);
-                  return (
-                    <label key={category} className="flex items-center gap-2">
-                      <Checkbox
-                        checked={checked}
-                        onCheckedChange={(isChecked) => {
-                          field.handleChange((prev) =>
-                            isChecked
-                              ? [...prev, category]
-                              : prev.filter((c) => c !== category),
-                          );
-                        }}
-                      />
-                      <span>{category}</span>
-                    </label>
-                  );
-                })}
-              </div>
-            )}
-          </form.Field>
-
+                <h1 className="font-medium mb-2">Authors to follow</h1>
           <form.Field name="authors">
             {(field) => (
               <div>
@@ -123,6 +129,7 @@ export default function NewsletterForm({
               </div>
             )}
           </form.Field>
+          </div>
 
           <Button
             form="newsletter-form"

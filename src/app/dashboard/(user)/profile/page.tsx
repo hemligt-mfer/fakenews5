@@ -1,58 +1,33 @@
 import RouteHeading from "@/components/route-heading";
-// import {
-//   Card,
-//   CardContent,
-//   CardDescription,
-//   CardHeader,
-//   CardTitle,
-// } from "@/components/ui/card";
 import { auth } from "@/lib/auth";
-import prisma from "@/lib/prisma";
 import { headers } from "next/headers";
-import { notFound } from "next/navigation";
-import { Analytics } from "./analytics/_components/analytics";
-import EditProfileForm from "./_components/edit-profile-form";
+import NewsletterForm from "@/components/newsletter/newsletter-form";
+import { getCategories } from "@/_actions/category-actions";
+import { getAuthors } from "@/_actions/article-actions";
+import { redirect } from "next/navigation";
+import { toast } from "sonner";
 
 export default async function DashboardPage() {
   const session = await auth.api.getSession({ headers: await headers() });
-  const userId = session?.user.id;
-  const articles = await prisma.article.findMany({
-    include: { category: true, bookmark: true },
-  });
+  if (!session) {
+    return redirect("/sign-in")
+  }
 
-  const userInfo = await prisma.user.findUnique({
-    where: { id: userId },
-    include: {
-      user_info: {
-        select: {
-          birthdate: true,
-          phoneNumber: true,
-          address: {
-            select: { city: true, country: true, street: true, zip: true },
-          },
-          bookmark: { select: { article: { select: { category: true } } } },
-        },
-      },
-      author: true,
-      accounts: { select: { password: true } },
-    },
-  });
+  //newsletter components
+  const cats = await getCategories();
+  const auths = await getAuthors();
+  const categories = [];
+  const authors = [];
 
-  const map = new Map();
-  userInfo?.user_info?.bookmark.forEach((bookmark) => {
-    bookmark.article.category.forEach((cat) => {
-      const count = map.get(cat.name) || 0;
-      map.set(cat.name, count + 1);
-    });
-  });
-
-  const data = Array.from(map, ([category, bookmarks]) => ({
-    category,
-    bookmarks,
-  }));
-
-  if (!userInfo) {
-    notFound();
+  if (cats.success && cats.data) {
+    for (const c of cats.data) {
+      categories.push(c.name);
+    }
+  }
+  if (auths.success && auths.data) {
+    for (const a of auths.data) {
+      authors.push(a.alias);
+    }
   }
 
   return (
@@ -60,7 +35,10 @@ export default async function DashboardPage() {
       <RouteHeading label="Dashboard" />
       <div className="">
         <div className="pt-4">
-          <EditProfileForm user={userInfo} />
+          <h1 className="text-2xl font-medium mb-4">
+            Recieve newsletters every sunday!
+          </h1>
+          <NewsletterForm categories={categories} authors={authors} />
         </div>
       </div>
     </div>
