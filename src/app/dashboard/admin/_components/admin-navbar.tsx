@@ -2,67 +2,62 @@
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import {
-    DropdownMenu,
-    DropdownMenuContent,
-    DropdownMenuItem,
-    DropdownMenuTrigger,
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { ChevronDown } from "lucide-react";
-import { ThemeToggle } from "@/components/theme-toggle";
+
 
 export default function AdminNavbar() {
-    return (
-        <div className="flex flex-wrap gap-2 px-6 sticky top-0 bg-chart-5 dark:bg-muted">
-            <ul className="flex flex-wrap items-center mx-auto">
-                <li>
-                    <Button asChild variant="ghost" className="">
-                        <Link href="/dashboard/admin">Overview</Link>
-                    </Button>
-                </li>
-                <li>
-                    <Button asChild variant="ghost" className="">
-                        <Link href="/dashboard/admin/articles">Article table</Link>
-                    </Button>
-                </li>
-                <li>
-                    <Button asChild variant="ghost" className="">
-                        <Link href="/dashboard/admin/users">User table</Link>
-                    </Button>
-                </li>
-                <li>
-                    <Button asChild variant="ghost" className="">
-                        <Link href="/dashboard/admin/saved-articles">Saved articles</Link>
-                    </Button>
-                </li>
-                <li>
-                    <Button asChild variant="ghost" className="">
-                        <Link href="/dashboard/admin/plans">Plans</Link>
-                    </Button>
-                </li>
-                <li>
-                    <Button asChild variant="ghost" className="">
-                        <Link href="/dashboard/admin/advertisements">Ads</Link>
-                    </Button>
-                </li>
-                <li>
-                    <DropdownMenu>
-                        <DropdownMenuTrigger asChild>
-                            <Button variant="ghost" className="cursor-pointer">
-                                Editor tools
-                                <ChevronDown className="dark:text-white black:text-black" />
-                            </Button>
-                        </DropdownMenuTrigger>
-                        <DropdownMenuContent>
-                            <DropdownMenuItem>
-                                <Link href="/article/add-article">Create article</Link>
-                            </DropdownMenuItem>
-                            <DropdownMenuItem>
-                                <Link href="/dashboard/admin/articles">Edit articles</Link>
-                            </DropdownMenuItem>
-                        </DropdownMenuContent>
-                    </DropdownMenu>
-                </li>
-            </ul>
-        </div>
-    );
+  return (
+    <div className="flex flex-wrap gap-2 px-6 sticky top-0 bg-chart-5 dark:bg-muted">
+      <ul className="flex flex-wrap items-center mx-auto">
+        <li>
+          <Button asChild variant="ghost" className="">
+            <Link href="/dashboard/admin">Overview</Link>
+          </Button>
+        </li>
+        <li>
+          <Button asChild variant="ghost" className="">
+            <Link href="/dashboard/admin/articles">Article table</Link>
+          </Button>
+        </li>
+        <li>
+          <Button asChild variant="ghost" className="">
+            <Link href="/dashboard/admin/users">User table</Link>
+          </Button>
+        </li>
+        <li>
+          <Button asChild variant="ghost" className="">
+            <Link href="/dashboard/admin/plans">Plans</Link>
+          </Button>
+        </li>
+        <li>
+          <Button asChild variant="ghost" className="">
+            <Link href="/dashboard/admin/advertisements">Ads</Link>
+          </Button>
+        </li>
+        <li>
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <Button variant="ghost" className="cursor-pointer">
+                Editor tools
+                <ChevronDown className="dark:text-white black:text-black" />
+              </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent>
+              <DropdownMenuItem>
+                <Link href="/article/add-article">Create article</Link>
+              </DropdownMenuItem>
+              <DropdownMenuItem>
+                <Link href="/dashboard/admin/articles">Edit articles</Link>
+              </DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
+        </li>
+      </ul>
+    </div>
+  );
 }
