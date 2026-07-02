@@ -11,7 +11,11 @@ import Stripe from "stripe";
 import { stripe } from "@better-auth/stripe";
 import { getUserFromStripeId } from "@/_actions/user-actions";
 import { pretty, render, toPlainText } from "react-email";
-import { VerifyEmail } from "@/components/emails/verify-email"
+import VerifyEmail from "@/components/emails/verify-email";
+import ResetPasswordEmail from "@/components/emails/reset-password-email";
+import SubscriptionActive from "@/components/emails/subscription-verify-email";
+import SubscriptionCancelled from "@/components/emails/subscription-cancel-email";
+import SubscriptionUpdated from "@/components/emails/subscription-update-email";
 
 dotenv.config();
 
@@ -46,17 +50,27 @@ export const auth = betterAuth({
     requireEmailVerification: true,
     resetPasswordTokenExpiresIn: 60 * 30,
     sendResetPassword: async ({ user, url }) => {
-      const text = `Click the link to change your password: ${url}`;
-      console.log(text);
+      const html = await pretty(await render(<ResetPasswordEmail url={url} />));
+      const text = toPlainText(html);
+
+      if (process.env.NODE_ENV !== "production") {
+        console.log(text);
+      }
+
       await transporter.sendMail(
         {
           from: '"The Daily Commit" <noreply@thedailycommit.com>',
           to: `${user.name} <${user.email}>`,
           subject: "Reset your password",
-          text: text,
+          html,
+          text,
         },
         function (error, info) {
-          console.error(`Unable to send email.\n\n${error}\n${info}`);
+          if (error) {
+            console.error(`Unable to send email.\n\n${error}`);
+          } else {
+            console.log(`Email sent: ${info.messageId}`);
+          }
         },
       );
     },
@@ -75,6 +89,7 @@ export const auth = betterAuth({
             priceId: plan.priceId,
             annualDiscountPriceId:
               plan.annualPriceId !== null ? plan.annualPriceId : undefined,
+            // could add: description: plan.description, price: plan.price, etc.
           }));
         },
         onSubscriptionComplete: async ({
@@ -83,29 +98,39 @@ export const auth = betterAuth({
           stripeSubscription,
           plan,
         }) => {
-          const text = `Thank your for signing up to our ${plan.name} plan. Go to http://localhost:3000/dashboard/profile/sub to manage your subscription.`;
-
           if (subscription.stripeCustomerId) {
             const user = await getUserFromStripeId(
               subscription.stripeCustomerId,
             );
             const newRole = plan.name.toLowerCase();
-            // console.log(user, newRole);
 
             if (user.success && user.data) {
               const res = await prisma.user.update({
                 where: { id: user.data.id },
                 data: { role: newRole },
               });
+
+              const html = await pretty(
+                await render(
+                  <SubscriptionActive user={user.data} plan={plan} />,
+                ),
+              );
+              const text = toPlainText(html);
+
               await transporter.sendMail(
                 {
                   from: '"The Daily Commit" <noreply@thedailycommit.com>',
                   to: `${user.data.name} <${user.data.email}>`,
                   subject: "Welcome to The Daily Commit",
-                  text: text,
+                  html,
+                  text,
                 },
                 function (error, info) {
-                  console.error(`Unable to send email.\n\n${error}\n${info}`);
+                  if (error) {
+                    console.error(`Unable to send email.\n\n${error}`);
+                  } else {
+                    console.log(`Email sent: ${info.messageId}`);
+                  }
                 },
               );
             }
@@ -117,26 +142,45 @@ export const auth = betterAuth({
           stripeSubscription,
           cancellationDetails,
         }) => {
-          const text = `We're sorry to se you go! Your subscription has been cancelled. Go to http://localhost:3000/dashboard/profile/sub to restore and/or manage your subscriptions.`;
-
           if (subscription.stripeCustomerId) {
             const user = await getUserFromStripeId(
               subscription.stripeCustomerId,
             );
+
             if (user.success && user.data) {
               await prisma.user.update({
                 where: { id: user.data.id },
                 data: { role: "user" }, // downgrade on cancel
               });
+
+              const html = await pretty(
+                await render(
+                  <SubscriptionCancelled
+                    user={user.data}
+                    plan={{ name: subscription.plan }}
+                  />,
+                ),
+              );
+              const text = toPlainText(html);
+
+              if (process.env.NODE_ENV !== "production") {
+                console.log(text);
+              }
+
               await transporter.sendMail(
                 {
                   from: '"The Daily Commit" <noreply@thedailycommit.com>',
                   to: `${user.data.name} <${user.data.email}>`,
                   subject: "Cancellation of subscription",
-                  text: text,
+                  html,
+                  text,
                 },
                 function (error, info) {
-                  console.error(`Unable to send email.\n\n${error}\n${info}`);
+                  if (error) {
+                    console.error(`Unable to send email.\n\n${error}`);
+                  } else {
+                    console.log(`Email sent: ${info.messageId}`);
+                  }
                 },
               );
             }
@@ -147,27 +191,47 @@ export const auth = betterAuth({
           subscription,
           stripeSubscription,
         }) => {
-          const text = `Your subscription has been updated to ${subscription.plan}. You will be billed ${subscription.billingInterval == "year" ? "yearly" : "monthly"}.`;
-          console.log(text);
           if (subscription.stripeCustomerId) {
             const user = await getUserFromStripeId(
               subscription.stripeCustomerId,
             );
+
             if (user.success && user.data) {
               const newRole = subscription.plan;
               await prisma.user.update({
                 where: { id: user.data.id },
                 data: { role: newRole },
               });
+
+              const html = await pretty(
+                await render(
+                  <SubscriptionUpdated
+                    user={user.data}
+                    planName={subscription.plan}
+                    billingInterval={subscription.billingInterval}
+                  />,
+                ),
+              );
+              const text = toPlainText(html);
+
+              if (process.env.NODE_ENV !== "production") {
+                console.log(text);
+              }
+
               await transporter.sendMail(
                 {
                   from: '"The Daily Commit" <noreply@thedailycommit.com>',
                   to: `${user.data.name} <${user.data.email}>`,
                   subject: "Update of your subscription",
-                  text: text,
+                  html,
+                  text,
                 },
                 function (error, info) {
-                  console.error(`Unable to send email.\n\n${error}\n${info}`);
+                  if (error) {
+                    console.error(`Unable to send email.\n\n${error}`);
+                  } else {
+                    console.log(`Email sent: ${info.messageId}`);
+                  }
                 },
               );
             }
@@ -177,33 +241,33 @@ export const auth = betterAuth({
     }),
     nextCookies(),
   ],
- emailVerification: {
-  autoSignInAfterVerification: true,
-  sendOnSignUp: true,
-  sendVerificationEmail: async ({ user, url }) => {
-    const html = await pretty(await render(<VerifyEmail url={url} />));
-    const text = toPlainText(html);
+  emailVerification: {
+    autoSignInAfterVerification: true,
+    sendOnSignUp: true,
+    sendVerificationEmail: async ({ user, url }) => {
+      const html = await pretty(await render(<VerifyEmail url={url} />));
+      const text = toPlainText(html);
 
-    if (process.env.NODE_ENV !== "production") {
-      console.log(text);
-    }
+      if (process.env.NODE_ENV !== "production") {
+        console.log(text);
+      }
 
-    await transporter.sendMail(
-      {
-        from: '"The Daily Commit" <noreply@thedailycommit.com>',
-        to: `${user.name} <${user.email}>`,
-        subject: "Verify your email",
-        html,
-        text,
-      },
-      function (error, info) {
-        if (error) {
-          console.error(`Unable to send email.\n\n${error}`);
-        } else {
-          console.log(`Email sent: ${info.messageId}`);
-        }
-      },
-    );
+      await transporter.sendMail(
+        {
+          from: '"The Daily Commit" <noreply@thedailycommit.com>',
+          to: `${user.name} <${user.email}>`,
+          subject: "Verify your email",
+          html,
+          text,
+        },
+        function (error, info) {
+          if (error) {
+            console.error(`Unable to send email.\n\n${error}`);
+          } else {
+            console.log(`Email sent: ${info.messageId}`);
+          }
+        },
+      );
+    },
   },
-},
 });

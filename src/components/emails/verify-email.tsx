@@ -54,18 +54,11 @@ export const VerifyEmail = ({ url }: VerifyEmailProps) => (
           <Section className="shadow-md rounded-1xl">
             <Section className="bg-card border-border rounded-1xl border">
               {/* Masthead */}
-              <Section className="mobile:px-6! px-10 pt-16">
+              <Section className="mobile:px-6! px-10 py-10">
                 <div className="flex justify-center mx-auto">
                   <div className="my-auto w-full max-w-32 md:max-w-80 pt-2">
-                    <div className="flex items-center gap-1.5 md:gap-2 mb-0.5 md:mb-1">
-                      <div className="flex-1 h-px bg-foreground"></div>
-                      <span className="font-serif font-bold text-[6px] md:text-xs tracking-tighter md:tracking-widest whitespace-nowrap">
-                        THE
-                      </span>
-                      <div className="flex-1 h-px bg-foreground"></div>
-                    </div>
                     <h1 className="font-serif font-bold text-[10px] md:text-2xl text-center leading-tight tracking-tight whitespace-nowrap">
-                      Daily Commit
+                     The Daily Commit
                     </h1>
                     <div className="border-b md:border-b-2 border-primary mt-0.5 md:mt-1"></div>
                     <p className="text-center text-[5px] md:text-[10px] tracking-tighter md:tracking-wide mt-0.5 md:mt-2 leading-tight">
@@ -77,7 +70,7 @@ export const VerifyEmail = ({ url }: VerifyEmailProps) => (
                 </div>
               </Section>
 
-              <Section className="mobile:px-6! px-10 pt-8">
+              <Section className="mobile:px-6! px-10 pt-16">
                 <Section className="mb-9">
                   <Text className="text-[32px] md:text-[48px] text-card-foreground m-0 font-sans font-bold">
                     Almost there
