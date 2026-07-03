@@ -1,8 +1,5 @@
-import type { NextApiRequest, NextApiResponse } from "next";
 import { format, sub } from "date-fns";
 import dotenv from "dotenv";
-import { getEmailFromUserId } from "@/_actions/user-actions";
-import nodemailer from "nodemailer";
 import prisma from "@/lib/prisma";
 import { transporter } from "@/lib/auth";
 dotenv.config();
@@ -131,6 +128,7 @@ async function generateNewsletter(userId: string) {
             });
         }
     }
+    text += "\n\nTo cancel your subscription go to: https://";
 
     // console.log(user);
     return text;
