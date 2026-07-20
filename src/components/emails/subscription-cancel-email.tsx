@@ -73,7 +73,7 @@ export const SubscriptionCancelled = ({
                 <div className="flex justify-center mx-auto">
                   <div className="my-auto w-full max-w-32 md:max-w-80 pt-2">
                     <h1 className="font-serif font-bold text-[10px] md:text-2xl text-center leading-tight tracking-tight whitespace-nowrap">
-                     The Daily Commit
+                      The Daily Commit
                     </h1>
                     <div className="border-b md:border-b-2 border-primary mt-0.5 md:mt-1"></div>
                     <p className="text-center text-[5px] md:text-[10px] tracking-tighter md:tracking-wide mt-0.5 md:mt-2 leading-tight">
@@ -90,7 +90,9 @@ export const SubscriptionCancelled = ({
                   <Text className="text-[32px] md:text-[30px] text-card-foreground m-0 font-sans font-bold">
                     We&apos;re sorry to see you go,
                   </Text>
-                  <Text className="text-[32px] md:text-[30px] text-card-foreground mt-2 font-sans font-bold">{user.name}</Text>
+                  <Text className="text-[32px] md:text-[30px] text-card-foreground mt-2 font-sans font-bold">
+                    {user.name}
+                  </Text>
 
                   <Text className="text-[14px] font-sans text-muted-foreground m-0 mt-4.5">
                     Your {plan.name} subscription has been cancelled.
@@ -120,7 +122,7 @@ export const SubscriptionCancelled = ({
               {/* Footer */}
               <Section className="border-border border-t px-10 py-16">
                 <Text className="text-[13px] font-sans text-muted-foreground m-0 max-w-[320px]">
-                  YOUR DAILY DOSE OF NEWS. COMMITTED TO THE TRUTH.
+                  YOUR DAILY DOSE OF NEWS. <br /> COMMITTED TO THE TRUTH.
                 </Text>
 
                 <Row align="left">

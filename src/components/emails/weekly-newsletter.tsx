@@ -54,9 +54,7 @@ const ArticleList = ({ articles }: { articles: NewsletterArticle[] }) => (
       <div
         key={a.id}
         className={
-          i < articles.length - 1
-            ? "border-b border-border pb-4 mb-4"
-            : ""
+          i < articles.length - 1 ? "border-b border-border pb-4 mb-4" : ""
         }
       >
         <Link
@@ -202,7 +200,7 @@ export const WeeklyNewsletter = ({
               {/* Footer */}
               <Section className="border-border border-t px-10 py-16">
                 <Text className="text-[13px] font-sans text-muted-foreground m-0 max-w-[320px]">
-                  YOUR DAILY DOSE OF NEWS. COMMITTED TO THE TRUTH.
+                  YOUR DAILY DOSE OF NEWS. <br /> COMMITTED TO THE TRUTH.
                 </Text>
 
                 <Row align="left">
@@ -231,17 +229,43 @@ WeeklyNewsletter.PreviewProps = {
     {
       name: "Peters stuga",
       articles: [
-        { id: "1", title: "Myrorna anfaller", summary: "Myrorna anfaller Myrorna anfaller Myrorna anfaller" },
-        { id: "2", title: "Killed a squirrel with lawnmover", summary: "Myrorna anfaller Myrorna anfaller Myrorna anfaller" },
+        {
+          id: "1",
+          title: "Peters cabin becomes Ant Hill of Horrors",
+          summary: "... ... .... ....",
+        },
+        {
+          id: "2",
+          title: "Killed a squirrel with lawnmover",
+          summary: "... ... .... ....",
+        },
       ],
     },
   ],
   authors: [
     {
       alias: "Peter Lantjannesson",
-      articles: [{ id: "3", title: "Why I switched to sewer water", summary: "Myrorna anfaller Myrorna anfaller Myrorna anfaller"}],
+      articles: [
+        {
+          id: "3",
+          title: "Why I switched to sewer water",
+          summary: "... ... .... ....",
+        },
+      ],
     },
   ],
-  mostViewed: [{ id: "4", title: "Breaking: Man from Norrköping hoppade framför gräsklippare", summary: "Myrorna anfaller Myrorna anfaller Myrorna anfaller"}],
-  mostReactions: [{ id: "5", title: "Hot take of the week", summary: "Myrorna anfaller Myrorna anfaller Myrorna anfaller" }],
+  mostViewed: [
+    {
+      id: "4",
+      title: "Breaking: Man from Norrköping hoppade framför gräsklippare",
+      summary: "... ... .... ....",
+    },
+  ],
+  mostReactions: [
+    {
+      id: "5",
+      title: "Hot take of the week",
+      summary: "... ... .... ....",
+    },
+  ],
 } satisfies WeeklyNewsletterProps;

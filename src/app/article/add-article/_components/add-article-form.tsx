@@ -30,7 +30,7 @@ import Image from "next/image";
 
 const formSchema = z.object({
     title: z.string().min(1, "Title is required").max(100, "Max 100 characters"),
-    summary: z.string().min(1, "Summary is required").max(200, "Between 1-200 characters"),
+    summary: z.string().min(1, "Summary is required").max(1000, "Between 1-1000 characters"),
     content: z.string().min(1, "Content text is required"),
     image: z.string(),
     category: z.array(z.string()),

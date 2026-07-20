@@ -69,7 +69,7 @@ export const SubscriptionUpdated = ({
                 <div className="flex justify-center mx-auto">
                   <div className="my-auto w-full max-w-32 md:max-w-80 pt-2">
                     <h1 className="font-serif font-bold text-[10px] md:text-2xl text-center leading-tight tracking-tight whitespace-nowrap">
-                     The Daily Commit
+                      The Daily Commit
                     </h1>
                     <div className="border-b md:border-b-2 border-primary mt-0.5 md:mt-1"></div>
                     <p className="text-center text-[5px] md:text-[10px] tracking-tighter md:tracking-wide mt-0.5 md:mt-2 leading-tight">
@@ -130,7 +130,7 @@ export const SubscriptionUpdated = ({
               {/* Footer */}
               <Section className="border-border border-t px-10 py-16">
                 <Text className="text-[13px] font-sans text-muted-foreground m-0 max-w-[320px]">
-                  YOUR DAILY DOSE OF NEWS. COMMITTED TO THE TRUTH.
+                  YOUR DAILY DOSE OF NEWS. <br /> COMMITTED TO THE TRUTH.
                 </Text>
 
                 <Row align="left">

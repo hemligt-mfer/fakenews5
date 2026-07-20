@@ -119,7 +119,7 @@ export const SubscriptionActive = ({
               {/* Footer */}
               <Section className="border-border border-t px-10 py-16">
                 <Text className="text-[13px] font-sans text-muted-foreground m-0 max-w-[320px]">
-                  YOUR DAILY DOSE OF NEWS. COMMITTED TO THE TRUTH.
+                  YOUR DAILY DOSE OF NEWS. <br /> COMMITTED TO THE TRUTH.
                 </Text>
 
                 <Row align="left">
