@@ -1,4 +1,3 @@
-import PasswordResetForm from "@/app/(api)/(auth)/password-reset/_components/password-reset-form";
 import ChangeEmailDialog from "./_components/change-email-form";
 import { auth } from "@/lib/auth";
 import { headers } from "next/headers";

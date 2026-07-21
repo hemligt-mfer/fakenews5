@@ -7,8 +7,6 @@ import { getAuthors } from "@/_actions/article-actions";
 import { redirect } from "next/navigation";
 import {
   defaultSettings,
-  getNewsLettersettingsFromId,
-  isEmailSubscribed,
 } from "@/components/newsletter/_actions/newsletter-actions";
 
 export default async function DashboardPage() {

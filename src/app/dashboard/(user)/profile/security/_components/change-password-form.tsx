@@ -102,7 +102,7 @@ export default function ChangePasswordDialog({ currentEmail }: Props) {
     >
       <DialogTrigger asChild>
         <div className="grid grid-cols-[1fr_1fr_auto] items-center gap-4 py-3 max-w-2xl cursor-pointer border-b border-muted-foreground/20">
-          <p className="text-black/60 font-semibold">Password</p>
+          <p className= "font-semibold">Password</p>
           <span /> {/* empty middle cell keeps columns aligned */}
           <Button variant="outline" className="cursor-pointer">Edit</Button>
         </div>

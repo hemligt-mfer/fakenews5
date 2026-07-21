@@ -42,7 +42,7 @@ export default function ProfileSidebar() {
   return (
     <aside
       className={cn(
-        "flex flex-col border-r bg-muted-foreground/50 transition-all duration-200 ",
+        "flex flex-col border-r bg-[#f4ede0] transition-all duration-200 ",
         open ? "w-60" : "w-14",
       )}
     >
@@ -74,7 +74,7 @@ export default function ProfileSidebar() {
                 open ? "justify-start" : "justify-center",
                 active
                   ? "bg-muted font-medium text-foreground"
-                  : "text-background hover:bg-muted hover:text-foreground",
+                  : "text-black hover:bg-muted hover:text-foreground",
               )}
             >
               <Icon className="h-5 w-5 shrink-0" />

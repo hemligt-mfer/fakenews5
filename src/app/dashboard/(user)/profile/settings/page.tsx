@@ -3,7 +3,6 @@ import { auth } from "@/lib/auth";
 import prisma from "@/lib/prisma";
 import { headers } from "next/headers";
 import { notFound } from "next/navigation";
-import { Analytics } from "../analytics/_components/analytics";
 import EditProfileForm from "../_components/edit-profile-form";
 
 export default async function DashboardPage() {

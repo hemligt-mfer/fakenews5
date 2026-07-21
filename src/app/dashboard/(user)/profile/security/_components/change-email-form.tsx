@@ -100,7 +100,7 @@ export default function ChangeEmailDialog({ currentEmail }: Props) {
       </label> */}
 
       <div className="grid grid-cols-[1fr_1fr_auto] items-center gap-4 py-3 max-w-2xl pt-8 border-b border-muted-foreground/20">
-        <p className="text-black/60 font-semibold">Change email</p>
+        <p className="font-semibold">Change email</p>
         <p className="text-sm text-end">{currentEmail}</p>
         <DialogTrigger asChild>
           <Button variant="outline" className="cursor-pointer">Edit</Button>
