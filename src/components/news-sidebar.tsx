@@ -1,6 +1,5 @@
 import Link from "next/link";
 import MarketsWidget from "./markets-widget";
-import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import WeatherApp from "./weather-app";
 import SidebarAd from "./sidebar-ad";
@@ -73,8 +72,8 @@ export default function NewsSidebar({ mostRead }: Props) {
         <p className="font-sans text-[12px] text-muted-foreground mb-2.5">
           Top stories delivered to your inbox every Sunday.
         </p>
-        <Button className="w-full mt-2 rounded-none bg-foreground text-background hover:bg-primary font-sans text-[12px] font-bold uppercase tracking-[0.06em]">
-          <Link href="/dashboard/profile">Sign Up Free</Link>
+        <Button className="w-full mt-2 rounded-none bg-foreground text-background hover:bg-primary font-sans text-[12px] font-bold uppercase tracking-[0.06em] cursor-pointer">
+          <Link href="/dashboard/profile">Sign Up</Link>
         </Button>
       </div>
     </aside>
