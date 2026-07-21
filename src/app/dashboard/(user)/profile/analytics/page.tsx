@@ -38,7 +38,8 @@ export default async function DashboardPage() {
   if (!userInfo) notFound();
 
   const isEditor = userInfo.role === "editor";
-const isSubscriber = !!userInfo.role && SUBSCRIBER_ROLES.has(userInfo.role);
+  const isSubscriber = !!userInfo.role && SUBSCRIBER_ROLES.has(userInfo.role);
+
   // ---- bookmark distribution by category ----
   const map = new Map<string, number>();
   userInfo.user_info?.bookmark.forEach((bookmark) => {
@@ -76,7 +77,6 @@ const isSubscriber = !!userInfo.role && SUBSCRIBER_ROLES.has(userInfo.role);
   }));
 
   // ---- the subscriber's own comments, most recent first ----
-// ---- the subscriber's own comments, most recent first ----
   const myComments =
     userInfo.user_info?.comments.map((c) => ({
       id: c.id,
@@ -90,6 +90,7 @@ const isSubscriber = !!userInfo.role && SUBSCRIBER_ROLES.has(userInfo.role);
         year: "2-digit",
       }),
     })) ?? [];
+
   // ---------------- EDITOR ----------------
   let editorView: React.ComponentProps<typeof EditorAnalytics> | null = null;
   if (isEditor) {
@@ -108,15 +109,15 @@ const isSubscriber = !!userInfo.role && SUBSCRIBER_ROLES.has(userInfo.role);
       prisma.article.count({ where: { editorsChoice: true, deleted: null } }),
       prisma.article.findMany({
         where: { deleted: null },
-        orderBy: { views: { _count: "desc" } },
+        orderBy: { views: "desc" },
         take: 8,
         select: {
           id: true,
           title: true,
           editorsChoice: true,
+          views: true,
           _count: {
             select: {
-              views: true,
               reactions: true,
               bookmark: true,
               comments: true,
@@ -141,7 +142,7 @@ const isSubscriber = !!userInfo.role && SUBSCRIBER_ROLES.has(userInfo.role);
           alias: true,
           articles: {
             where: { deleted: null },
-            select: { _count: { select: { views: true } } },
+            select: { views: true },
           },
         },
       }),
@@ -155,7 +156,7 @@ const isSubscriber = !!userInfo.role && SUBSCRIBER_ROLES.has(userInfo.role);
       topArticles: topArticlesRaw.map((a) => ({
         id: a.id,
         title: a.title,
-        views: a._count.views,
+        views: a.views,
         reactions: a._count.reactions,
         bookmarks: a._count.bookmark,
         comments: a._count.comments,
@@ -172,7 +173,7 @@ const isSubscriber = !!userInfo.role && SUBSCRIBER_ROLES.has(userInfo.role);
       topAuthors: authorsRaw
         .map((a) => ({
           alias: a.alias,
-          views: a.articles.reduce((s, x) => s + x._count.views, 0),
+          views: a.articles.reduce((s, x) => s + x.views, 0),
           articles: a.articles.length,
         }))
         .sort((a, b) => b.views - a.views)
