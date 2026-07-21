@@ -10,12 +10,12 @@ import {
   ChartColumn,
   Bookmark,
   CreditCard,
-  Home
+  Home,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 const items = [
-  { label: "Profile dashboard", href: "/dashboard/profile/", icon: Home },
+  { label: "Profile dashboard", href: "/dashboard/profile", icon: Home },
   { label: "User settings", href: "/dashboard/profile/settings", icon: User },
   {
     label: "Email & password",
