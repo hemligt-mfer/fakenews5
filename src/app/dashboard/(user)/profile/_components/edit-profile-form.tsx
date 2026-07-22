@@ -87,7 +87,7 @@ export default function EditProfileForm({ user }: Props) {
             zip: user.user_info?.address.zip ?? "",
             phoneNumber: user.user_info?.phoneNumber ?? "",
             birthdate: user.user_info?.birthdate.toISOString().split("T")[0] ?? "",
-            image: user.image,
+            image: user.image ?? "",
             authorAlias: user.author?.alias ?? "",
         },
         validators: { onSubmit: formSchema },
@@ -101,11 +101,14 @@ export default function EditProfileForm({ user }: Props) {
                 if ("error" in uploadResult) {
                     toast.error(uploadResult.error, { position: "top-center" });
                     setLoading(false);
-                    return; // stop submission, don't create the article
+                    return;
                 }
                 imageUrl = uploadResult.url;
+                await EditUser(user.id, { ...value, image: imageUrl });
             }
-            await EditUser(user.id, { ...value, image: imageUrl });
+            else{
+                await EditUser(user.id, value)
+            }
             toast.success("Your account information was successfully updated.", {
                 position: "top-center",
             });

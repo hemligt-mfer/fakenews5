@@ -5,6 +5,8 @@ import prisma from "@/lib/prisma";
 import Link from "next/link";
 import UserDetailsTable from "./_components/user-details-table";
 import { notFound } from "next/navigation";
+import UserDetailAvatar from "./_components/user-detail-avatar";
+
 
 export default async function UserDetailsPage(
   props: PageProps<"/dashboard/admin/users/[userId]">,
@@ -31,14 +33,17 @@ export default async function UserDetailsPage(
   return (
     <div>
       <RouteHeading label="User details" />
-      <div className="border bg-sidebar rounded-2xl m-6 px-6 py-2">
+      <div className="flex border bg-sidebar rounded-2xl  px-6 py-2">
+        <UserDetailAvatar imageUrl={user.image ?? undefined} fallbackTxt={user.name[0]}/>
         <UserDetailsTable data={user} />
+        <div className="flex justify-end mt-auto">
         <Button asChild variant="outline">
           <Link href={`/dashboard/admin/users`}>Back to user table</Link>
         </Button>
         <Button asChild>
           <Link href={`/dashboard/admin/users/${user.id}/edit`}>Edit user</Link>
         </Button>
+        </div>
       </div>
     </div>
   );
