@@ -5,99 +5,101 @@ import { redirect } from "next/navigation";
 import { ChartLineLinear } from "./_components/charts/line-chart";
 import { CountryChart } from "./_components/charts/bar-chart";
 import {
-    userCountryChart,
-    userReg,
-    articleCounts,
-    userCounts,
-    commentCount,
-    subscribedUsers,
-    latestSub,
-    getWeeklyRevenue,
-    usersNotSubed,
+  userCountryChart,
+  userReg,
+  articleCounts,
+  userCounts,
+  commentCount,
+  subscribedUsers,
+  latestSub,
+  getWeeklyRevenue,
+  usersNotSubed,
 } from "./_actions/chart-actions";
 import {
-    LatestRegUsers,
-    Counts,
-    TopViewedArticles,
-    TopUpvotedArticle,
+  LatestRegUsers,
+  Counts,
+  TopViewedArticles,
+  TopUpvotedArticle,
 } from "./_components/charts/user-counts";
 import { ChartPieUserSub } from "./_components/charts/pie-chart";
-import { getTopViewedArticle, topUpvotedArticle } from "@/_actions/article-actions";
-
+import {
+  getTopViewedArticle,
+  topUpvotedArticle,
+} from "@/_actions/article-actions";
 
 export default async function AdminDashboardPage() {
-    const session = await auth.api.getSession({
-        headers: await headers(),
-    });
-    if (!session) {
-        redirect("/");
-    }
-    const hasPermission = await auth.api.userHasPermission({
-        body: {
-            userId: session?.user.id,
-            permissions: {
-                article: ["create", "update", "delete", "read"],
-            },
-        },
-    });
-    if (session.user.role !== "admin" && hasPermission.success) {
-        redirect("/");
-    }
+  const session = await auth.api.getSession({
+    headers: await headers(),
+  });
+  if (!session) {
+    redirect("/");
+  }
+  const hasPermission = await auth.api.userHasPermission({
+    body: {
+      userId: session?.user.id,
+      permissions: {
+        article: ["create", "update", "delete", "read"],
+      },
+    },
+  });
+  if (session.user.role !== "admin" && hasPermission.success) {
+    redirect("/");
+  }
 
-    const chartData = await userCountryChart();
-    const latest = await userReg();
-    const articleCount = await articleCounts();
-    const users = await userCounts();
-    const comments = await commentCount();
-    const topArticles = await getTopViewedArticle(1);
-    const likes = await topUpvotedArticle();
-    const subs = await subscribedUsers();
-    const latestS = await latestSub();
-    const revenueData = await getWeeklyRevenue();
-    const usersNotSubbed = await usersNotSubed();
-    let mostUpvotedArticle;
-    if (likes.success && likes.data) {
-        mostUpvotedArticle = likes.data[0];
-    }
-    if (mostUpvotedArticle !== undefined) {
-        return (
-            <div className="mb-10">
-                <RouteHeading label="Admin dashboard" />
-                <div className="flex justify-between m-10 gap-10">
-                    <ChartLineLinear data={revenueData} />
-
-                    <div className="flex-row">
-                        <div className="mb-8">
-                            <Counts
-                                articleCount={articleCount}
-                                userCount={users}
-                                comments={comments}
-                            />
-                        </div>
-                        <div className="mb-8">
-                            <TopUpvotedArticle article={mostUpvotedArticle} />
-                        </div>
-                        <div>
-                            {topArticles.success && topArticles.data ? (
-                                <TopViewedArticles articles={topArticles.data} />
-                            ) : (
-                                ""
-                            )}
-                        </div>
-                    </div>
-                </div>
-                <div className="flex m-10 gap-12 justify-between">
-                    <CountryChart chartData={chartData} />
-                    <LatestRegUsers data={latest} />
-
-                    <ChartPieUserSub
-                        users={users}
-                        subscribers={subs}
-                        latestSub={latestS}
-                        notSub={usersNotSubbed}
-                    />
-                </div>
+  const chartData = await userCountryChart();
+  const latest = await userReg();
+  const articleCount = await articleCounts();
+  const users = await userCounts();
+  const comments = await commentCount();
+  const topArticles = await getTopViewedArticle(1);
+  const likes = await topUpvotedArticle();
+  const subs = await subscribedUsers();
+  const latestS = await latestSub();
+  const revenueData = await getWeeklyRevenue();
+  const usersNotSubbed = await usersNotSubed();
+  let mostUpvotedArticle;
+  if (likes.success && likes.data) {
+    mostUpvotedArticle = likes.data[0];
+  }
+  if (mostUpvotedArticle !== undefined) {
+    return (
+      <div className="flex-row mb-10">
+        <RouteHeading label="Admin dashboard" />
+        <div className="m-10">
+          <ChartLineLinear data={revenueData} />
+        </div>
+        <div className="">
+          <div className="flex flex-col md:flex-row">
+            <div className="flex my-5 mx-auto gap-10 mb-5">
+              <Counts
+                articleCount={articleCount}
+                userCount={users}
+                comments={comments}
+              />
+              <LatestRegUsers data={latest} />
             </div>
-        );
-    }
+            <div className="mx-10 my-5 gap-10">
+              <TopUpvotedArticle article={mostUpvotedArticle} />
+              {topArticles.success && topArticles.data ? (
+                <TopViewedArticles articles={topArticles.data} />
+              ) : (
+                ""
+              )}
+            </div>
+            
+          </div>
+        </div>
+        <div className="flex flex-col md:flex-row mx-10 my-5 gap-10">
+          <CountryChart chartData={chartData} />
+
+          <ChartPieUserSub
+            users={users}
+            subscribers={subs}
+            latestSub={latestS}
+            notSub={usersNotSubbed}
+          />
+        </div>
+      </div>
+    );
+  }
 }
