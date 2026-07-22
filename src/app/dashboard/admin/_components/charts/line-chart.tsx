@@ -33,7 +33,7 @@ type WeeklyRevenue = {
 export function ChartLineLinear({ data }: { data: WeeklyRevenue[] }) {
   const total = data.reduce((sum, d) => sum + d.income, 0);
   return (
-    <Card className="flex w-full shadow">
+    <Card className="flex w-full max-h-100 shadow">
       <CardHeader>
         <CardTitle>Subscription revenue</CardTitle>
         <CardDescription>June</CardDescription>
