@@ -153,23 +153,27 @@ export default function ClientComment({
 
     //console.log(currentUserId, commentAuthor);
     return (
-        <div className="flex mb-5 justify-center w-full">
-            {level > 0 && (
-                <div className="relative w-5 shrink-0 mt-2.5 h-5">
-                    <div className="absolute -left-12 top-12 w-15 h-0.5 bg-muted-foreground" />
-                    <div className="bg-muted-foreground mt-10 h-5 w-5 [clip-path:polygon(0%_0%,100%_50%,0%_100%)]" />
+        <div className="flex mb-5 justify-center w-full mt-4">
+            
+                <div className="relative w-5 shrink-0 h-5 mr-2">
+                    <div className="absolute -left-11 w-14 h-14 rounded-full bg-muted-foreground">
+                        <div className="flex justify-center mt-0.5"> 
+                        <CommentAvatar
+                                    imageUrl={commentAuthor.user.image ?? undefined}
+                                    fallbackTxt={commentAuthor.user.name[0]}
+                                />
+                                </div>
+                    </div>
+                    <div className="bg-muted-foreground ml-2.5 mt-4.5 h-5 w-3 [clip-path:polygon(0%_0%,100%_50%,0%_100%)]" />
                 </div>
-            )}
+        
 
-            <div className="w-full border-l-4 border-muted-foreground">
+            <div className="w-full border-l-2 border-muted-foreground">
                 <div className="">
                     <div className="border-b bg-chart-5 dark:bg-chart-4 py-2">
                         <div className="flex items-center justify-between">
                             <div className="flex items-center ml-2">
-                                <CommentAvatar
-                                    imageUrl={commentAuthor.user.image ?? undefined}
-                                    fallbackTxt={commentAuthor.user.name[0]}
-                                />
+                                
                                 <div className="ml-2">
                                     <span>{commentAuthor.user.name} </span>
                                 </div>

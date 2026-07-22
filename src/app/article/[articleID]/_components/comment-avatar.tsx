@@ -9,8 +9,8 @@ export default function CommentAvatar({
 }) {
     return (
         <div className="flex flex-row flex-wrap items-center gap-6 md:gap-12">
-            <Avatar>
-                <AvatarImage src={imageUrl} alt={"avatar " + fallbackTxt} />
+            <Avatar className="h-13 w-13">
+                <AvatarImage src={imageUrl} alt={"avatar " + fallbackTxt}/>
                 <AvatarFallback>{fallbackTxt}</AvatarFallback>
             </Avatar>
         </div>
