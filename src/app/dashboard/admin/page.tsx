@@ -14,12 +14,14 @@ import {
   latestSub,
   getWeeklyRevenue,
   usersNotSubed,
+  recentComments,
 } from "./_actions/chart-actions";
 import {
   LatestRegUsers,
   Counts,
   TopViewedArticles,
   TopUpvotedArticle,
+  CommentedArticles,
 } from "./_components/charts/user-counts";
 import { ChartPieUserSub } from "./_components/charts/pie-chart";
 import {
@@ -57,6 +59,7 @@ export default async function AdminDashboardPage() {
   const latestS = await latestSub();
   const revenueData = await getWeeklyRevenue();
   const usersNotSubbed = await usersNotSubed();
+  const recentComment = await recentComments()
   let mostUpvotedArticle;
   if (likes.success && likes.data) {
     mostUpvotedArticle = likes.data[0];
@@ -65,8 +68,14 @@ export default async function AdminDashboardPage() {
     return (
       <div className="flex-row mb-10">
         <RouteHeading label="Admin dashboard" />
-        <div className="m-10">
+        <div className="flex flex-col md:flex-row gap-10 m-10">
           <ChartLineLinear data={revenueData} />
+          <ChartPieUserSub
+            users={users}
+            subscribers={subs}
+            latestSub={latestS}
+            notSub={usersNotSubbed}
+          />
         </div>
         <div className="">
           <div className="flex flex-col md:flex-row">
@@ -92,12 +101,9 @@ export default async function AdminDashboardPage() {
         <div className="flex flex-col md:flex-row mx-10 my-5 gap-10">
           <CountryChart chartData={chartData} />
 
-          <ChartPieUserSub
-            users={users}
-            subscribers={subs}
-            latestSub={latestS}
-            notSub={usersNotSubbed}
-          />
+          
+
+          <CommentedArticles recentComments={recentComment} />
         </div>
       </div>
     );

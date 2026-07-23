@@ -52,7 +52,7 @@ export function ChartPieUserSub({
 
 
   return (
-    <Card className="flex flex-col mt-5 shadow">
+    <Card className="flex flex-col shadow">
       <CardHeader className="items-center pb-0">
         <CardTitle>User vs Subscribers</CardTitle>
         <CardDescription></CardDescription>

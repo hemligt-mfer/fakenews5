@@ -413,7 +413,7 @@ type CommentRow = {
   monthKey?: string; // "MMM yy" — used to filter by the comment-activity chart
 };
 
-function CommentList({ comments }: { comments: CommentRow[] }) {
+export function CommentList({ comments }: { comments: CommentRow[] }) {
   if (!comments.length)
     return (
       <p className="text-sm text-muted-foreground py-4">No comments yet.</p>

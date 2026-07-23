@@ -2,6 +2,8 @@
 
 import Link from "next/link";
 import type { ArticleWithScore } from "@/_actions/article-actions";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { CommentList } from "@/app/dashboard/(user)/profile/analytics/_components/analytics";
 
 type Props = {
     data: {
@@ -35,6 +37,19 @@ type Likes = {
 type TopViewedProps = {
     articles: { articleId: string; title: string | undefined; views: number }[];
 };
+
+export type CommentRow = {
+  id: string;
+  content: string;
+  author?: string; // omitted for a subscriber's own comment feed
+  article: string;
+  date: string;
+  monthKey?: string; // "MMM yy" — used to filter by the comment-activity chart
+};
+type CommentRowArr = {
+    recentComments: CommentRow[];
+}
+
 export function LatestRegUsers(data: Props) {
     return (
         <div className="border w-50 bg-card py-2 px-1 rounded-xl shadow">
@@ -141,4 +156,19 @@ export function TopUpvotedArticle({ article }: { article: ArticleWithScore }) {
             </div>
         </div>
     );
+}
+
+export function CommentedArticles({recentComments} : CommentRowArr){
+    return (
+        
+              <Card className="shadow mt-5">
+                <CardHeader>
+                  <CardTitle>Recent comments (moderation)</CardTitle>
+                  <CardDescription>Latest across all articles</CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <CommentList comments={recentComments} />
+                </CardContent>
+              </Card>
+    )
 }

@@ -1,6 +1,7 @@
 "use server";
 
 import prisma from "@/lib/prisma";
+import { CommentRow } from "../_components/charts/user-counts";
 
 export async function userCountryChart() {
     const usercountry = await prisma.user.findMany({
@@ -176,4 +177,33 @@ export async function getWeeklyRevenue() {
         { week: "0", income: 0 },
         ...Object.entries(weeklyMap).map(([week, income]) => ({ week, income })),
     ];
+}
+
+export async function recentComments(){
+
+    const recentCommentsData = await prisma.comment.findMany({
+      orderBy: { createdAt: "desc" },
+      take: 10,
+      select: {
+        id: true,
+        content: true,
+        createdAt: true,
+        article: { select: { title: true } },
+        user: { select: { user: { select: { name: true } } } },
+      },
+    });
+    
+    const recentComments: CommentRow[] = recentCommentsData.map((c) => ({
+      id: c.id,
+      content: c.content,
+      author: c.user?.user?.name ?? "Unknown",
+      article: c.article?.title ?? "—",
+      date: c.createdAt.toLocaleDateString(),
+      monthKey: c.createdAt.toLocaleDateString("en-US", {
+        month: "short",
+        year: "2-digit",
+      }), 
+    }));
+
+    return recentComments
 }
