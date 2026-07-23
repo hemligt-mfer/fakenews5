@@ -33,9 +33,12 @@ export default async function UserDetailsPage(
   return (
     <div>
       <RouteHeading label="User details" />
-      <div className="flex border bg-sidebar rounded-2xl  px-6 py-2">
-        <UserDetailAvatar imageUrl={user.image ?? undefined} fallbackTxt={user.name[0]}/>
+      <div className="mx-10 border bg-sidebar rounded-2xl  px-6 py-2">
+        <div className="flex">
         <UserDetailsTable data={user} />
+        <UserDetailAvatar imageUrl={user.image ?? undefined} fallbackTxt={user.name[0]}/>
+      
+      </div>
         <div className="flex justify-end mt-auto">
         <Button asChild variant="outline">
           <Link href={`/dashboard/admin/users`}>Back to user table</Link>
@@ -43,8 +46,8 @@ export default async function UserDetailsPage(
         <Button asChild>
           <Link href={`/dashboard/admin/users/${user.id}/edit`}>Edit user</Link>
         </Button>
-        </div>
-      </div>
+          </div>
+          </div>
     </div>
   );
 }

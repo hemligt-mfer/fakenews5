@@ -42,7 +42,7 @@ export function LatestRegUsers(data: Props) {
             {data.data.map((u) => (
                 <div
                     key={u.id}
-                    className="text-black border rounded-full bg-chart-2 py-2 my-1 text-center"
+                    className="text-black border rounded-2xl bg-chart-2 py-2 my-1 text-center"
                 >
                     <Link className="text-sm" href={`/dashboard/admin/users/${u.id}`}>
                         {u.name}
@@ -66,23 +66,23 @@ export function Counts({
     comments: number;
 }) {
     return (
-        <div className="border w-30 bg-card py-2 px-1 rounded-2xl shadow">
+        <div className="flex flex-col border w-30 bg-card py-2 px-1 rounded-2xl shadow justify-between">
             <h1 className="font-heading text-base font-medium">Counts</h1>
-            <div className="flex justify-between items-center border rounded-full bg-chart-2 p-2 text-black">
+            <div className="flex justify-between items-center border rounded-2xl bg-chart-2 p-1 text-black">
                 <Link className="text-sm" href={"/dashboard/admin/articles"}>
                     Articles
                 </Link>
                 <span className="bg-chart-5 rounded-full p-1 ml-2">{articleCount}</span>
             </div>
 
-            <div className="flex justify-between items-center border rounded-full bg-chart-2 p-2 text-black">
+            <div className="flex justify-between items-center border rounded-2xl bg-chart-2 p-1 text-black">
                 <Link className="text-sm" href={"/dashboard/admin/users"}>
                     Users
                 </Link>
                 <span className="bg-chart-5 rounded-full p-1 ml-2">{userCount}</span>
             </div>
 
-           <div className="flex justify-between items-center border rounded-full bg-chart-2 p-2 text-black">
+           <div className="flex justify-between items-center border rounded-2xl bg-chart-2 p-1 text-black">
                 <p className="text-sm">Comments</p>
                 <span className="bg-chart-5 rounded-full p-1 ml-2">{comments}</span>
             </div>
@@ -109,12 +109,12 @@ type OnlyOnlyArticle = {
 };
 export function TopViewedArticles({ articles }: { articles: OnlyOnlyArticle[] }) {
     return (
-        <div className="border rounded-2xl bg-card px-1 shadow mt-5">
+        <div className="border rounded-2xl bg-card px-2 shadow mt-5">
             <h1 className="font-heading text-base font-medium">Most viewed article</h1>
             {articles.map((a) => (
                 <div
                     key={a.id}
-                    className="text-black border rounded-full bg-chart-5 py-2 px-2 my-2 text-center"
+                    className="text-black border rounded-2xl bg-chart-5 py-2 px-2 my-2 text-center"
                 >
                     <Link className="text-sm" href={`/article/${a.id}`}>
                         {a.title}
@@ -128,11 +128,11 @@ export function TopViewedArticles({ articles }: { articles: OnlyOnlyArticle[] })
 
 export function TopUpvotedArticle({ article }: { article: ArticleWithScore }) {
     return (
-        <div className="border rounded-2xl bg-card px-1 shadow">
+        <div className="border rounded-2xl bg-card px-2 shadow">
             <h1 className="font-heading text-base font-medium">Most upvoted article</h1>
             <div
                 key={article.a.id}
-                className="text-black border rounded-full bg-chart-2 py-2 px-2 my-2 text-center"
+                className="text-black border rounded-2xl bg-chart-2 py-2 px-2 my-2 text-center"
             >
                 <Link className="text-sm" href={`/article/${article.a.id}`}>
                     {article.a.title}

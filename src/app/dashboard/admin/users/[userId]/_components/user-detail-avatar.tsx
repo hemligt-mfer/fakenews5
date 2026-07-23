@@ -11,7 +11,7 @@ export default function UserDetailAvatar({
 }) {
     return (
         <div className="flex flex-row flex-wrap gap-6 md:gap-12">
-            <Avatar className="h-30 w-30">
+            <Avatar className="sm:h-30 sm:w-30">
                 <AvatarImage src={imageUrl} alt={"avatar " + fallbackTxt}/>
                 <AvatarFallback>{fallbackTxt}</AvatarFallback>
             </Avatar>

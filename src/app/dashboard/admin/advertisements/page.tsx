@@ -14,14 +14,16 @@ export default async function AdvertisementsPage() {
     const ads = res.success && res.data ? res.data : [];
 
     return (
-        <div className="w-full p-6 space-y-8">
+        <div className="w-full">
             <RouteHeading label="Display Advertisements" />
+            <div className="p-6">
 
             <CreateAdForm />
 
-            <div>
+            <div className="pt-6">
                 <h2 className="font-serif font-bold text-lg mb-4">All advertisements</h2>
                 <AdList ads={ads} />
+            </div>
             </div>
         </div>
     );

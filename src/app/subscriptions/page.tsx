@@ -24,10 +24,10 @@ export default async function SubscriptionsPage() {
         return (
             <div className="">
                 <RouteHeading label="Subscriptions" />
-                <h1 className="text-xl md:text-2xl font-extrabold text-center">
+                <h1 className="text-xl md:text-2xl mt-5 font-extrabold text-center">
                     Subscription plans
                 </h1>
-                <p className="md:mx-5 md:mt-5">
+                <p className="mx-5 text-center ">
                     Below you can find the various subscription plans that we offer. In order to
                     subscribe to our news site, you need to first register an account.
                 </p>
