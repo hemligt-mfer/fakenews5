@@ -53,7 +53,7 @@ export function DataTable<TData, TValue>({
   });
 
   return (
-    <div className="flex flex-col rounded-2xl shadow justify-between border bg-card m-6 min-h-150">
+    <div className="flex flex-col rounded-xl shadow justify-between border bg-card m-6 min-h-150">
       <div className="flex items-center py-4 ml-2 mr-2">
         <div className="relative w-full max-w-sm">
           <Input

@@ -25,10 +25,12 @@ export default function SubCard({
     <div className="flex justify-center mb-5">
       <div
         className={
-          plan.annualPrice == null ? "flex mx-auto" : " md:grid md:grid-cols-2 md:gap-5  "
+          plan.annualPrice == null
+            ? "flex mx-auto"
+            : " md:grid md:grid-cols-2 md:gap-5  "
         }
       >
-        <Card className="flex md:w-xs bg-muted dark:bg-[#2d2d2d]">
+        <Card className="flex md:w-xs bg-muted dark:bg-[#2d2d2d] shadow">
           <CardHeader>
             <CardTitle className="capitalize">
               {plan.name} - {formatPrice(plan.price)} / month
@@ -43,6 +45,7 @@ export default function SubCard({
                   alt={plan.name}
                   width={200}
                   height={200}
+                  style={{ width: "auto", height: "auto" }}
                 />
               ) : (
                 <div className="flex w-full h-full items-center justify-center">
@@ -67,7 +70,7 @@ export default function SubCard({
           </CardFooter>
         </Card>
         {plan.annualPriceId && plan.annualPrice ? (
-          <Card className="flex md:w-xs bg-muted dark:bg-[#2d2d2d]">
+          <Card className="flex md:w-xs bg-muted dark:bg-[#2d2d2d] shadow">
             <CardHeader>
               <CardTitle className="capitalize">
                 {plan.name} - {formatPrice(plan.annualPrice)} / year
@@ -82,6 +85,7 @@ export default function SubCard({
                     alt={plan.name}
                     width={200}
                     height={200}
+                    style={{ width: "auto", height: "auto" }}
                   />
                 ) : (
                   <div className="flex w-full h-full items-center justify-center">

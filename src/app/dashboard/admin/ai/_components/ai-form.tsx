@@ -50,7 +50,7 @@ export default function AIForm() {
         },
     });
     return (
-        <Card className="md:w-3xl mx-auto mt-5">
+        <Card className="md:w-3xl mx-auto mt-5 shadow">
             <CardHeader>
                 <CardTitle>Prompt our AI</CardTitle>
             </CardHeader>

@@ -33,7 +33,7 @@ export default function PasswordGate({
   if (unlocked) return <>{children}</>;
 
   return (
-    <div className="max-w-sm space-y-4 rounded-lg border p-6">
+    <div className="max-w-sm space-y-4 rounded-xl shadow border p-6">
       <div className="flex items-center gap-2 text-muted-foreground">
         <Lock className="h-4 w-4" />
         <span className="text-sm">Confirm your password to continue</span>

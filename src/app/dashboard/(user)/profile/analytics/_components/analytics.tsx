@@ -142,7 +142,7 @@ export function Analytics({ data, commentActivity, comments }: AnalyticsProps) {
   return (
     <section className="space-y-6">
       <div className="grid gap-6 lg:grid-cols-2 items-stretch">
-        <Card className="flex h-full flex-col">
+        <Card className="flex h-full flex-col shadow">
           <CardHeader>
             <CardTitle>Bookmark Distribution</CardTitle>
             <CardDescription>
@@ -197,7 +197,7 @@ export function Analytics({ data, commentActivity, comments }: AnalyticsProps) {
           </CardFooter>
         </Card>
 
-        <Card className="flex h-full flex-col">
+        <Card className="flex h-full flex-col shadow">
           <CardHeader className="flex flex-row items-start justify-between gap-4 space-y-0">
             <div>
               <CardTitle>Your comment activity</CardTitle>
@@ -314,7 +314,7 @@ export function Analytics({ data, commentActivity, comments }: AnalyticsProps) {
         </Card>
       </div>
 
-      <Card>
+      <Card className="shadow">
         <CardHeader className="flex flex-row items-center justify-between gap-4 space-y-0">
           <div>
             <CardTitle>Your comments</CardTitle>
@@ -355,7 +355,7 @@ export function Analytics({ data, commentActivity, comments }: AnalyticsProps) {
 
 export function AnalyticsPaywall() {
   return (
-    <Card className="border-dashed">
+    <Card className="border-dashed shadow">
       <CardContent className="flex flex-col items-center gap-3 py-16 text-center">
         <div className="flex h-12 w-12 items-center justify-center rounded-full bg-muted">
           <Lock className="h-6 w-6 text-muted-foreground" />
@@ -385,7 +385,7 @@ function StatCard({
   value: string | number;
 }) {
   return (
-    <Card>
+    <Card className="shadow">
       <CardHeader className="pb-2">
         <CardDescription>{label}</CardDescription>
         <CardTitle className="text-3xl">{value}</CardTitle>
@@ -466,7 +466,7 @@ export function EditorAnalytics({
       </div>
 
       <div className="grid gap-6 lg:grid-cols-2">
-        <Card>
+        <Card className="shadow">
           <CardHeader>
             <CardTitle>Top articles by views</CardTitle>
             <CardDescription>Platform-wide</CardDescription>
@@ -497,7 +497,7 @@ export function EditorAnalytics({
           </CardContent>
         </Card>
 
-        <Card>
+        <Card className="shadow">
           <CardHeader>
             <CardTitle>Top authors by total views</CardTitle>
           </CardHeader>
@@ -531,7 +531,7 @@ export function EditorAnalytics({
         </Card>
       </div>
 
-      <Card>
+      <Card className="shadow">
         <CardHeader>
           <CardTitle>Article performance</CardTitle>
         </CardHeader>
@@ -572,7 +572,7 @@ export function EditorAnalytics({
         </CardContent>
       </Card>
 
-      <Card>
+      <Card className="shadow">
         <CardHeader>
           <CardTitle>Recent comments (moderation)</CardTitle>
           <CardDescription>Latest across all articles</CardDescription>

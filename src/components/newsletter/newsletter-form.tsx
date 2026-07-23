@@ -19,6 +19,12 @@ import {
 import { authClient } from "@/lib/auth-client";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
+import {
+  Collapsible,
+  CollapsibleContent,
+  CollapsibleTrigger,
+} from "../ui/collapsible";
+import { ChevronDownIcon } from "lucide-react";
 
 const formSchema = z.object({
   email: z.email("Enter a valid email address."),
@@ -95,7 +101,7 @@ export default function NewsletterForm({
   });
 
   return (
-    <div className="w-full max-w-100 border p-4 ">
+    <div className="w-full max-w-100 rounded-xl shadow border p-4 ">
       <form
         id="newsletter-form"
         onSubmit={(ev) => {
@@ -129,60 +135,79 @@ export default function NewsletterForm({
             }}
           </form.Field>
           <div>
-            <h1 className="font-medium mb-2">
-              Subscribe to selected categories
-            </h1>
-            <form.Field name="categories">
-              {(field) => (
-                <div>
-                  {categories.map((category) => {
-                    const checked = field.state.value.includes(category);
-                    return (
-                      <div className="flex gap-2 items-center" key={category}>
-                        <Checkbox
-                          checked={checked}
-                          onCheckedChange={(isChecked) => {
-                            field.handleChange((prev) =>
-                              isChecked
-                                ? [...prev, category]
-                                : prev.filter((c) => c !== category),
-                            );
-                          }}
-                        />
-                        <span>{category}</span>
-                      </div>
-                    );
-                  })}
-                </div>
-              )}
-            </form.Field>
+            <Collapsible className="border rounded-lg data-[state=open]:bg-muted">
+              <CollapsibleTrigger asChild>
+                <Button variant="ghost" className="group w-full">
+                  Subscribe to selected categories
+                  <ChevronDownIcon className="ml-auto group-data-[state=open]:rotate-180" />
+                </Button>
+              </CollapsibleTrigger>
+              <CollapsibleContent className="flex flex-col items-start gap-2 p-2.5 pt-0 text-sm">
+                <form.Field name="categories">
+                  {(field) => (
+                    <div>
+                      {categories.map((category) => {
+                        const checked = field.state.value.includes(category);
+                        return (
+                          <div
+                            className="flex gap-2 items-center"
+                            key={category}
+                          >
+                            <Checkbox
+                              checked={checked}
+                              onCheckedChange={(isChecked) => {
+                                field.handleChange((prev) =>
+                                  isChecked
+                                    ? [...prev, category]
+                                    : prev.filter((c) => c !== category),
+                                );
+                              }}
+                            />
+                            <span>{category}</span>
+                          </div>
+                        );
+                      })}
+                    </div>
+                  )}
+                </form.Field>
+              </CollapsibleContent>
+            </Collapsible>
           </div>
           <div>
-            <h1 className="font-medium mb-2">Authors to follow</h1>
-            <form.Field name="authors">
-              {(field) => (
-                <div>
-                  {authors.map((author) => {
-                    const checked = field.state.value.includes(author);
-                    return (
-                      <div key={author} className="flex items-center gap-2">
-                        <Checkbox
-                          checked={checked}
-                          onCheckedChange={(isChecked) => {
-                            field.handleChange((prev) =>
-                              isChecked
-                                ? [...prev, author]
-                                : prev.filter((c) => c !== author),
-                            );
-                          }}
-                        />
-                        <span>{author}</span>
-                      </div>
-                    );
-                  })}
-                </div>
-              )}
-            </form.Field>
+            <Collapsible className="border rounded-lg data-[state=open]:bg-muted">
+              <CollapsibleTrigger asChild>
+                <Button variant="ghost" className="group w-full">
+                  Authors to follow
+                  <ChevronDownIcon className="ml-auto group-data-[state=open]:rotate-180" />
+                </Button>
+              </CollapsibleTrigger>
+              <CollapsibleContent className="flex flex-col items-start gap-2 p-2.5 pt-0 text-sm">
+                <form.Field name="authors">
+                  {(field) => (
+                    <div>
+                      {authors.map((author) => {
+                        const checked = field.state.value.includes(author);
+                        return (
+                          <div key={author} className="flex items-center gap-2">
+                            <Checkbox
+                              checked={checked}
+                              onCheckedChange={(isChecked) => {
+                                field.handleChange((prev) =>
+                                  isChecked
+                                    ? [...prev, author]
+                                    : prev.filter((c) => c !== author),
+                                );
+                              }}
+                            />
+                            <span>{author}</span>
+                          </div>
+                        );
+                      })}
+                    </div>
+                  )}
+                </form.Field>
+              </CollapsibleContent>
+            </Collapsible>
           </div>
           {isSubbed ? (
             <>

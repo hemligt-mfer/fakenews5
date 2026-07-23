@@ -36,7 +36,7 @@ export async function getActiveAd(format: string, slot?: string): Promise<Advert
                 AND: [{ OR: [{ endsAt: null }, { endsAt: { gte: now } }] }],
             },
         });
-        console.log(`[getActiveAd] format="${format}" slot="${slot}" found=${ads.length} now=${now.toISOString()}`);
+        // console.log(`[getActiveAd] format="${format}" slot="${slot}" found=${ads.length} now=${now.toISOString()}`);
         if (ads.length === 0) return null;
 
         const pool = slot ? ads.filter((a) => a.placement === slot || a.placement === "both") : ads;

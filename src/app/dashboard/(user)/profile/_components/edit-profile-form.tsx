@@ -129,7 +129,7 @@ export default function EditProfileForm({ user }: Props) {
           </Button>
         </CollapsibleTrigger>
         <CollapsibleContent className="flex flex-col items-start gap-2 p-2.5 pt-0 text-sm"> */}
-            <Card className="mx-auto w-full">
+            <Card className="mx-auto w-full shadow">
                 <CardContent>
                     <form
                         onSubmit={(ev) => {
