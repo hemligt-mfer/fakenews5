@@ -4,13 +4,12 @@ import prisma from "@/lib/prisma";
 import { headers } from "next/headers";
 import { notFound } from "next/navigation";
 import EditProfileForm from "../_components/edit-profile-form";
+import PasswordGate from "../_components/password-gate";
 
 export default async function DashboardPage() {
     const session = await auth.api.getSession({ headers: await headers() });
     const userId = session?.user.id;
-    const articles = await prisma.article.findMany({
-        include: { category: true, bookmark: true },
-    });
+
 
     const userInfo = await prisma.user.findUnique({
         where: { id: userId },
@@ -29,20 +28,6 @@ export default async function DashboardPage() {
             accounts: { select: { password: true } },
         },
     });
-    console.log(userInfo);
-
-    const map = new Map();
-    userInfo?.user_info?.bookmark.forEach((bookmark) => {
-        bookmark.article.category.forEach((cat) => {
-            const count = map.get(cat.name) || 0;
-            map.set(cat.name, count + 1);
-        });
-    });
-
-    const data = Array.from(map, ([category, bookmarks]) => ({
-        category,
-        bookmarks,
-    }));
 
     if (!userInfo) {
         notFound();
@@ -52,8 +37,10 @@ export default async function DashboardPage() {
         <div suppressContentEditableWarning suppressHydrationWarning>
             <RouteHeading label="User settings" />
             <div className="">
-                <div className="pt-4">
+                <div className="m-6">
+                    <PasswordGate>
                     <EditProfileForm user={userInfo} />
+                    </PasswordGate>
                 </div>
             </div>
         </div>

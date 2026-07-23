@@ -4,6 +4,7 @@ import { headers } from "next/headers";
 import prisma from "@/lib/prisma";
 import ChangePasswordDialog from "./_components/change-password-form";
 import RouteHeading from "@/components/route-heading";
+import PasswordGate from "../_components/password-gate";
 
 export default async function Security() {
   const session = await auth.api.getSession({ headers: await headers() });
@@ -29,10 +30,14 @@ export default async function Security() {
   return (
     <>
       <RouteHeading label="Security" />
+      <div className="m-6">
+      <PasswordGate>
       <ChangeEmailDialog currentEmail={userInfo!.email}></ChangeEmailDialog>
       <ChangePasswordDialog
         currentEmail={userInfo!.email}
       ></ChangePasswordDialog>
+      </PasswordGate>
+      </div>
     </>
   );
 }

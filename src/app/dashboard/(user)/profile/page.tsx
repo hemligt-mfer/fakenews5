@@ -63,11 +63,11 @@ export default async function DashboardPage() {
         <h1 className="text-3xl font-medium mb-4">
           Welcome back {session.user.name}!
         </h1>
-        <p>
+        {/* <p>
           {daysSince === 0
             ? "You were last active today"
             : `It's been ${daysSince} day${daysSince === 1 ? "" : "s"} since your last visit`}
-        </p>
+        </p> */}
         {isSub === true ? (
           <div className="pt-10">
             <h1 className="text-2xl  mb-4">

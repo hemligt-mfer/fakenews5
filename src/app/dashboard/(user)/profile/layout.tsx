@@ -33,7 +33,7 @@ export default async function DashboardLayout({
   const items: ProfileNavItem[] = [
     {
       label: "Profile dashboard",
-      href: "/dashboard/profile/",
+      href: "/dashboard/profile",
       icon: <Home className={iconClass} />,
     },
     {

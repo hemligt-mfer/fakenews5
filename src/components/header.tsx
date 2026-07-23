@@ -45,6 +45,7 @@ export default async function Header() {
                     src="/lightlogo.png"
                     alt=""
                     fill
+                    sizes="48px"
                     className="dark:hidden object-contain"
                     priority
                   />
@@ -52,6 +53,7 @@ export default async function Header() {
                     src="/darklogo.png"
                     alt=""
                     fill
+                    sizes="48px"
                     className="hidden dark:inline-block object-contain"
                     priority
                   />
