@@ -18,16 +18,15 @@ export default function Navbar({
     }
   }
   return (
-    <div>
-      <div className="flex  h-15 gap-2 md:px-6 dark:bg-background  bg-background">
-        <ul className="flex justify-start! [1300px]:w-3/4! xl:mx-auto my-auto w-full">
+      <div className="flex max-w-7xl w-full mx-auto h-15 gap-2 md:px-6 dark:bg-background  bg-background">
+        <ul className="flex w-full items-center">
           <li className="lg:hidden">
             <SidebarTrigger size="lg" className="lg:hidden" />
           </li>
-          <li className="max-lg:hidden my-auto text-lg">
+          <li className="max-lg:hidden text-lg">
             <NewsDropdown label="News" links={links} />
           </li>
-          <li className="max-lg:hidden my-auto">
+          <li className="max-lg:hidden">
             <Link href="/subscriptions" className="p-2 ">
               <Button
                 variant="ghost"
@@ -37,8 +36,10 @@ export default function Navbar({
               </Button>
             </Link>
           </li>
+          <li className="justify-end ml-auto mr-4">
+            <SearchBar />
+          </li>
         </ul>
       </div>
-    </div>
   );
 }

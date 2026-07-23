@@ -119,7 +119,7 @@ export default async function RootLayout({
                                 <Navbar categories={cats.success && cats.data ? cats.data : null} />
                                 <div className="flex gap-4">
                                     <div className="my-auto">
-                                        <SearchBar />
+                                        
                                     </div>
                                 </div>
                             </div>
