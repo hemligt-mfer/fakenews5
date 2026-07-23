@@ -166,7 +166,7 @@ export default function SignInForm() {
           </CardContent>
         </CardHeader>
         <CardFooter>
-          <Button className="w-full" form="sign-in-form" disabled={loading}>
+          <Button className="w-full cursor-pointer" form="sign-in-form" disabled={loading}>
             {loading ? <Spinner /> : "Sign In"}
           </Button>
         </CardFooter>

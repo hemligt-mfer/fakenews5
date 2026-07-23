@@ -251,13 +251,13 @@ export default function WeatherApp() {
             </CarouselItem>
           ))}
         </CarouselContent>
-        <CarouselPrevious className="left-0 h-7 w-7" />
-        <CarouselNext className="right-0 h-7 w-7" />
+        <CarouselPrevious className="left-0 h-7 w-7 cursor-pointer" />
+        <CarouselNext className="right-0 h-7 w-7 cursor-pointer" />
       </Carousel>
 
       <Collapsible className="rounded-md data-[state=open]:bg-card w-full">
         <CollapsibleTrigger asChild>
-          <Button className="group w-full bg-card text-muted-foreground">
+          <Button className="group w-full bg-card text-muted-foreground cursor-pointer">
             Upcoming days
             <ChevronDownIcon className="ml-auto group-data-[state=open]:rotate-180" />
           </Button>

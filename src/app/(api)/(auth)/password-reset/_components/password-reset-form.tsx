@@ -181,7 +181,7 @@ export default function PasswordResetForm() {
           </CardContent>
         </CardHeader>
         <CardFooter>
-          <Button type="submit" className="w-full" form="forgot-password-form">
+          <Button type="submit" className="w-full cursor-pointer" form="forgot-password-form">
             {loading ? (
               <>
                 <Spinner data-icon="inline-start" />

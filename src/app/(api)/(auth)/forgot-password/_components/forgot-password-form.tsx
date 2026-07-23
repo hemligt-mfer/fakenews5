@@ -113,7 +113,7 @@ export default function ForgotPasswordForm() {
             <DialogTrigger asChild>
               <Button
                 type="submit"
-                className="w-full"
+                className="w-full cursor-pointer"
                 form="forgot-password-form"
               >
                 Send Link

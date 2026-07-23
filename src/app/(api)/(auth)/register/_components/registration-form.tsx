@@ -500,10 +500,10 @@ export default function RegisterForm() {
                 </form>
             </CardContent>
             <CardFooter className="flex justify-center gap-4">
-                <Button form="register-form" type="reset" size="lg" onClick={() => form.reset()}>
+                <Button form="register-form" type="reset" size="lg" onClick={() => form.reset()} className="cursor-pointer">
                     Reset
                 </Button>
-                <Button form="register-form" type="submit" size="lg" disabled={loading}>
+                <Button form="register-form" type="submit" size="lg" disabled={loading} className="cursor-pointer">
                     {loading ? <Spinner /> : "Submit"}
                 </Button>
             </CardFooter>
