@@ -68,7 +68,7 @@ export default async function AdminDashboardPage() {
     return (
       <div className="flex-row mb-10">
         <RouteHeading label="Admin dashboard" />
-        <div className="flex flex-col md:flex-row gap-10 m-10 justify-center">
+        <div className="flex flex-col md:flex-row w-4/5 gap-10 mt-5 mx-auto">
           <ChartLineLinear data={revenueData} />
           <ChartPieUserSub
             users={users}
@@ -78,8 +78,8 @@ export default async function AdminDashboardPage() {
           />
         </div>
         
-          <div className="flex flex-col md:flex-row justify-center mx-10 gap-10">
-            <div className="flex my-5 gap-10 justify-between">
+          <div className="flex flex-col md:flex-row justify-center gap-10 mt-5">
+            <div className="flex gap-10 justify-between">
               <Counts
                 articleCount={articleCount}
                 userCount={users}
@@ -87,7 +87,7 @@ export default async function AdminDashboardPage() {
               />
               <LatestRegUsers data={latest} />
             </div>
-            <div className="my-5 gap-10">
+            <div className=" gap-10">
               <TopUpvotedArticle article={mostUpvotedArticle} />
               {topArticles.success && topArticles.data ? (
                 <TopViewedArticles articles={topArticles.data} />
@@ -98,7 +98,7 @@ export default async function AdminDashboardPage() {
             
           </div>
         
-        <div className="flex flex-col md:flex-row mx-10 my-5 gap-10 justify-center">
+        <div className="flex flex-col md:flex-row mt-5 gap-10 justify-between">
           <CountryChart chartData={chartData} />
           <CommentedArticles recentComments={recentComment} />
         </div>

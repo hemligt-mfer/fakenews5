@@ -75,7 +75,7 @@ export default function CreatePlanForm() {
 
     return (
         <div>
-            <Collapsible className="border rounded-xl shadow data-[state=open]:bg-muted">
+            <Collapsible className="border rounded-xl data-[state=open]:bg-muted">
                 <CollapsibleTrigger asChild>
                     <Button variant="ghost" className="group w-full">
                         Create a new subscription plan

@@ -161,7 +161,7 @@ export function TopUpvotedArticle({ article }: { article: ArticleWithScore }) {
 export function CommentedArticles({recentComments} : CommentRowArr){
     return (
         
-              <Card className="shadow mt-5">
+              <Card className="shadow">
                 <CardHeader>
                   <CardTitle>Recent comments (moderation)</CardTitle>
                   <CardDescription>Latest across all articles</CardDescription>

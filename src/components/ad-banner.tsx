@@ -9,7 +9,7 @@ export default async function AdBanner({ slot }: Props) {
     const ad = await getActiveAd("banner", slot);
 
     return (
-        <div className="w-full bg-gray-100 border-y border-gray-300 py-3 px-4 flex flex-col items-center gap-2">
+        <div className="w-full bg-background border-y  py-3 px-4 flex flex-col items-center gap-2">
             <p className="text-[10px] font-sans font-bold uppercase tracking-[0.12em] text-gray-400">
                 Advertisement
             </p>
@@ -25,13 +25,13 @@ export default async function AdBanner({ slot }: Props) {
                             src={ad.imageUrl}
                             alt={ad.label}
                             fill
-                            className="object-contain"
+                            className="object-cover"
                             unoptimized
                         />
                     </div>
                 </a>
             ) : (
-                <div className="w-full max-w-4xl h-20 rounded bg-gradient-to-r from-gray-200 to-gray-300 flex items-center justify-center">
+                <div className="w-full max-w-4xl h-20 rounded bg-background flex items-center justify-center">
                     <span className="text-xs text-gray-400 italic">
                         Your ad could be here
                     </span>

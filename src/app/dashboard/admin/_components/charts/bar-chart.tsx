@@ -30,7 +30,7 @@ const chartConfig = {
 
 export function CountryChart({chartData} : Props) {
   return (
-    <Card className="flex flex-col mt-5 shadow">
+    <Card className="flex flex-col shadow">
       <CardHeader>
         <CardTitle>Users / Countries</CardTitle>
         <CardDescription></CardDescription>
