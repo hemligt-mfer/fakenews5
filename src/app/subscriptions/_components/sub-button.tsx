@@ -1,10 +1,8 @@
 "use client";
 import { authClient } from "@/lib/auth-client";
 import { Button } from "@/components/ui/button";
-import { User } from "better-auth";
 import { useState } from "react";
 import { Spinner } from "@/components/ui/spinner";
-import { useRouter } from "next/navigation";
 
 export default function SubButton({
     plan,
@@ -20,7 +18,6 @@ export default function SubButton({
     label: string;
 }) {
     const [loading, setLoading] = useState(false);
-    const router = useRouter();
     const handleClick = async () => {
         setLoading(true);
         if (!annual) {

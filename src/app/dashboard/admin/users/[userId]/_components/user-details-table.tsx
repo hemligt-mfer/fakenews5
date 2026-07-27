@@ -3,13 +3,9 @@ import {
   Table,
   TableBody,
   TableCell,
-  TableHead,
-  TableHeader,
   TableRow,
 } from "@/components/ui/table";
 import { Props } from "../edit/_components/edit-user-form";
-import { Button } from "@/components/ui/button";
-import Link from "next/link";
 
 export default function UserDetailsTable(user: Props) {
   return (

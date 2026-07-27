@@ -18,7 +18,6 @@ import { CountryData } from "@/components/phone-input";
 import { Country, CountryDropdown } from "@/components/country-dropdown";
 import { authClient } from "@/lib/auth-client";
 import { uploadImage } from "@/lib/upload-action";
-import Image from "next/image";
 
 type Props = {
     user: {

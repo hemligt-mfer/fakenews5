@@ -4,7 +4,7 @@ import { z } from "zod";
 import { useForm } from "@tanstack/react-form";
 import { useState } from "react";
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
-import { PhoneInput, phoneSchema, CountryData } from "@/components/phone-input";
+import { PhoneInput, CountryData } from "@/components/phone-input";
 import { Field, FieldError, FieldGroup, FieldLabel } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
 import { Country, CountryDropdown } from "@/components/country-dropdown";

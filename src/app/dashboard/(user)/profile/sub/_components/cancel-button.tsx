@@ -1,6 +1,5 @@
 import { Button } from "@/components/ui/button";
 import { authClient } from "@/lib/auth-client";
-import { getActiveSubscriptionsPriceId } from "@/lib/require-sub";
 import { useRouter } from "next/navigation";
 
 export default function CancelButton({ subscriptionId }: { subscriptionId: string }) {

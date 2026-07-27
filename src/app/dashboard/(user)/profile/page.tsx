@@ -7,19 +7,14 @@ import { getAuthors } from "@/_actions/article-actions";
 import { redirect } from "next/navigation";
 import { defaultSettings } from "@/components/newsletter/_actions/newsletter-actions";
 import Link from "next/link";
-import { differenceInCalendarDays } from "date-fns";
 
-function daysSinceLastLogin(updatedAt: Date | string): number {
-  const lastLogin = new Date(updatedAt);
-  return differenceInCalendarDays(new Date(), lastLogin);
-}
 
 export default async function DashboardPage() {
   const session = await auth.api.getSession({ headers: await headers() });
   if (!session) {
     return redirect("/sign-in");
   }
-  const daysSince = daysSinceLastLogin(session.session.updatedAt);
+
   let isSub = false;
   if (session.user.role !== "user") {
     isSub = true;
@@ -63,11 +58,6 @@ export default async function DashboardPage() {
         <h1 className="text-3xl font-medium mb-4">
           Welcome back {session.user.name}!
         </h1>
-        {/* <p>
-          {daysSince === 0
-            ? "You were last active today"
-            : `It's been ${daysSince} day${daysSince === 1 ? "" : "s"} since your last visit`}
-        </p> */}
         {isSub === true ? (
           <div className="pt-10">
             <h1 className="text-2xl  mb-4">

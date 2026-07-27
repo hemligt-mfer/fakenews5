@@ -1,8 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { generateResponse, Recipe, RecipeWithImage } from "./ai";
-import Markdown from "react-markdown";
+import { generateResponse, RecipeWithImage } from "./ai";
 
 export default function Page() {
   const [isLoading, setIsLoading] = useState(false);

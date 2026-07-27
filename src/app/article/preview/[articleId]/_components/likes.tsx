@@ -1,6 +1,5 @@
 "use client";
 import { ThumbsDown, ThumbsUp } from "lucide-react";
-import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 
 export default function Likes({ num }: { num: number }) {

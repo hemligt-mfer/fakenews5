@@ -1,10 +1,9 @@
 import Image from "next/image";
 import Link from "next/link";
 import { Separator } from "@/components/ui/separator";
-import { format, formatDistanceToNow } from "date-fns";
+import { formatDistanceToNow } from "date-fns";
 import {
   getArticlesForWebsite,
-  getAuthors,
   getEditorsChoiceArticles,
   getMostPopularArticles,
 } from "@/_actions/article-actions";
@@ -16,8 +15,7 @@ import { auth } from "@/lib/auth";
 import { headers } from "next/headers";
 import { getSubscriptionPlanFromUserId } from "@/_actions/subscription-actions";
 import { getConsent } from "@/lib/cookie-actions";
-import NewsletterForm from "@/components/newsletter/newsletter-form";
-import { getCategories } from "@/_actions/category-actions";
+
 
 export default async function HomePage() {
   const [allResult, editorsResult, popularResult] = await Promise.all([

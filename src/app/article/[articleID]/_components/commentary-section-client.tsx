@@ -1,5 +1,4 @@
 "use client";
-import Button from "@/components/button";
 import {
     Pagination,
     PaginationContent,

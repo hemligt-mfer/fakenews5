@@ -1,7 +1,6 @@
-import { addView, getArticle } from "@/_actions/article-actions";
+import { getArticle } from "@/_actions/article-actions";
 import Views from "../../[articleID]/_components/views";
 import Likes from "./_components/likes";
-import Bookmark from "./_components/bookmark";
 import Link from "next/link";
 import ArticleDoesntExist from "../../[articleID]/_components/article-doesnt-exists";
 import ReactMarkdown from "react-markdown";
@@ -10,7 +9,6 @@ import remarkIns from "remark-ins";
 import Image from "next/image";
 import { format } from "date-fns";
 import { ContinueToReadCard } from "@/components/continue-read-card";
-import MarkViewed from "../../[articleID]/_components/mark-viewed";
 import RouteHeading from "@/components/route-heading";
 
 export default async function PreviewArticlePage({

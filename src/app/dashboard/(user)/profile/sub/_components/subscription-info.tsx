@@ -3,7 +3,6 @@
 import { Subscription } from "@better-auth/stripe";
 import { Table, TableBody, TableCell, TableRow } from "@/components/ui/table";
 import { format, formatDistanceToNow } from "date-fns";
-import Button from "@/components/button";
 import CancelButton from "./cancel-button";
 import RestoreButton from "./restore-button";
 

@@ -2,7 +2,6 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import ToggleChoice from "@/_actions/toggle-editors-choice";
 import { Circle, CircleCheckBig } from "lucide-react";
 import Button from "@/components/button";
 import { deleteArticle, restoreArticle } from "@/_actions/article-actions";
