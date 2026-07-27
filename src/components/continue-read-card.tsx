@@ -11,7 +11,7 @@ export function ContinueToReadCard() {
           <Lock className="h-4 w-4 text-zinc-300" />
         </div>
 
-        <h2 className="font-serif text-[19px] font-medium text-zinc-100">
+        <h2 className="text-[19px] font-medium text-zinc-100">
           This article is for subscribers
         </h2>
 

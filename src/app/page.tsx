@@ -74,22 +74,22 @@ export default async function HomePage() {
                   />
                 ) : (
                   <div className="w-full h-full flex items-center justify-center">
-                    <span className="font-sans text-[12px] text-muted-foreground">
+                    <span className=" text-[12px] text-muted-foreground">
                       FEATURED IMAGE
                     </span>
                   </div>
                 )}
               </div>
-              <p className="font-sans text-[10px] font-bold uppercase tracking-[0.08em] text-primary mb-1">
+              <p className="text-[10px] font-bold uppercase tracking-[0.08em] text-primary mb-1">
                 {hero.category[0]?.name ?? "Editor's Choice"}
               </p>
-              <h1 className="font-serif text-[22px] md:text-[28px] font-bold leading-tight text-foreground group-hover:text-primary transition-colors mb-2">
+              <h1 className="text-[22px] md:text-[28px] font-bold leading-tight text-foreground group-hover:text-primary transition-colors mb-2">
                 {hero.title}
               </h1>
-              <p className="font-sans text-[14px] text-muted-foreground">
+              <p className="text-[14px] text-muted-foreground">
                 {hero.summary}
               </p>
-              <p className="font-sans text-[11px] text-muted-foreground mt-2">
+              <p className="text-[11px] text-muted-foreground mt-2">
                 {hero.author.length > 0 &&
                   `By ${hero.author.map((a) => a.alias).join(", ")} · `}
                 {formatDistanceToNow(hero.createdAt, { addSuffix: true })}

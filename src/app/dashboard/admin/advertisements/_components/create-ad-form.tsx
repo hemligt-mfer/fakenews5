@@ -79,7 +79,7 @@ export default function CreateAdForm() {
 
     return (
         <form onSubmit={handleSubmit} className="rounded-xl border p-5 bg-popover shadow-sm space-y-4">
-            <h2 className="font-serif font-bold text-lg">Add new advertisement</h2>
+            <h2 className="font-bold text-lg">Add new advertisement</h2>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div className="space-y-1">

@@ -138,7 +138,7 @@ export default function NewsletterForm({
             <Collapsible className="border rounded-lg data-[state=open]:bg-muted">
               <CollapsibleTrigger asChild>
                 <Button variant="ghost" className="group w-full">
-                  Subscribe to selected categories
+                  Select categories
                   <ChevronDownIcon className="ml-auto group-data-[state=open]:rotate-180" />
                 </Button>
               </CollapsibleTrigger>

@@ -52,7 +52,7 @@ export default function SidebarCard({
                     </span>
                 ))}
             </div>
-            <h3 className="font-serif text-[15px] font-bold leading-snug text-foreground group-hover:text-primary transition-colors mb-1">
+            <h3 className="text-[15px] font-bold leading-snug text-foreground group-hover:text-primary transition-colors mb-1">
                 {title}
             </h3>
             <p className="font-sans text-[11px] text-muted-foreground">

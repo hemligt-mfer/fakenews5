@@ -53,10 +53,10 @@ export default function AdvertisePage() {
   return (
     <div className="h-full flex flex-col mx-auto w-full max-w-5xl px-6 pt-14 pb-16">
       <div className="mb-10">
-        <h1 className="font-serif text-4xl font-bold tracking-wide">
+        <h1 className="text-4xl font-bold tracking-wide">
           Advertise with The Daily Commit
         </h1>
-        <p className="mt-2 font-serif italic text-muted-foreground">
+        <p className="mt-2 italic text-muted-foreground">
           Reach a loyal audience that reads everything — and believes most of
           it.
         </p>
@@ -72,7 +72,7 @@ export default function AdvertisePage() {
               <div className="mb-2 flex items-center justify-center gap-2 text-primary">
                 {stat.icon}
               </div>
-              <p className="font-serif text-3xl font-bold">{stat.value}</p>
+              <p className="text-3xl font-bold">{stat.value}</p>
               <p className="text-sm text-muted-foreground">{stat.label}</p>
             </div>
           ))}
@@ -80,7 +80,7 @@ export default function AdvertisePage() {
       </section>
 
       <section className="mb-12">
-        <h2 className="font-serif font-bold text-2xl mb-3">
+        <h2 className="font-bold text-2xl mb-3">
           Why The Daily Commit?
         </h2>
         <p className="leading-relaxed text-sm mb-3 max-w-3xl">
@@ -98,7 +98,7 @@ export default function AdvertisePage() {
       </section>
 
       <section className="mb-12">
-        <h2 className="font-serif font-bold text-2xl mb-4">
+        <h2 className="font-bold text-2xl mb-4">
           Formats &amp; Rates
         </h2>
         <div className="overflow-x-auto">

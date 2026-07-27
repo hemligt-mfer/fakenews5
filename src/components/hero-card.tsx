@@ -33,7 +33,7 @@ export default function HeroCard({ id, title, summary, image, category, author, 
                     </span>
                 ))}
             </div>
-            <h1 className="font-serif text-3xl font-bold leading-tight text-foreground group-hover:text-[#c8a84b] transition-colors mb-3">
+            <h1 className="text-3xl font-bold leading-tight text-foreground group-hover:text-[#c8a84b] transition-colors mb-3">
                 {title}
             </h1>
             {summary && (

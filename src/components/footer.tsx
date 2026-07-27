@@ -22,7 +22,7 @@ export default async function Footer() {
       <div className="max-w-305 mx-auto px-5">
         <div className="grid grid-cols-2 md:grid-cols-[2fr_1fr_1fr_1fr] gap-8 mb-7">
           <div className="col-span-2 md:col-span-1">
-            <p className="font-serif text-[40px] mb-2">
+            <p className="font-serif font-bold  text-[40px] mb-2">
               The Daily Commit
             </p>
             <p className="font-serif text-[16px] font-bold mb-2">

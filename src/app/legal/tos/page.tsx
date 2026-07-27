@@ -1,7 +1,7 @@
 export default function TermsOfServicePage() {
   return (
     <div className="mx-auto w-full max-w-2xl px-10 py-14 text-black dark:text-white">
-      <h1 className="font-serif font-bold text-4xl mb-8">
+      <h1 className="font-bold text-4xl mb-8">
         Terms of Service for The Daily Commit
       </h1>
 
@@ -10,7 +10,7 @@ export default function TermsOfServicePage() {
       </p>
 
       <section className="mb-8">
-        <h2 className="font-serif font-bold text-xl mb-3">
+        <h2 className="font-bold text-xl mb-3">
           1. Acceptance of Terms
         </h2>
         <p className="leading-relaxed text-sm mb-3">
@@ -23,7 +23,7 @@ export default function TermsOfServicePage() {
       </section>
 
       <section className="mb-8">
-        <h2 className="font-serif font-bold text-xl mb-3">
+        <h2 className="font-bold text-xl mb-3">
           2. About The Daily Commit
         </h2>
         <p className="leading-relaxed text-sm mb-3">
@@ -36,7 +36,7 @@ export default function TermsOfServicePage() {
       </section>
 
       <section className="mb-8">
-        <h2 className="font-serif font-bold text-xl mb-3">3. Eligibility</h2>
+        <h2 className="font-bold text-xl mb-3">3. Eligibility</h2>
         <p className="leading-relaxed text-sm mb-3">
           You must be at least 18 years old to use this website.
         </p>
@@ -46,7 +46,7 @@ export default function TermsOfServicePage() {
       </section>
 
       <section className="mb-8">
-        <h2 className="font-serif font-bold text-xl mb-3">4. User Accounts</h2>
+        <h2 className="font-bold text-xl mb-3">4. User Accounts</h2>
         <p className="leading-relaxed text-sm mb-3">
           If user accounts are offered:
         </p>
@@ -63,7 +63,7 @@ export default function TermsOfServicePage() {
       </section>
 
       <section className="mb-8">
-        <h2 className="font-serif font-bold text-xl mb-3">5. User Conduct</h2>
+        <h2 className="font-bold text-xl mb-3">5. User Conduct</h2>
         <p className="leading-relaxed text-sm mb-3">You agree not to:</p>
         <ul className="list-none text-sm space-y-1 text-muted-foreground">
           <li>• Violate any laws</li>
@@ -77,7 +77,7 @@ export default function TermsOfServicePage() {
       </section>
 
       <section className="mb-8">
-        <h2 className="font-serif font-bold text-xl mb-3">6. User Content</h2>
+        <h2 className="font-bold text-xl mb-3">6. User Content</h2>
         <p className="leading-relaxed text-sm mb-3">
           If you submit comments, articles, or other content:
         </p>
@@ -98,7 +98,7 @@ export default function TermsOfServicePage() {
       </section>
 
       <section className="mb-8">
-        <h2 className="font-serif font-bold text-xl mb-3">
+        <h2 className="font-bold text-xl mb-3">
           7. Intellectual Property
         </h2>
         <p className="leading-relaxed text-sm mb-3">
@@ -123,7 +123,7 @@ export default function TermsOfServicePage() {
       </section>
 
       <section className="mb-8">
-        <h2 className="font-serif font-bold text-xl mb-3">
+        <h2 className="font-bold text-xl mb-3">
           8. News Content Disclaimer
         </h2>
         <p className="leading-relaxed text-sm mb-3">
@@ -141,7 +141,7 @@ export default function TermsOfServicePage() {
       </section>
 
       <section className="mb-8">
-        <h2 className="font-serif font-bold text-xl mb-3">
+        <h2 className="font-bold text-xl mb-3">
           9. Third-Party Content and Links
         </h2>
         <p className="leading-relaxed text-sm mb-3">
@@ -154,7 +154,7 @@ export default function TermsOfServicePage() {
       </section>
 
       <section className="mb-8">
-        <h2 className="font-serif font-bold text-xl mb-3">
+        <h2 className="font-bold text-xl mb-3">
           10. Advertising and Sponsored Content
         </h2>
         <p className="leading-relaxed text-sm mb-3">
@@ -171,7 +171,7 @@ export default function TermsOfServicePage() {
       </section>
 
       <section className="mb-8">
-        <h2 className="font-serif font-bold text-xl mb-3">11. Termination</h2>
+        <h2 className="font-bold text-xl mb-3">11. Termination</h2>
         <p className="leading-relaxed text-sm">
           We may suspend or terminate access to the website at any time for any
           reason, including violations of these Terms.
@@ -179,7 +179,7 @@ export default function TermsOfServicePage() {
       </section>
 
       <section className="mb-8">
-        <h2 className="font-serif font-bold text-xl mb-3">
+        <h2 className="font-bold text-xl mb-3">
           12. Disclaimer of Warranties
         </h2>
         <p className="leading-relaxed text-sm mb-3">
@@ -193,7 +193,7 @@ export default function TermsOfServicePage() {
       </section>
 
       <section className="mb-8">
-        <h2 className="font-serif font-bold text-xl mb-3">
+        <h2 className="font-bold text-xl mb-3">
           13. Limitation of Liability
         </h2>
         <p className="leading-relaxed text-sm mb-3">
@@ -213,7 +213,7 @@ export default function TermsOfServicePage() {
       </section>
 
       <section className="mb-8">
-        <h2 className="font-serif font-bold text-xl mb-3">
+        <h2 className="font-bold text-xl mb-3">
           14. Indemnification
         </h2>
         <p className="leading-relaxed text-sm mb-3">
@@ -228,7 +228,7 @@ export default function TermsOfServicePage() {
       </section>
 
       <section className="mb-8">
-        <h2 className="font-serif font-bold text-xl mb-3">15. Governing Law</h2>
+        <h2 className="font-bold text-xl mb-3">15. Governing Law</h2>
         <p className="leading-relaxed text-sm mb-3">
           These Terms shall be governed by the laws of Sweden,
         </p>
@@ -238,7 +238,7 @@ export default function TermsOfServicePage() {
       </section>
 
       <section className="mb-8">
-        <h2 className="font-serif font-bold text-xl mb-3">
+        <h2 className="font-bold text-xl mb-3">
           16. Changes to Terms
         </h2>
         <p className="leading-relaxed text-sm mb-3">
@@ -251,7 +251,7 @@ export default function TermsOfServicePage() {
       </section>
 
       <section>
-        <h2 className="font-serif font-bold text-xl mb-3">
+        <h2 className="font-bold text-xl mb-3">
           17. Contact Information
         </h2>
         <p className="leading-relaxed text-sm mb-1">

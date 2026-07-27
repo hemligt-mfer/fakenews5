@@ -59,7 +59,7 @@ export default async function AdminDashboardPage() {
   const latestS = await latestSub();
   const revenueData = await getWeeklyRevenue();
   const usersNotSubbed = await usersNotSubed();
-  const recentComment = await recentComments()
+  const recentComment = await recentComments();
   let mostUpvotedArticle;
   if (likes.success && likes.data) {
     mostUpvotedArticle = likes.data[0];
@@ -68,16 +68,17 @@ export default async function AdminDashboardPage() {
     return (
       <div className="flex-row mb-10">
         <RouteHeading label="Admin dashboard" />
-        <div className="flex flex-col md:flex-row w-4/5 gap-10 mt-5 mx-auto">
-          <ChartLineLinear data={revenueData} />
-          <ChartPieUserSub
-            users={users}
-            subscribers={subs}
-            latestSub={latestS}
-            notSub={usersNotSubbed}
-          />
-        </div>
-        
+        <div className="w-4/5 mx-auto">
+          <div className="flex flex-col md:flex-row  gap-10 mt-5">
+            <ChartLineLinear data={revenueData} />
+            <ChartPieUserSub
+              users={users}
+              subscribers={subs}
+              latestSub={latestS}
+              notSub={usersNotSubbed}
+            />
+          </div>
+
           <div className="flex flex-col md:flex-row justify-center gap-10 mt-5">
             <div className="flex gap-10 justify-between">
               <Counts
@@ -95,12 +96,12 @@ export default async function AdminDashboardPage() {
                 ""
               )}
             </div>
-            
           </div>
-        
-        <div className="flex flex-col md:flex-row mt-5 gap-10 justify-between">
-          <CountryChart chartData={chartData} />
-          <CommentedArticles recentComments={recentComment} />
+
+          <div className="flex flex-col md:flex-row mt-5 gap-10 justify-between">
+            <CountryChart chartData={chartData} />
+            <CommentedArticles recentComments={recentComment} />
+          </div>
         </div>
       </div>
     );

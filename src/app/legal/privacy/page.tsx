@@ -1,7 +1,7 @@
 export default function PrivacyPolicyPage() {
   return (
     <div className="mx-auto w-full max-w-2xl px-10 py-14 text-black dark:text-white">
-      <h1 className="font-serif font-bold text-4xl mb-8">
+      <h1 className="font-bold text-4xl mb-8">
         Privacy Policy for The Daily Commit
       </h1>
 
@@ -10,7 +10,7 @@ export default function PrivacyPolicyPage() {
       </p>
 
       <section className="mb-8">
-        <h2 className="font-serif font-bold text-xl mb-3">1. Introduction</h2>
+        <h2 className="font-bold text-xl mb-3">1. Introduction</h2>
         <p className="leading-relaxed text-sm mb-3">
           Welcome to The Daily Commit (&ldquo;we,&rdquo; &ldquo;our,&rdquo; or
           &ldquo;us&rdquo;). We respect your privacy and are committed to
@@ -28,7 +28,7 @@ export default function PrivacyPolicyPage() {
       </section>
 
       <section className="mb-8">
-        <h2 className="font-serif font-bold text-xl mb-3">
+        <h2 className="font-bold text-xl mb-3">
           2. Information We Collect
         </h2>
 
@@ -81,7 +81,7 @@ export default function PrivacyPolicyPage() {
       </section>
 
       <section className="mb-8">
-        <h2 className="font-serif font-bold text-xl mb-3">
+        <h2 className="font-bold text-xl mb-3">
           3. How We Use Information
         </h2>
         <p className="leading-relaxed text-sm mb-3">
@@ -101,7 +101,7 @@ export default function PrivacyPolicyPage() {
       </section>
 
       <section className="mb-8">
-        <h2 className="font-serif font-bold text-xl mb-3">
+        <h2 className="font-bold text-xl mb-3">
           4. Legal Basis for Processing (GDPR)
         </h2>
         <p className="leading-relaxed text-sm mb-3">
@@ -117,7 +117,7 @@ export default function PrivacyPolicyPage() {
       </section>
 
       <section className="mb-8">
-        <h2 className="font-serif font-bold text-xl mb-3">
+        <h2 className="font-bold text-xl mb-3">
           5. Sharing of Information
         </h2>
         <p className="leading-relaxed text-sm mb-3">
@@ -137,7 +137,7 @@ export default function PrivacyPolicyPage() {
       </section>
 
       <section className="mb-8">
-        <h2 className="font-serif font-bold text-xl mb-3">6. Data Retention</h2>
+        <h2 className="font-bold text-xl mb-3">6. Data Retention</h2>
         <p className="leading-relaxed text-sm mb-3">
           We retain personal information only as long as necessary to:
         </p>
@@ -150,7 +150,7 @@ export default function PrivacyPolicyPage() {
       </section>
 
       <section className="mb-8">
-        <h2 className="font-serif font-bold text-xl mb-3">7. Security</h2>
+        <h2 className="font-bold text-xl mb-3">7. Security</h2>
         <p className="leading-relaxed text-sm">
           We implement reasonable technical and organisational measures to
           protect personal information. However, no method of transmission or
@@ -159,7 +159,7 @@ export default function PrivacyPolicyPage() {
       </section>
 
       <section className="mb-8">
-        <h2 className="font-serif font-bold text-xl mb-3">8. Your Rights</h2>
+        <h2 className="font-bold text-xl mb-3">8. Your Rights</h2>
         <p className="leading-relaxed text-sm mb-3">
           Depending on your location, you may have the right to:
         </p>
@@ -179,7 +179,7 @@ export default function PrivacyPolicyPage() {
       </section>
 
       <section className="mb-8">
-        <h2 className="font-serif font-bold text-xl mb-3">
+        <h2 className="font-bold text-xl mb-3">
           9. Children&apos;s Privacy
         </h2>
         <p className="leading-relaxed text-sm">
@@ -189,7 +189,7 @@ export default function PrivacyPolicyPage() {
       </section>
 
       <section className="mb-8">
-        <h2 className="font-serif font-bold text-xl mb-3">
+        <h2 className="font-bold text-xl mb-3">
           10. Third-Party Links
         </h2>
         <p className="leading-relaxed text-sm">
@@ -199,7 +199,7 @@ export default function PrivacyPolicyPage() {
       </section>
 
       <section className="mb-8">
-        <h2 className="font-serif font-bold text-xl mb-3">
+        <h2 className="font-bold text-xl mb-3">
           11. International Transfers
         </h2>
         <p className="leading-relaxed text-sm">
@@ -210,7 +210,7 @@ export default function PrivacyPolicyPage() {
       </section>
 
       <section className="mb-8">
-        <h2 className="font-serif font-bold text-xl mb-3">
+        <h2 className="font-bold text-xl mb-3">
           12. Changes to This Policy
         </h2>
         <p className="leading-relaxed text-sm">
@@ -220,7 +220,7 @@ export default function PrivacyPolicyPage() {
       </section>
 
       <section>
-        <h2 className="font-serif font-bold text-xl mb-3">13. Contact Us</h2>
+        <h2 className="font-bold text-xl mb-3">13. Contact Us</h2>
         <p className="leading-relaxed text-sm mb-1">
           For privacy-related questions, contact:
         </p>

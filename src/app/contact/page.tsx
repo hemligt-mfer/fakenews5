@@ -8,10 +8,10 @@ export default function ContactPage() {
   return (
     <div className="h-full flex flex-col mx-auto w-full max-w-5xl px-6 pt-14">
       <div className="mb-10">
-        <h1 className="font-serif text-4xl font-bold tracking-wide">
+        <h1 className="text-4xl font-bold tracking-wide">
           Get in Touch
         </h1>
-        <p className="mt-2 font-serif italic text-black/60 dark:text-muted-foreground">
+        <p className="mt-2 italic text-black/60 dark:text-muted-foreground">
           Questions, tips, or spotted a typo? We&apos;d love to hear from you.
         </p>
       </div>

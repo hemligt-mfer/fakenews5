@@ -21,7 +21,7 @@ export default async function AdvertisementsPage() {
             <CreateAdForm />
 
             <div className="pt-6">
-                <h2 className="font-serif font-bold text-lg mb-4">All advertisements</h2>
+                <h2 className="font-bold text-lg mb-4">All advertisements</h2>
                 <AdList ads={ads} />
             </div>
             </div>

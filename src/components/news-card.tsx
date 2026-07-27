@@ -65,22 +65,22 @@ export default function NewsCard({
                 </div>
             )}
             {categoryLabel && (
-                <p className="font-sans text-[10px] font-bold uppercase tracking-[0.08em] text-primary mb-1">
+                <p className="text-[10px] font-bold uppercase tracking-[0.08em] text-primary mb-1">
                     {categoryLabel}
                 </p>
             )}
             <h3
-                className={`font-serif font-bold ${titleSize} text-foreground group-hover:text-primary transition-colors mb-1`}
+                className={`font-bold ${titleSize} text-foreground group-hover:text-primary transition-colors mb-1`}
             >
                 {title}
             </h3>
             {size !== "small" && size !== "text" && summary && (
-                <p className="font-sans text-sm text-muted-foreground line-clamp-3 mt-1">
+                <p className="text-sm text-muted-foreground line-clamp-3 mt-1">
                     {summary}
                 </p>
             )}
             {size === "text" ? (
-                <p className="font-sans text-[11px] text-muted-foreground mt-1">{timeAgo}</p>
+                <p className="text-[11px] text-muted-foreground mt-1">{timeAgo}</p>
             ) : (
                 <div className="flex flex-wrap items-center gap-x-3 gap-y-0.5 mt-2 text-xs text-muted-foreground">
                     <span className="flex items-center gap-1">

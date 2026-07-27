@@ -2,7 +2,7 @@ import Link from "next/link";
 import MarketsWidget from "./markets-widget";
 import { Button } from "@/components/ui/button";
 import WeatherApp from "./weather-app";
-import SidebarAd from "./sidebar-ad";
+// import SidebarAd from "./sidebar-ad";
 
 type SidebarArticle = {
   id: string;
@@ -23,7 +23,7 @@ export default function NewsSidebar({ mostRead }: Props) {
 
       {/* Markets */}
       <div className="mb-7">
-        <h3 className="font-sans text-[10px] font-bold uppercase tracking-widest border-b-2 border-foreground pb-1.5 mb-3">
+        <h3 className="text-[10px] font-bold uppercase tracking-widest border-b-2 border-foreground pb-1.5 mb-3">
           Markets{" "}
           <span className="font-normal text-muted-foreground">[API]</span>
         </h3>
@@ -33,14 +33,14 @@ export default function NewsSidebar({ mostRead }: Props) {
       {/* Most Read Today */}
       {mostRead.length > 0 && (
         <div className="mb-7">
-          <h3 className="font-sans text-[10px] font-bold uppercase tracking-widest border-b-2 border-foreground pb-1.5 mb-3">
+          <h3 className="text-[10px] font-bold uppercase tracking-widest border-b-2 border-foreground pb-1.5 mb-3">
             Most Read Today
           </h3>
           <ul className="divide-y divide-border">
             {mostRead.map((a, i) => (
               <li
                 key={a.id}
-                className="py-2 font-sans text-[13px] text-foreground hover:text-primary transition-colors cursor-pointer"
+                className="py-2 text-[13px] text-foreground hover:text-primary transition-colors cursor-pointer"
               >
                 <Link href={`/article/${a.id}`}>
                   <span className="font-bold text-primary mr-2">{i + 1}</span>
@@ -66,13 +66,13 @@ export default function NewsSidebar({ mostRead }: Props) {
         className="bg-muted border border-border p-3.5"
         suppressHydrationWarning
       >
-        <h3 className="font-sans text-[10px] font-bold uppercase tracking-widest border-b-2 border-foreground pb-1.5 mb-3">
+        <h3 className="text-[10px] font-bold uppercase tracking-widest border-b-2 border-foreground pb-1.5 mb-3">
           Recieve weekly newsletters
         </h3>
-        <p className="font-sans text-[12px] text-muted-foreground mb-2.5">
+        <p className="text-[12px] text-muted-foreground mb-2.5">
           Top stories delivered to your inbox every Sunday.
         </p>
-        <Button className="w-full mt-2 rounded-none bg-foreground text-background hover:bg-primary font-sans text-[12px] font-bold uppercase tracking-[0.06em] cursor-pointer">
+        <Button className="w-full mt-2 rounded-none bg-foreground text-background hover:bg-primary text-[12px] font-bold uppercase tracking-[0.06em] cursor-pointer">
           <Link href="/dashboard/profile">Sign Up</Link>
         </Button>
       </div>
