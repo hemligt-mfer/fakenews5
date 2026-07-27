@@ -92,11 +92,11 @@ export default async function RootLayout({
         >
             <head>
                 {/* Prevents flash of wrong theme on load */}
-                <script
+                {/* <script
                     dangerouslySetInnerHTML={{
                         __html: `(function(){try{var t=localStorage.getItem('theme')||(matchMedia('(prefers-color-scheme:dark)').matches?'dark':'light');if(t==='dark')document.documentElement.classList.add('dark');document.documentElement.setAttribute('data-theme',t);}catch(_){}})();`,
                     }}
-                />
+                /> */}
             </head>
 
             <body className="flex flex-col  bg-background dark:bg-background">

@@ -3,6 +3,7 @@ import Button from "../button";
 import { NewsDropdown } from "./_components/dropdown-menus";
 import { Category } from "@/lib/types";
 import { SidebarTrigger } from "../ui/sidebar";
+import { SearchBar } from "./_components/search-bar";
 
 type NavLink = { title: string; href: string; children?: NavLink[] };
 
