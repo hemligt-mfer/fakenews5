@@ -25,6 +25,11 @@ export default function AdminNavbar() {
                 </li>
                 <li>
                     <Button asChild variant="ghost" className="dark:hover:bg-primary dark:hover:text-black">
+                        <Link href="/dashboard/admin/categories">Category table</Link>
+                    </Button>
+                </li>
+                <li>
+                    <Button asChild variant="ghost" className="dark:hover:bg-primary dark:hover:text-black">
                         <Link href="/dashboard/admin/users">User table</Link>
                     </Button>
                 </li>
