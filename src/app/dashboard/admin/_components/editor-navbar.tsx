@@ -11,29 +11,29 @@ import { ChevronDown } from "lucide-react";
 
 export default function EditorNavbar() {
     return (
-        <div className="flex max-w-full gap-2 px-6 sticky top-0 bg-chart-5 dark:bg-muted">
+        <div className="flex max-w-full gap-2 px-6 sticky top-0 bg-chart-5 dark:bg-muted border-b border-primary py-2">
             <ul className="flex items-center mx-auto">
                 <li>
-                    <Button asChild variant="ghost" className="">
+                    <Button asChild variant="ghost" className="dark:hover:bg-primary dark:hover:text-black">
                         <Link href="/dashboard/admin/articles">Article table</Link>
                     </Button>
                 </li>
                 <li>
                     <DropdownMenu>
                         <DropdownMenuTrigger asChild>
-                            <Button variant="ghost" className="cursor-pointer">
+                            <Button variant="ghost" className="cursor-pointer dark:hover:bg-primary dark:hover:text-black">
                                 Editor tools
-                                <ChevronDown className="dark:text-white black:text-black" />
+                                <ChevronDown className="dark:hover:bg-primary dark:hover:text-black" />
                             </Button>
                         </DropdownMenuTrigger>
                         <DropdownMenuContent>
-                            <DropdownMenuItem>
+                            <DropdownMenuItem className="dark:focus:**:text-black dark:focus:bg-primary">
                                 <Link href="/article/add-article">Create article</Link>
                             </DropdownMenuItem>
-                            <DropdownMenuItem>
+                            <DropdownMenuItem className="dark:focus:**:text-black dark:focus:bg-primary">
                                 <Link href="/dashboard/admin/articles">Edit articles</Link>
                             </DropdownMenuItem>
-                            <DropdownMenuItem>
+                            <DropdownMenuItem className="dark:focus:**:text-black dark:focus:bg-primary">
                                 <Link href="/dashboard/admin/ai">AI Helper</Link>
                             </DropdownMenuItem>
                         </DropdownMenuContent>

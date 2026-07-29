@@ -8,7 +8,6 @@ import {
   Container,
   Head,
   Html,
-  Link,
   Preview,
   Row,
   Section,
@@ -17,6 +16,7 @@ import {
   pixelBasedPreset,
 } from "react-email";
 import { emailDarkColors, emailRootColors } from "./_themes/theme";
+import LogoEmail from "../logo-email";
 
 const baseUrl = process.env.VERCEL_URL
   ? `https://${process.env.VERCEL_URL}`
@@ -71,17 +71,7 @@ export const SubscriptionCancelled = ({
               {/* Masthead */}
               <Section className="mobile:px-6! px-10 py-10">
                 <div className="flex justify-center mx-auto">
-                  <div className="my-auto w-full max-w-32 md:max-w-80 pt-2">
-                    <h1 className="font-serif font-bold text-[10px] md:text-2xl text-center leading-tight tracking-tight whitespace-nowrap">
-                      The Daily Commit
-                    </h1>
-                    <div className="border-b md:border-b-2 border-primary mt-0.5 md:mt-1"></div>
-                    <p className="text-center text-[5px] md:text-[10px] tracking-tighter md:tracking-wide mt-0.5 md:mt-2 leading-tight">
-                      YOUR DAILY DOSE OF NEWS.{" "}
-                      <span className="text-primary font-bold">COMMITTED</span>{" "}
-                      TO THE TRUTH.
-                    </p>
-                  </div>
+                  <LogoEmail />
                 </div>
               </Section>
 
