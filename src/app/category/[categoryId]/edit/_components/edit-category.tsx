@@ -65,7 +65,7 @@ export default function EditCatForm({
         return;
       }
       toast.success("Category was successfully updated", {
-        position: "top-center",
+        position: "bottom-right",
       });
       router.push(`/dashboard/admin/categories`);
       setLoading(false);
