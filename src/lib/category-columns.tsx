@@ -43,8 +43,8 @@ export const columns: ColumnDef<Category>[] = [
         },
     },
     {
-        accessorKey: "title",
-        header: "Title",
+        accessorKey: "name",
+        header: "Name",
         cell: ({ row }) => {
             const name = row.original.name;
             return <span className="text-xs block truncate max-w-20 md:max-w-full">{name}</span>;
