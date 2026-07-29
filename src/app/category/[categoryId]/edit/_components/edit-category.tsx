@@ -29,7 +29,7 @@ const formSchema = z.object({
     .string()
     .min(1, "Title name is required")
     .max(25, "Maximum of 25 characters"),
-  parentId: z.string().nullable(),
+  parentId: z.string(),
 });
 
 type CategoryOption = { id: string; name: string; parentId: string | null };
