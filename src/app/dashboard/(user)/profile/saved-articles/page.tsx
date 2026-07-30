@@ -37,7 +37,7 @@ export default async function SettingsPage({
                   location: true,
                   createdAt: true,
                   updatedAt: true,
-                  category: { select: { id: true, name: true } },
+                  category: { select: { id: true, name: true, parentId: true } },
                   author: { select: { id: true, alias: true, userId: true } },
                   comments: { include: { reactions: true } },
                   views: true,
