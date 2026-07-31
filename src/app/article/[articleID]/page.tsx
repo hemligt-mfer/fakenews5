@@ -137,21 +137,6 @@ export default async function ArticlePage({ params }: { params: Promise<{ articl
                         <Views num={views} />
                     </div>
 
-                    <div className="flex items-center justify-center gap-1">
-                        {childCategories.length > 0 &&
-                            childCategories.map((c, i) => {
-                                return (
-                                    <Badge
-                                        key={c.id}
-                                        className="bg-primary/60 p-2 text-white text-md hover:bg-primary dark:hover:bg-primary transition-colors"
-                                    >
-                                        <Link href={`/category/${c.id}`}>
-                                            {capitalizeFirstLetter(c.name)}
-                                        </Link>
-                                        <ArrowRight />
-                                    </Badge>
-                                );
-                            })}
                     <div className="flex border-r pr-2">
                         <Likes
                             articleId={article.data.id}
