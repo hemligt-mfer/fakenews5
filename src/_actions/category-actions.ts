@@ -102,3 +102,16 @@ export async function getIdFromName(name: string) {
         return { success: false, error: msg };
     }
 }
+
+export async function deleteCategory(id : string){
+    try {
+        const res = await prisma.category.delete({
+            where: { id }
+        })
+        return {success: true, data: res}
+    }catch (err) {
+        const msg = "An unknown error occured when trying to delete category"
+        console.error(msg);
+        return {success: false, error: msg}
+    }
+}

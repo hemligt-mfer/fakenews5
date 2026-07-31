@@ -30,14 +30,14 @@ export function NewsDropdown({ label, links }: { label: string; links: NavLink[]
                         <DropdownMenuItem asChild>
                             <Link
                                 href={parent.href}
-                                className="text-xs font-bold uppercase tracking-wide"
+                                className="text-xs font-bold uppercase tracking-wide cursor-pointer"
                             >
                                 {parent.title}
                             </Link>
                         </DropdownMenuItem>
                         {parent.children?.map((child) => (
                             <DropdownMenuItem key={child.title} asChild>
-                                <Link href={child.href} className="pl-4 text-sm text-muted-foreground">
+                                <Link href={child.href} className="pl-4 text-sm text-muted-foreground cursor-pointer">
                                     {child.title}
                                 </Link>
                             </DropdownMenuItem>

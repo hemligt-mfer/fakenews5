@@ -23,6 +23,7 @@ import z from "zod";
 import { editCategory } from "../_actions/edit-category";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
+import {DeleteCategoryBtn} from "@/components/delete-category-btn";
 
 const formSchema = z.object({
   name: z
@@ -157,6 +158,7 @@ export default function EditCatForm({
         >
           {loading ? <Spinner /> : "Save changes"}
         </Button>
+        <DeleteCategoryBtn categoryId={categoryId} onSuccess={()=> {router.refresh()}} />
       </CardFooter>
     </Card>
   );
