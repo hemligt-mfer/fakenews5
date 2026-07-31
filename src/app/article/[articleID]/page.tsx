@@ -17,8 +17,7 @@ import remarkGfm from "remark-gfm";
 import remarkIns from "remark-ins";
 import Image from "next/image";
 import MarkViewed from "./_components/mark-viewed";
-import { Badge } from "@/components/ui/badge";
-import { ArrowRight } from "lucide-react";
+import RouteHeading from "@/components/route-heading";
 
 export default async function ArticlePage({ params }: { params: Promise<{ articleID: string }> }) {
     const { articleID } = await params;
@@ -71,30 +70,43 @@ export default async function ArticlePage({ params }: { params: Promise<{ articl
             bookmarked = false;
         }
 
-        const parentCategory = article.data.category.filter((c) => c.parentId === null);
-        const childCategories = article.data.category.filter((c) => c.parentId !== null);
-
         return (
             <div className="flex-row justify-center w-full px-4 py-2">
                 <MarkViewed articleId={articleID} />
-                {parentCategory.length > 0 && (
-                    <div className="flex items-baseline flex-wrap gap-2 mt-2">
-                        {parentCategory.map((c, i) => (
-                            <div key={c.id}>
-                                <div className="cursor-pointer border rounded-md px-2 hover:border-b-primary! hover:bg-[#f4ede0]! hover:dark:text-background rounded-b-none text-sm md:text-[16px]">
-                                    {" "}
-                                    <Link
-                                        href={`/category/${c.id}`}
-                                        className="flex items-center gap-0.5"
-                                    >
-                                        {capitalizeFirstLetter(c.name)}
-                                        {/* <ArrowRight className="-mr-1 ml-0.5" size={16} /> */}
-                                    </Link>
-                                </div>
+                {article.data.category.length > 0 &&
+                    (() => {
+                        const parentCategory = article.data.category.find(
+                            (c) => c.parentId === null,
+                        );
+                        const childCategories = article.data.category.filter(
+                            (c) => c.parentId !== null,
+                        );
+
+                        if (!parentCategory) return null;
+
+                        return (
+                            <div className="flex items-baseline flex-wrap">
+                                <Link
+                                    href={`/category/${parentCategory.id}`}
+                                    className="align-middle"
+                                >
+                                    <RouteHeading label={parentCategory.name} />
+                                </Link>
+                                {childCategories.map((c) => (
+                                    <span key={c.id} className="flex items-baseline gap-2">
+                                        <Link href={`/category/${c.id}`} className="">
+                                            <span className="ml-2.5 text-muted-foreground/50 text-[18px]">
+                                                {">"}
+                                            </span>
+                                            <span className="ml-2.5 text-muted-foreground text-[20px]">
+                                                {c.name}
+                                            </span>
+                                        </Link>
+                                    </span>
+                                ))}
                             </div>
-                        ))}
-                    </div>
-                )}
+                        );
+                    })()}
                 {article.data.image && (
                     <div className="relative w-full h-[40vh] md:h-auto md:w-3/4 md:aspect-video mx-auto mt-2 overflow-hidden border border-border">
                         <Image
@@ -113,60 +125,31 @@ export default async function ArticlePage({ params }: { params: Promise<{ articl
                 <div className="md:w-3/4 flex-row mx-auto max-w-none bg-gray-100 dark:bg-[#2d2d2d] text-black dark:text-white  p-4">
                     <p>{article.data.summary}</p>
                 </div>
+
                 <article className="md:w-3/4 flex-row mx-auto mt-2 mb-4 max-w-none prose dark:prose-invert dark:bg-[#2d2d2d] dark:text-white dark:prose-headings:text-white p-1">
                     <ReactMarkdown remarkPlugins={[remarkGfm, remarkIns]}>
                         {hasPermission ? article.data.content : article.data.content.slice(0, 500)}
                     </ReactMarkdown>
                 </article>
-                <div className="grid grid-cols-3 items-stretch border-b-2 text-sm bg-gray-100 dark:bg-[#2d2d2d] px-3 min-h-12">
-                    <div className="flex items-center">
-                        <div className="flex items-center pr-3">
-                            <Views num={article.data.views} />
-                        </div>
-
-                        <div className="self-center h-9 w-px bg-gray-300 dark:bg-gray-600" />
-
-                        <div className="flex items-center pl-2 pr-3">
-                            <Likes
-                                articleId={article.data.id}
-                                userId={userId}
-                                userReaction={userReaction?.val}
-                                num={totalReactions}
-                            />{" "}
-                        </div>
-
-                        <div className="self-center h-9 w-px bg-gray-300 dark:bg-gray-600" />
-                        <div className="flex border-r pl-2 pr-2">
-                            <Bookmark
-                                articleId={articleID}
-                                userId={userId}
-                                bookmarked={bookmarked}
-                            />
-                        </div>
-                        <div className="self-center h-9 w-px bg-gray-300 dark:bg-gray-600" />
+                {/* <InArticleAd /> */}
+                <div className="flex border-b-2 mt-2 pb-2 text-sm bg-gray-100 dark:bg-[#2d2d2d] p-4">
+                    <div className="flex border-r pr-2">
+                        <Views num={views} />
                     </div>
 
-                    <div className="flex items-center justify-center gap-1">
-                        {childCategories.length > 0 &&
-                            childCategories.map((c, i) => {
-                                return (
-                                    <div
-                                        key={c.id}
-                                        className="cursor-pointer border rounded-md px-2 hover:border-b-primary! hover:bg-[#f4ede0]! hover:dark:text-background rounded-b-none text-sm md:text-[16px]"
-                                    >
-                                        <Link href={`/category/${c.id}`}>
-                                            {capitalizeFirstLetter(c.name)}
-                                        </Link>
-                                        <ArrowRight />
-                                    </Badge>
-                                        <Link href={`/category/${c.id}`}>{c.name}</Link>
-                                        {/* <ArrowRight /> */}
-                                    </div>
-                                );
-                            })}
+                    <div className="flex border-r pr-2">
+                        <Likes
+                            articleId={article.data.id}
+                            userId={userId}
+                            userReaction={userReaction?.val}
+                            num={totalReactions}
+                        />
+                    </div>
+                    <div className="flex border-r pl-2 pr-2">
+                        <Bookmark articleId={articleID} userId={userId} bookmarked={bookmarked} />
                     </div>
 
-                    <div className="flex items-center justify-end">
+                    <div className="flex ml-auto">
                         <p className="text-md font-semibold text-center mr-4">
                             by{" "}
                             {article.data.author.map((a, i) =>
@@ -206,8 +189,4 @@ export default async function ArticlePage({ params }: { params: Promise<{ articl
     } else {
         redirect(`preview/${articleID}`);
     }
-}
-
-function capitalizeFirstLetter(val: string) {
-    return String(val).charAt(0).toUpperCase() + String(val).slice(1);
 }
