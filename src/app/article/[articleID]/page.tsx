@@ -85,7 +85,7 @@ export default async function ArticlePage({ params }: { params: Promise<{ articl
                                 <div className="cursor-pointer border rounded-md px-2 hover:border-b-primary! hover:bg-[#f4ede0]! hover:dark:text-background rounded-b-none text-sm md:text-[16px]">
                                     {" "}
                                     <Link
-                                        href={`category/${c.id}`}
+                                        href={`/category/${c.id}`}
                                         className="flex items-center gap-0.5"
                                     >
                                         {c.name}
